@@ -1,5 +1,5 @@
 import numpy as np
-from kmer.py import km
+from kmer import Kmer
 
 class QualitySeq(object):
     def __init__(self, fastq_record, insertion_record, deletion_record = None, substitution_record = None, del_tag = None, sub_tag = None):
@@ -33,7 +33,7 @@ class QualitySeq(object):
         self.deletion_tag = del_tag.seq
         self.subsitution_tag = sub_tag.seq
 
-    def generate_good_kmer(self, k, freq_dict, accuracy_threshold, insertion_kmer=False):
+    def generate_good_kmer(self, k, freq_dict, accuracy_threshold, freq_threshold, insertion_kmer=False):
         qual_kmer = []
         for i, base in enumerate(self.seq):
             # print i
@@ -56,11 +56,10 @@ class QualitySeq(object):
                     k_i += 1
 
                     if len(kmer_i) == k:
-                        kmer = kmer_i
+                        # save the kmer, however we may add to the list later
+                        kmer = Kmer(kmer_i, freq_dict)
                         if not (insertion_case):
-                            if not (good_quality):
-                                freq_check(kmer, freq_dict, qual_kmer)
-                            else:
+                            if good_quality or kmer.check_threshold(freq_threshold):
                                 qual_kmer.append(kmer)
 
                             break
@@ -73,11 +72,10 @@ class QualitySeq(object):
                             insert_score += accuracy
 
                         if len(insert_kmer_i) == k:
-                            qual_kmer.append(insert_kmer_i)
+                            insert_kmer = Kmer(insert_kmer_i, freq_dict)
+                            qual_kmer.append(insert_kmer)
 
-                            if not (good_quality):
-                                freq_check(kmer, freq_dict, qual_kmer)
-                            else:
+                            if good_quality or kmer.check_threshold(freq_threshold):
                                 qual_kmer.append(kmer)
 
                             break
@@ -97,17 +95,13 @@ class QualitySeq(object):
                         else:
                             insertion_case = False
                             if kmer:
-                                if not (good_quality):
-                                    freq_check(kmer, freq_dict, qual_kmer)
-                                else:
+                                if good_quality or kmer.check_threshold(freq_threshold):
                                     qual_kmer.append(kmer)
+
+                                break
 
                     n += 1
 
         return qual_kmer
 
-
-def freq_check(kmer, freq_dict, kmer_list, frequency_threshold = 10):
-    if freq_dict.get(kmer, 0) > frequency_threshold:
-        kmer_list.append(kmer)
 
