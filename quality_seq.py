@@ -1,0 +1,113 @@
+import numpy as np
+from kmer.py import km
+
+class QualitySeq(object):
+    def __init__(self, fastq_record, insertion_record, deletion_record = None, substitution_record = None, del_tag = None, sub_tag = None):
+        self.id = fastq_record.id
+        self.seq = fastq_record.seq
+        self.length = len(self.seq)
+        self.kmer_count = {}
+
+        Q = np.array(fastq_record.letter_annotations["phred_quality"])
+        P = 10.0 ** (-Q / 10.0)
+        self.quality = P
+
+        insertion_Q = np.array(insertion_record.letter_annotations["phred_quality"])
+        insertion_P = 10.0 ** (-insertion_Q / 10.0)
+        self.insertion_quality = insertion_P
+
+        if deletion_record:
+            deletion_Q = np.array(deletion_record.letter_annotations["phred_quality"])
+            deletion_P = 10.0 ** (-deletion_Q / 10.0)
+            self.deletion_quality = deletion_P
+        else:
+            self.deletion_quality = None
+
+        if substitution_record:
+            substitution_Q = np.array(substitution_record.letter_annotations["phred_quality"])
+            substitution_P = 10.0 ** (-substitution_Q / 10.0)
+            self.substitution_quality = substitution_P
+        else:
+            self.substitution_quality = None
+
+        self.deletion_tag = del_tag.seq
+        self.subsitution_tag = sub_tag.seq
+
+    def generate_good_kmer(self, k, freq_dict, accuracy_threshold, insertion_kmer=False):
+        qual_kmer = []
+        for i, base in enumerate(self.seq):
+            # print i
+            if i < self.length - k + 1:
+                k_i = 0
+                n = 0
+                kmer_i = ""
+                insert_kmer_i = None
+                score = 0
+                good_quality = True
+                insertion_case = False
+                skipnext = False
+                kmer = None
+
+                while i + n < self.length:
+
+                    accuracy = 1 - self.quality[i + n]
+                    kmer_i += self.seq[n + i]
+                    score += accuracy
+                    k_i += 1
+
+                    if len(kmer_i) == k:
+                        kmer = kmer_i
+                        if not (insertion_case):
+                            if not (good_quality):
+                                freq_check(kmer, freq_dict, qual_kmer)
+                            else:
+                                qual_kmer.append(kmer)
+
+                            break
+
+                    if insertion_case:
+                        if skipnext:
+                            skipnext = False
+                        else:
+                            insert_kmer_i += self.seq[n + i]
+                            insert_score += accuracy
+
+                        if len(insert_kmer_i) == k:
+                            qual_kmer.append(insert_kmer_i)
+
+                            if not (good_quality):
+                                freq_check(kmer, freq_dict, qual_kmer)
+                            else:
+                                qual_kmer.append(kmer)
+
+                            break
+
+                    # print accuracy
+                    if accuracy < accuracy_threshold:
+                        good_quality = False
+
+                        if not (insert_kmer_i):
+                            insert_kmer_i = kmer_i
+                            insert_score = score
+                            insertion_case = True
+
+                        if self.insertion_quality[i + n] > accuracy:
+                            skipnext = True
+
+                        else:
+                            insertion_case = False
+                            if kmer:
+                                if not (good_quality):
+                                    freq_check(kmer, freq_dict, qual_kmer)
+                                else:
+                                    qual_kmer.append(kmer)
+
+                    n += 1
+
+        return qual_kmer
+
+
+def freq_check(kmer, freq_dict, kmer_list, frequency_threshold = 10):
+    if freq_dict.get(kmer, 0) > frequency_threshold:
+        kmer_list.append(kmer)
+
