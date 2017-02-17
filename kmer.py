@@ -1,5 +1,6 @@
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
+from Bio import SeqIO
 
 
 class Kmer(SeqRecord):
@@ -15,6 +16,10 @@ class Kmer(SeqRecord):
             return True
         else:
             return False
+
+
+    def to_fasta(self, handle, type):
+        SeqIO.write(self, handle, type)
 
 def main():
     return 0

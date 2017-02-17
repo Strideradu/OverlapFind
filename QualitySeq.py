@@ -40,8 +40,8 @@ class QualitySeq(object):
         else:
             self.subsitution_tag = None
 
-    def generate_good_kmer(self, k, freq_dict, accuracy_threshold, freq_threshold, qual_kmer):
-
+    def generate_good_kmer(self, k, freq_dict, accuracy_threshold, freq_threshold):
+        qual_kmer  = []
         for i, base in enumerate(self.seq):
             # print i
             if i < self.length - k + 1:

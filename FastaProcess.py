@@ -27,43 +27,47 @@ class FastaProcess(object):
         :param substitution_tag_path:
         :return:
         """
-        if self.type == "fastq":
-            records = SeqIO.parse(self.file, self.type)
-            insertion_dict = SeqIO.index(insertion_path, "fastq")
+        with open(output_path) as output_handle:
+            if self.type == "fastq":
+                records = SeqIO.parse(self.file, self.type)
+                insertion_dict = SeqIO.index(insertion_path, "fastq")
 
-            if deletion_path:
-                deletion_dict = SeqIO.index(deletion_path, "fastq")
-            else:
-                deletion_dict = {}
+                if deletion_path:
+                    deletion_dict = SeqIO.index(deletion_path, "fastq")
+                else:
+                    deletion_dict = {}
 
-            if substitution_path:
-                substitution_dict = SeqIO.index(substitution_path, "fastq")
-            else:
-                substitution_dict = {}
+                if substitution_path:
+                    substitution_dict = SeqIO.index(substitution_path, "fastq")
+                else:
+                    substitution_dict = {}
 
-            if deletion_tag_path:
-                deletion_tag_dict = SeqIO.index(deletion_tag_path, "fastq")
-            else:
-                deletion_tag_dict = {}
+                if deletion_tag_path:
+                    deletion_tag_dict = SeqIO.index(deletion_tag_path, "fastq")
+                else:
+                    deletion_tag_dict = {}
 
-            if substitution_tag_path:
-                substitution_tag_dict = SeqIO.index(substitution_tag_path, "fastq")
-            else:
-                substitution_tag_dict = {}
+                if substitution_tag_path:
+                    substitution_tag_dict = SeqIO.index(substitution_tag_path, "fastq")
+                else:
+                    substitution_tag_dict = {}
 
-            record_kmer = []
-            for record in records:
-                insertion_rec = insertion_dict[record.id]
-                deletion_rec = deletion_dict.get(record.id, None)
-                substitution_rec = substitution_dict.get(record.id, None)
-                sub_tag_rec = substitution_tag_dict.get(record.id, None)
-                del_tag_rec = deletion_tag_dict.get(record.id, None)
+                record_kmer = []
+                for record in records:
+                    insertion_rec = insertion_dict[record.id]
+                    deletion_rec = deletion_dict.get(record.id, None)
+                    substitution_rec = substitution_dict.get(record.id, None)
+                    sub_tag_rec = substitution_tag_dict.get(record.id, None)
+                    del_tag_rec = deletion_tag_dict.get(record.id, None)
 
 
-                qual_record = QualitySeq(record, insertion_rec, deletion_rec, substitution_rec, del_tag_rec, sub_tag_rec)
-                qual_record.generate_good_kmer(k, self.kmer_freq, accuracy_threshold, freq_threshold, record_kmer)
+                    qual_record = QualitySeq(record, insertion_rec, deletion_rec, substitution_rec, del_tag_rec, sub_tag_rec)
+                    qual_kmer = qual_record.generate_good_kmer(k, self.kmer_freq, accuracy_threshold, freq_threshold)
 
-            SeqIO.write(record_kmer, output_path, "fasta")
+                    for kmer in qual_kmer:
+                        kmer.to_fasta(output_handle, "fasta")
+
+
 
 def main():
     parser = argparse.ArgumentParser()
