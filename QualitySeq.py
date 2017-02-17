@@ -1,5 +1,5 @@
 import numpy as np
-from kmer import Kmer
+from Kmer import Kmer
 
 class QualitySeq(object):
     def __init__(self, fastq_record, insertion_record, deletion_record = None, substitution_record = None, del_tag = None, sub_tag = None):
@@ -33,8 +33,8 @@ class QualitySeq(object):
         self.deletion_tag = del_tag.seq
         self.subsitution_tag = sub_tag.seq
 
-    def generate_good_kmer(self, k, freq_dict, accuracy_threshold, freq_threshold, insertion_kmer=False):
-        qual_kmer = []
+    def generate_good_kmer(self, k, freq_dict, accuracy_threshold, freq_threshold, qual_kmer):
+
         for i, base in enumerate(self.seq):
             # print i
             if i < self.length - k + 1:

@@ -4,7 +4,7 @@ from Bio.Seq import Seq
 
 class Kmer(SeqRecord):
     def __init__(self, kmer_str, freq_dict=None):
-        SeqRecord.__init__(Seq(kmer_str), id=kmer_str, description="")
+        SeqRecord.__init__(self, Seq(kmer_str), id=kmer_str, description="")
         if freq_dict:
             self.freq = freq_dict[kmer_str]
         else:
@@ -15,7 +15,6 @@ class Kmer(SeqRecord):
             return True
         else:
             return False
-
 
 def main():
     return 0
