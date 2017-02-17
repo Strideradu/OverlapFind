@@ -3,6 +3,7 @@ from Bio import SeqIO
 from QualitySeq import QualitySeq
 import pickle
 import argparse
+import sys
 
 
 class FastaProcess(object):
@@ -28,25 +29,25 @@ class FastaProcess(object):
         """
         if self.type == "fastq":
             records = SeqIO.parse(self.file, self.type)
-            insertion_dict = SeqIO.index(insertion_path)
+            insertion_dict = SeqIO.index(insertion_path, "fastq")
 
             if deletion_path:
-                deletion_dict = SeqIO.index(deletion_path)
+                deletion_dict = SeqIO.index(deletion_path, "fastq")
             else:
                 deletion_dict = {}
 
             if substitution_path:
-                substitution_dict = SeqIO.index(substitution_path)
+                substitution_dict = SeqIO.index(substitution_path, "fastq")
             else:
                 substitution_dict = {}
 
             if deletion_tag_path:
-                deletion_tag_dict = SeqIO.index(deletion_tag_path)
+                deletion_tag_dict = SeqIO.index(deletion_tag_path, "fastq")
             else:
                 deletion_tag_dict = {}
 
             if substitution_tag_path:
-                substitution_tag_dict = SeqIO.index(substitution_tag_path)
+                substitution_tag_dict = SeqIO.index(substitution_tag_path, "fastq")
             else:
                 substitution_tag_dict = {}
 
@@ -78,6 +79,7 @@ def main():
 
     except:
         parser.print_help()
+        sys.exit(1)
 
     if os.path.exists(args.template_fastq[0]):
         print os.path.basename(args.template_fastq[0])
@@ -88,9 +90,9 @@ def main():
         process.load_freq(args.dict[0])
 
     if args.freq:
-        process.quality_kmer_fasta(args.k[0], args.output_fasta[0], args.insertion_fastq[0], freq_threshold=args.freq[0])
+        process.quality_kmer_fasta(args.k, args.output_fasta[0], args.insertion_fastq[0], freq_threshold=args.freq)
     else:
-        process.quality_kmer_fasta(args.k[0], args.output_fasta[0], args.insertion_fastq[0])
+        process.quality_kmer_fasta(args.k, args.output_fasta[0], args.insertion_fastq[0])
 
 if __name__ == '__main__':
     main()

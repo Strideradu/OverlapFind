@@ -30,8 +30,15 @@ class QualitySeq(object):
         else:
             self.substitution_quality = None
 
-        self.deletion_tag = del_tag.seq
-        self.subsitution_tag = sub_tag.seq
+        if del_tag:
+            self.deletion_tag = del_tag.seq
+        else:
+            self.deletion_tag = None
+
+        if sub_tag:
+            self.subsitution_tag = sub_tag.seq
+        else:
+            self.subsitution_tag = None
 
     def generate_good_kmer(self, k, freq_dict, accuracy_threshold, freq_threshold, qual_kmer):
 
