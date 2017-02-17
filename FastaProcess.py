@@ -27,7 +27,7 @@ class FastaProcess(object):
         :param substitution_tag_path:
         :return:
         """
-        with open(output_path) as output_handle:
+        with open(output_path, "w") as output_handle:
             if self.type == "fastq":
                 records = SeqIO.parse(self.file, self.type)
                 insertion_dict = SeqIO.index(insertion_path, "fastq")
