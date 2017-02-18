@@ -7,7 +7,7 @@ class Kmer(SeqRecord):
     def __init__(self, kmer_str, freq_dict=None):
         SeqRecord.__init__(self, Seq(kmer_str), id=kmer_str, description="")
         if freq_dict:
-            self.freq = freq_dict[kmer_str]
+            self.freq = freq_dict.get(kmer_str, 1)
         else:
             self.freq = 1
 

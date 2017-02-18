@@ -35,8 +35,8 @@
       <file leaf-file-name="Kmer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Kmer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="21" column="38" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
+            <state relative-caret-position="243">
+              <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -47,7 +47,7 @@
       <file leaf-file-name="QualitySeq.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/QualitySeq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
+            <state relative-caret-position="-940">
               <caret line="42" column="81" selection-start-line="42" selection-start-column="81" selection-end-line="42" selection-end-column="81" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -59,8 +59,8 @@
       <file leaf-file-name="FastaProcess.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FastaProcess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="686">
-              <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+            <state relative-caret-position="578">
+              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -87,8 +87,8 @@
         <option value="$PROJECT_DIR$/kmer.py" />
         <option value="$PROJECT_DIR$/quality_seq.py" />
         <option value="$PROJECT_DIR$/fasta_process.py" />
-        <option value="$PROJECT_DIR$/Kmer.py" />
         <option value="$PROJECT_DIR$/QualitySeq.py" />
+        <option value="$PROJECT_DIR$/Kmer.py" />
         <option value="$PROJECT_DIR$/FastaProcess.py" />
       </list>
     </option>
@@ -388,9 +388,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/QualitySeq.py">
+    <entry file="file://$PROJECT_DIR$/Kmer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
+          <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/QualitySeq.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-940">
           <caret line="42" column="81" selection-start-line="42" selection-start-column="81" selection-end-line="42" selection-end-column="81" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -398,20 +408,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kmer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="21" column="38" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FastaProcess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+        <state relative-caret-position="578">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

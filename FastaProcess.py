@@ -60,7 +60,6 @@ class FastaProcess(object):
                     sub_tag_rec = substitution_tag_dict.get(record.id, None)
                     del_tag_rec = deletion_tag_dict.get(record.id, None)
 
-
                     qual_record = QualitySeq(record, insertion_rec, deletion_rec, substitution_rec, del_tag_rec, sub_tag_rec)
                     qual_kmer = qual_record.generate_good_kmer(k, self.kmer_freq, accuracy_threshold, freq_threshold)
 
@@ -94,7 +93,7 @@ def main():
         process.load_freq(args.dict[0])
 
     if args.freq:
-        process.quality_kmer_fasta(args.k, args.output_fasta[0], args.insertion_fastq[0], freq_threshold=args.freq)
+        process.quality_kmer_fasta(args.k, args.output_fasta[0], args.insertion_fastq[0], freq_threshold=args.freq[0])
     else:
         process.quality_kmer_fasta(args.k, args.output_fasta[0], args.insertion_fastq[0])
 
