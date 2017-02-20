@@ -46,7 +46,7 @@ class QualitySeq(object):
     def generate_kmer(self, k, freq_dict, freq_threshold):
         kmers = []
         for i in range(self.length -k + 1):
-            kmer = Kmer(self.seq[i:i+k], freq_dict)
+            kmer = Kmer(str(self.seq[i:i+k]), freq_dict)
             if kmer.check_threshold(freq_threshold):
                 kmers.append(kmer)
 
