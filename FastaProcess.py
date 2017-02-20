@@ -16,6 +16,24 @@ class FastaProcess(object):
         with open(dict_path, 'rb') as f:
             self.kmer_freq = pickle.load(f)
 
+    def kmer_fasta(self, k, output_path, freq_threshold=0):
+        """
+
+        :param k:  size of kmer
+        :param output_path:
+        :param freq_threshold:
+        :return:
+        """
+        with open(output_path, "w") as output_handle:
+            records = SeqIO.parse(self.file, self.type)
+            for record in records:
+                qual_record = QualitySeq(record)
+                qual_kmer = qual_record.generate_kmer(k, self.kmer_freq, freq_threshold)
+
+                for kmer in qual_kmer:
+                    kmer.to_fasta(output_handle, "fasta")
+
+
     def quality_kmer_fasta(self, k, output_path, insertion_path, deletion_path = None, substitution_path = None, deletion_tag_path = None, substitution_tag_path = None, accuracy_threshold = 0.75, freq_threshold = 0):
         """
 
@@ -52,7 +70,6 @@ class FastaProcess(object):
                 else:
                     substitution_tag_dict = {}
 
-                record_kmer = []
                 for record in records:
                     insertion_rec = insertion_dict[record.id]
                     deletion_rec = deletion_dict.get(record.id, None)
@@ -72,7 +89,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("k", help="length of kmer", type=int)
     parser.add_argument("template_fastq", help="the fastq file that contain sequence we want to extract kmer", type=str,  nargs=1)
-    parser.add_argument("insertion_fastq", help="the fastq file that contain insertion quality", type=str,  nargs=1)
+    parser.add_argument("-insert_Q", dest="insertion_fastq", help="the fastq file that contain insertion quality", type=str,  nargs=1)
     parser.add_argument("output_fasta", help="the fasta file to store the extracted kmer", type=str,  nargs=1)
     parser.add_argument("-freq_dict", dest="dict", help="path that store frequency dict", type=str,  nargs=1)
     parser.add_argument("-freq", dest="freq", help="the threshold to filter frequency", type=int,  nargs=1)
@@ -92,10 +109,18 @@ def main():
     if args.dict:
         process.load_freq(args.dict[0])
 
-    if args.freq:
-        process.quality_kmer_fasta(args.k, args.output_fasta[0], args.insertion_fastq[0], freq_threshold=args.freq[0])
+    if args.insertion_fastq:
+
+        if args.freq:
+            process.quality_kmer_fasta(args.k, args.output_fasta[0], args.insertion_fastq[0], freq_threshold=args.freq[0])
+        else:
+            process.quality_kmer_fasta(args.k, args.output_fasta[0], args.insertion_fastq[0])
+
     else:
-        process.quality_kmer_fasta(args.k, args.output_fasta[0], args.insertion_fastq[0])
+        if args.freq:
+            process.kmer_fasta(args.k,  args.output_fasta[0], freq_threshold=args.freq[0])
+        else:
+            process.kmer_fasta(args.k, args.output_fasta[0])
 
 if __name__ == '__main__':
     main()

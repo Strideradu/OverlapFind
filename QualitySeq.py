@@ -2,7 +2,7 @@ import numpy as np
 from Kmer import Kmer
 
 class QualitySeq(object):
-    def __init__(self, fastq_record, insertion_record, deletion_record = None, substitution_record = None, del_tag = None, sub_tag = None):
+    def __init__(self, fastq_record, insertion_record = None, deletion_record = None, substitution_record = None, del_tag = None, sub_tag = None):
         self.id = fastq_record.id
         self.seq = fastq_record.seq
         self.length = len(self.seq)
@@ -39,6 +39,15 @@ class QualitySeq(object):
             self.subsitution_tag = sub_tag.seq
         else:
             self.subsitution_tag = None
+
+    def generate_kmer(self, k, freq_dict, freq_threshold):
+        kmers = []
+        for i in range(self.length -k + 1):
+            kmer = Kmer(self.seq[i:i+k], freq_dict)
+            if kmer.check_threshold(freq_threshold):
+                kmers.append(kmer)
+
+        return kmers
 
     def generate_good_kmer(self, k, freq_dict, accuracy_threshold, freq_threshold):
         qual_kmer  = []
