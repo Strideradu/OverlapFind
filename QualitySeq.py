@@ -12,9 +12,12 @@ class QualitySeq(object):
         P = 10.0 ** (-Q / 10.0)
         self.quality = P
 
-        insertion_Q = np.array(insertion_record.letter_annotations["phred_quality"])
-        insertion_P = 10.0 ** (-insertion_Q / 10.0)
-        self.insertion_quality = insertion_P
+        if insertion_record:
+            insertion_Q = np.array(insertion_record.letter_annotations["phred_quality"])
+            insertion_P = 10.0 ** (-insertion_Q / 10.0)
+            self.insertion_quality = insertion_P
+        else:
+            self.insertion_quality = None
 
         if deletion_record:
             deletion_Q = np.array(deletion_record.letter_annotations["phred_quality"])
