@@ -14,8 +14,8 @@ def statistical_bound_of_waiting_time(p, k, alpha = 0.05):
     p_k = float(p)**(k)
     qp_k = (1-p)*p_k
     x  = 0
-    sum_0_xk1 = 0.00;
-    sum = 0;
+    sum_0_xk1 = 0.00
+    sum = 0
 
     last_k_prob = np.zeros((k+1), dtype = np.double)
 
@@ -31,7 +31,7 @@ def statistical_bound_of_waiting_time(p, k, alpha = 0.05):
         sum += last_k_prob[x % (k + 1)]
         x += 1
 
-    return x;
+    return x
 
 def randomwalk_probability_of_pos(pI, L):
     """
@@ -50,14 +50,14 @@ def randomwalk_probability_of_pos(pI, L):
 
 
     for i in range(2 * L + 1):
-        u[i] = 0;
+        u[i] = 0
     for i in range(2 * L + 1):
-        f[i] = 0;
+        f[i] = 0
 
-    f[0] = 1.00;
-    u[0] = a;
-    u[1] = b;
-    u[2] = a;
+    f[0] = 1.00
+    u[0] = a
+    u[1] = b
+    u[2] = a
 
     while P > 0:
         if P & 1:
@@ -102,8 +102,8 @@ def statistical_bound_of_randomwalk(pI, L, alpha = 0.05):
     return bound
 
 if __name__ == '__main__':
-     L = statistical_bound_of_waiting_time(0.85, 6)
-     print L
-     print statistical_bound_of_randomwalk(0.12, L)
+     #L = statistical_bound_of_waiting_time(0.8, 8)
+     #print L
+     print statistical_bound_of_randomwalk(0.15, 600)
 
 

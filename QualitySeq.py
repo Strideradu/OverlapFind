@@ -43,9 +43,21 @@ class QualitySeq(object):
         else:
             self.subsitution_tag = None
 
+    def generate_kmer_pos(self, k):
+        kmer_dict = {}
+        for i in range(self.length - k + 1):
+            kmer = str(self.seq[i:i+k])
+            score = np.sum(np.log(self.quality[i:i+k]))
+            if kmer_dict.get(kmer) is None:
+                kmer_dict[kmer] = []
+
+            kmer_dict[kmer].append((i, score))
+
+        return kmer_dict
+
     def generate_kmer(self, k, freq_dict, freq_threshold):
         kmers = []
-        for i in range(self.length -k + 1):
+        for i in range(self.length - k + 1):
             kmer = Kmer(str(self.seq[i:i+k]), freq_dict)
             if kmer.check_threshold(freq_threshold):
                 kmers.append(kmer)
