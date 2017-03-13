@@ -102,8 +102,8 @@ def statistical_bound_of_randomwalk(pI, L, alpha = 0.05):
     return bound
 
 if __name__ == '__main__':
-     #L = statistical_bound_of_waiting_time(0.8, 8)
-     #print L
+     L = statistical_bound_of_waiting_time(0.75, 9)
+     print L
      print statistical_bound_of_randomwalk(0.15, 600)
 
 

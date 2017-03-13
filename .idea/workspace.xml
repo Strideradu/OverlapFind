@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11908691-7248-4bca-af62-dc1f7fc6843f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DiagProcess.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PosKmer.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Prob.py" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SensiForBlasr.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SensiTest.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/QualitySeq.py" afterPath="$PROJECT_DIR$/QualitySeq.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DiagProcess.py" afterPath="$PROJECT_DIR$/DiagProcess.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProbFunc.py" afterPath="$PROJECT_DIR$/ProbFunc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/old_code/DetermineOverlap.py" afterPath="$PROJECT_DIR$/old_code/DetermineOverlap.py" />
     </list>
     <ignored path="OverlapFind.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,13 +61,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DiagProcess.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DiagProcess.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DiagProcess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="788">
-              <caret line="289" column="48" lean-forward="false" selection-start-line="289" selection-start-column="48" selection-end-line="289" selection-end-column="48" />
+            <state relative-caret-position="8181">
+              <caret line="306" column="13" lean-forward="false" selection-start-line="306" selection-start-column="13" selection-end-line="306" selection-end-column="13" />
               <folding>
-                <element signature="e#79#115#0" expanded="true" />
+                <element signature="e#113#149#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SensiTest.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SensiTest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="42" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SensiForBlasr.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SensiForBlasr.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="869">
+              <caret line="46" column="69" lean-forward="false" selection-start-line="46" selection-start-column="69" selection-end-line="46" selection-end-column="69" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -75,8 +100,8 @@
       <file leaf-file-name="ProbFunc.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ProbFunc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2376">
-              <caret line="88" column="48" lean-forward="false" selection-start-line="88" selection-start-column="48" selection-end-line="88" selection-end-column="48" />
+            <state relative-caret-position="2916">
+              <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -108,13 +133,17 @@
         <option value="$PROJECT_DIR$/QualitySeq.py" />
         <option value="$PROJECT_DIR$/Prob.py" />
         <option value="$PROJECT_DIR$/ProbFunc.py" />
+        <option value="$PROJECT_DIR$/old_code/DetermineOverlap.py" />
         <option value="$PROJECT_DIR$/DiagProcess.py" />
+        <option value="$PROJECT_DIR$/SensiTest.py" />
+        <option value="$PROJECT_DIR$/SensiForBlasr.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-10" />
-    <option name="width" value="2164" />
+    <option name="x" value="-11" />
+    <option name="y" value="-11" />
+    <option name="width" value="2182" />
     <option name="height" value="1402" />
   </component>
   <component name="ProjectView">
@@ -132,7 +161,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -145,9 +173,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OverlapFind" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OverlapFind" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="old_code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -155,24 +198,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.DiagProcess">
-    <configuration default="false" name="Prob" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.idea" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="OverlapFind" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/.idea/Prob.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.SensiForBlasr">
     <configuration default="false" name="DiagProcess" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -190,23 +216,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Prob (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="OverlapFind" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Prob.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="ProbFunc" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -220,6 +229,57 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="OverlapFind" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ProbFunc.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="DetermineOverlap" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/old_code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="OverlapFind" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/old_code/DetermineOverlap.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SensiTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="OverlapFind" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SensiTest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SensiForBlasr" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="OverlapFind" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SensiForBlasr.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -358,18 +418,20 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Python.Prob" />
-      <item index="1" class="java.lang.String" itemvalue="Python.DiagProcess" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Prob (1)" />
-      <item index="3" class="java.lang.String" itemvalue="Python.ProbFunc" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Python.DiagProcess" />
+      <item index="1" class="java.lang.String" itemvalue="Python.ProbFunc" />
+      <item index="2" class="java.lang.String" itemvalue="Python.DetermineOverlap" />
+      <item index="3" class="java.lang.String" itemvalue="Python.SensiTest" />
+      <item index="4" class="java.lang.String" itemvalue="Python.SensiForBlasr" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.DiagProcess" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ProbFunc" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Prob (1)" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Prob" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.SensiForBlasr" />
+        <item index="1" class="java.lang.String" itemvalue="Python.SensiTest" />
+        <item index="2" class="java.lang.String" itemvalue="Python.DiagProcess" />
+        <item index="3" class="java.lang.String" itemvalue="Python.DetermineOverlap" />
+        <item index="4" class="java.lang.String" itemvalue="Python.ProbFunc" />
       </list>
     </recent_temporary>
   </component>
@@ -399,10 +461,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-10" y="0" width="2164" height="1402" extended-state="1" />
+    <frame x="-11" y="-11" width="2182" height="1402" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25130394" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24588622" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -437,34 +499,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/FastaProcess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="783">
-          <caret line="29" column="41" lean-forward="false" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DiagProcess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#79#115#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProbFunc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2862">
-          <caret line="106" column="42" lean-forward="false" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PosKmer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -498,7 +532,7 @@
         <state relative-caret-position="5022">
           <caret line="189" column="41" lean-forward="false" selection-start-line="189" selection-start-column="41" selection-end-line="189" selection-end-column="41" />
           <folding>
-            <element signature="e#79#115#0" expanded="true" />
+            <element signature="e#113#149#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -537,7 +571,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#79#115#0" expanded="true" />
+            <element signature="e#113#149#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -576,7 +610,7 @@
         <state relative-caret-position="1917">
           <caret line="73" column="25" lean-forward="false" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
           <folding>
-            <element signature="e#79#115#0" expanded="true" />
+            <element signature="e#113#149#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -615,7 +649,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#79#115#0" expanded="true" />
+            <element signature="e#113#149#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -782,18 +816,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ProbFunc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2376">
-          <caret line="88" column="48" lean-forward="false" selection-start-line="88" selection-start-column="48" selection-end-line="88" selection-end-column="48" />
+        <state relative-caret-position="2916">
+          <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old_code/DetermineOverlap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="64" column="53" lean-forward="false" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DiagProcess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="788">
-          <caret line="289" column="48" lean-forward="false" selection-start-line="289" selection-start-column="48" selection-end-line="289" selection-end-column="48" />
+        <state relative-caret-position="8181">
+          <caret line="306" column="13" lean-forward="false" selection-start-line="306" selection-start-column="13" selection-end-line="306" selection-end-column="13" />
           <folding>
-            <element signature="e#79#115#0" expanded="true" />
+            <element signature="e#113#149#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SensiTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="42" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SensiForBlasr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="869">
+          <caret line="46" column="69" lean-forward="false" selection-start-line="46" selection-start-column="69" selection-end-line="46" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>

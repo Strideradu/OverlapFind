@@ -1,5 +1,6 @@
 """
 A simple class to find all kmers and process to generate diagonal plot
+didn't deal the exactly same case
 """
 from matplotlib import pyplot as plt
 from Bio import SeqIO
@@ -28,6 +29,7 @@ class DiagProcess(object):
         self.is_forward = None
         self.fw_seeds = 0
         self.rc_seeds = 0
+        self.aligned = None
 
 
     def diag_points(self, k):
@@ -89,6 +91,7 @@ class DiagProcess(object):
             if chained.get(self.fw_points[i], False) is False:
                 # print i
                 chain = []
+                l = self.k
                 last_i = i
                 last_x = self.fw_points[i][0]
                 last_y = self.fw_points[i][1]
@@ -104,18 +107,23 @@ class DiagProcess(object):
                     delta_x = abs(x - last_x)
 
                     if max(delta_y, delta_x)<=L and abs(diagonal - last_diagonal)<=delta:
+                        if max(delta_y, delta_x)<= self.k:
+                            l += max(delta_y, delta_x)
+                        else:
+                            l += self.k
                         last_x = x
                         last_y = y
                         last_diagonal = diagonal
                         chain.append(self.fw_points[j])
                         chained[self.fw_points[j]] = True
 
+
                     elif min(delta_y, delta_x)>L:
                         last_i = j
                         break
 
                 if len(chain) > 1 and (abs(chain[-1][0] - chain[0][0]) > self.k or abs(chain[-1][1] - chain[0][1]) > self.k):
-                    fw_chain.append(chain)
+                    fw_chain.append((chain, l))
                     self.fw_seeds += len(chain)
                 # print chain[0]
 
@@ -134,6 +142,7 @@ class DiagProcess(object):
                 # print i
                 chain = []
                 last_i = i
+                l = self.k
                 last_x = self.rc_points[i][0]
                 last_y = self.rc_points[i][1]
                 last_diagonal = last_y + last_x
@@ -148,6 +157,10 @@ class DiagProcess(object):
                     delta_x = abs(x - last_x)
 
                     if max(delta_y, delta_x)<=L and abs(diagonal - last_diagonal)<=delta:
+                        if max(delta_y, delta_x)<= self.k:
+                            l += max(delta_y, delta_x)
+                        else:
+                            l += self.k
                         last_x = x
                         last_y = y
                         last_diagonal = diagonal
@@ -159,7 +172,7 @@ class DiagProcess(object):
                         break
 
                 if len(chain) > 1 and (abs(chain[-1][0] - chain[0][0]) > self.k and abs(chain[-1][1] - chain[0][1]) > self.k):
-                    rc_chain.append(chain)
+                    rc_chain.append((chain, l))
                     self.rc_seeds += len(chain)
                 # print chain[0]
 
@@ -180,21 +193,22 @@ class DiagProcess(object):
         # print len(self.fw_chain)
         seed_num = self.fw_seeds
         previous_seed_num = 0
-        while i < len(self.fw_chain) - 1:
-            print i
+        while i < len(self.fw_chain):
+            #print i
             if connected.get(i, False) is False:
                 align = []
-                last_i = i
-                last_end_x = self.fw_chain[i][-1][0]
-                last_end_y = self.fw_chain[i][-1][1]
+                length  = 0
+                last_end_x = self.fw_chain[i][0][-1][0]
+                last_end_y = self.fw_chain[i][0][-1][1]
 
                 last_end_diagonal = last_end_y - last_end_x
-                align.extend(self.fw_chain[i])
+                align.extend(self.fw_chain[i][0])
+                length += self.fw_chain[i][1]
                 connected[i] = True
                 for j in range(i + 1, len(self.fw_chain)):
-                    print "j", j
-                    start_x = self.fw_chain[j][0][0]
-                    start_y = self.fw_chain[j][0][1]
+                    #print "j", j
+                    start_x = self.fw_chain[j][0][0][0]
+                    start_y = self.fw_chain[j][0][0][1]
                     diagonal =  start_y - start_x
                     delta_y = abs(start_y - last_end_y)
                     delta_x = abs(start_x - last_end_x)
@@ -202,20 +216,29 @@ class DiagProcess(object):
                     # print delta
 
                     if abs(diagonal - last_end_diagonal) <= delta:
-                        last_end_x = self.fw_chain[j][-1][0]
-                        last_end_y = self.fw_chain[j][-1][1]
+                        last_end_x = self.fw_chain[j][0][-1][0]
+                        last_end_y = self.fw_chain[j][0][-1][1]
                         last_end_diagonal = last_end_y - last_end_x
-                        align.extend(self.fw_chain[j])
+                        align.extend(self.fw_chain[j][0])
+                        length += self.fw_chain[j][1]
                         connected[j] = True
 
                 if len(align) > len(self.chain_align):
-                    self.chain_align = align
-                    self.is_forward = True
+                    # 9 mer with 0.75 threshold = 135
+
+                    x_span = abs(align[-1][0] - align[0][0])
+                    y_span = abs(align[-1][1] - align[0][1])
+                    #print length / self.k
+                    #print max(x_span, y_span) / 135
+
+                    if max(x_span, y_span)/135 < 3 * length/self.k and length > 3*self.k:
+                        self.chain_align = align
+                        self.is_forward = True
 
             if seed_num - len(self.chain_align) - previous_seed_num < 0:
                 break
 
-            previous_seed_num += len(self.fw_chain[i])
+            previous_seed_num += len(self.fw_chain[i][0])
 
             i += 1
 
@@ -227,41 +250,50 @@ class DiagProcess(object):
         while i < len(self.rc_chain) - 1:
             if connected.get(i, False) is False:
                 align = []
-                last_i = i
-                last_end_x = self.rc_chain[i][-1][0]
-                last_end_y = self.rc_chain[i][-1][1]
+                length = 0
+                last_end_x = self.rc_chain[i][0][-1][0]
+                last_end_y = self.rc_chain[i][0][-1][1]
 
                 last_end_diagonal = last_end_y + last_end_x
-                align.extend(self.rc_chain[i])
+                align.extend(self.rc_chain[i][0])
+                length += self.rc_chain[i][1]
                 connected[i] = True
                 for j in range(i + 1, len(self.rc_chain)):
-                    start_x = self.rc_chain[j][0][0]
-                    start_y = self.rc_chain[j][0][1]
+                    start_x = self.rc_chain[j][0][0][0]
+                    start_y = self.rc_chain[j][0][0][1]
                     diagonal =  start_y + start_x
                     delta_y = abs(start_y - last_end_y)
                     delta_x = abs(start_x - last_end_x)
-                    delta = ProbFunc.statistical_bound_of_randomwalk(gap, max(delta_x, delta_y))
+                    delta = max(delta_x, delta_y) * gap
 
                     if abs(diagonal - last_end_diagonal) <= delta:
-                        last_end_x = self.rc_chain[j][-1][0]
-                        last_end_y = self.rc_chain[j][-1][1]
+                        last_end_x = self.rc_chain[j][0][-1][0]
+                        last_end_y = self.rc_chain[j][0][-1][1]
                         last_end_diagonal = last_end_y + last_end_x
-                        align.extend(self.rc_chain[j])
+                        align.extend(self.rc_chain[j][0])
+                        length += self.rc_chain[j][1]
                         connected[j] = True
 
                 if len(align) > len(self.chain_align):
-                    self.chain_align = align
-                    self.is_forward = False
+
+                    x_span = abs(align[-1][0] - align[0][0])
+                    y_span = abs(align[-1][1] - align[0][1])
+                    #print length / self.k
+                    #print max(x_span, y_span) / 135
+                    # print x_span, y_span
+                    if max(x_span, y_span) / 135 < 3 * length / self.k and length > 3*self.k:
+                        self.chain_align = align
+                        self.is_forward = False
 
             # if the remaning seed number is too small, that menas we already find longest align
             if seed_num - len(self.chain_align) - previous_seed_num < 0:
                 break
 
-            previous_seed_num += len(self.fw_chain[i])
+            previous_seed_num += len(self.rc_chain[i][0])
 
             i += 1
-
-        print self.chain_align
+        if len(self.chain_align) != 0:
+            self.aligned = True
 
 
 
@@ -272,26 +304,31 @@ class DiagProcess(object):
         plt.scatter(coordinates[0], coordinates[1], c=coordinates[2], cmap="Reds")
         plt.colorbar()
         for chain in self.fw_chain:
-            # print chain
-            chain_coor = map(list, zip(*chain))
+            #print chain
+            chain_coor = map(list, zip(*chain[0]))
             plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
         plt.figure()
         coordinates = map(list, zip(*self.rc_points))
         plt.scatter(coordinates[0], coordinates[1],c = coordinates[2], cmap="Greens")
         plt.colorbar()
         for chain in self.rc_chain:
-            # print chain
-            chain_coor = map(list, zip(*chain))
+            #print chain
+            chain_coor = map(list, zip(*chain[0]))
             plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
         plt.show()
 
 if __name__ == '__main__':
-    record1 = SeqIO.read("D:/Data/20170213/pair1_query.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170213/pair1_target.fastq", "fastq")
+    #record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
+    #record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
+    # record1 = SeqIO.read("D:/Data/20170213/pair1_query.fastq", "fastq")
+    #record2 = SeqIO.read("D:/Data/20170213/pair2_target.fastq", "fastq")
+    record1 = SeqIO.read("D:/Data/20170310/self_unpair_1.fastq", "fastq")
+    record2 = SeqIO.read("D:/Data/20170310/self_unpair_1.fastq", "fastq")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
     chians = process.diag_chain(0.75, 0.2)
     process.rechain(0.2)
+    print process.chain_align
     process.diag_plot()
