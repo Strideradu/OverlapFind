@@ -23,21 +23,32 @@ large_test = []
 medium_test = []
 small_test = []
 
+in_large = {}
+in_medium = {}
+in_small = {}
+
 for pacbio_id in overlap_dict:
+    query.append(pacbio_id)
     large_overlap = overlap_dict[pacbio_id][0]
     medium_overlap = overlap_dict[pacbio_id][1]
     small_overlap = overlap_dict[pacbio_id][2]
     for overlap_seq in large_overlap:
         if len(large_test)< num_test and tested.get(overlap_seq, False) is False:
-            large_test.append((pacbio_id, overlap_seq))
+            if in_large.get(overlap_seq, False) is False:
+                large_test.append(overlap_seq)
+                in_large[overlap_seq] = True
 
     for overlap_seq in medium_overlap :
         if len(medium_test)< num_test and tested.get(overlap_seq, False) is False:
-            medium_test.append((pacbio_id, overlap_seq))
+            if in_medium.get(overlap_seq, False) is False:
+                medium_test.append(overlap_seq)
+                in_medium[overlap_seq] = True
 
     for overlap_seq in small_overlap :
         if len(small_test)< num_test and tested.get(overlap_seq, False) is False:
-            small_test.append((pacbio_id, overlap_seq))
+            if in_small.get(overlap_seq, False) is False:
+                small_test.append(overlap_seq)
+                in_small[overlap_seq] = True
 
     tested[pacbio_id] = True
 
@@ -47,7 +58,8 @@ for pacbio_id in overlap_dict:
 with open("D:/Data/20170309/overlap_not_found_1500pair.txt","w")as f:
     for test in [large_test, medium_test, small_test]:
         align_found = 0
-        for pair in test:
+        for query_seq in query:
+            for target_seq in test
             record1 = fastq[pair[0]]
             record2 = fastq[pair[1]]
             seq1 = QualitySeq(record1)

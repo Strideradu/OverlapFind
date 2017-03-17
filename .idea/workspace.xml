@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11908691-7248-4bca-af62-dc1f7fc6843f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BlasrParse.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SensiBlasr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DiagProcess.py" afterPath="$PROJECT_DIR$/DiagProcess.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SensiTest.py" afterPath="$PROJECT_DIR$/SensiTest.py" />
     </list>
     <ignored path="OverlapFind.iws" />
@@ -60,7 +56,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DiagProcess.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DiagProcess.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DiagProcess.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="518">
@@ -72,22 +68,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SensiTest.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SensiTest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SensiBlasr.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SensiBlasr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-378">
+            <state relative-caret-position="-1026">
               <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
@@ -99,8 +83,8 @@
       <file leaf-file-name="SensiForBlasr.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SensiForBlasr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="13" />
+            <state relative-caret-position="621">
+              <caret line="35" column="12" lean-forward="true" selection-start-line="35" selection-start-column="12" selection-end-line="37" selection-end-column="44" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -831,16 +815,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DiagProcess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="325" column="55" lean-forward="false" selection-start-line="325" selection-start-column="55" selection-end-line="325" selection-end-column="55" />
-          <folding>
-            <element signature="e#113#149#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BlasrParse.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
@@ -851,7 +825,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SensiBlasr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-378">
+        <state relative-caret-position="-1026">
           <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
@@ -861,8 +835,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SensiForBlasr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="13" />
+        <state relative-caret-position="621">
+          <caret line="35" column="12" lean-forward="true" selection-start-line="35" selection-start-column="12" selection-end-line="37" selection-end-column="44" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
@@ -871,10 +845,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SensiTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="1269">
+          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DiagProcess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="325" column="55" lean-forward="false" selection-start-line="325" selection-start-column="55" selection-end-line="325" selection-end-column="55" />
+          <folding>
+            <element signature="e#113#149#0" expanded="true" />
           </folding>
         </state>
       </provider>
