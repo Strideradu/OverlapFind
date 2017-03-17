@@ -247,7 +247,7 @@ class DiagProcess(object):
         i = 0
         seed_num = self.rc_seeds
         previous_seed_num = 0
-        while i < len(self.rc_chain):
+        while i < len(self.rc_chain) - 1:
             if connected.get(i, False) is False:
                 align = []
                 length = 0
@@ -322,8 +322,8 @@ if __name__ == '__main__':
     #record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
     # record1 = SeqIO.read("D:/Data/20170213/pair1_query.fastq", "fastq")
     #record2 = SeqIO.read("D:/Data/20170213/pair2_target.fastq", "fastq")
-    record1 = SeqIO.read("D:/Data/20170315/blasr_pair_3_1.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170315/blasr_pair_3_2.fastq", "fastq")
+    record1 = SeqIO.read("D:/Data/20170310/self_unpair_1.fastq", "fastq")
+    record2 = SeqIO.read("D:/Data/20170310/self_unpair_1.fastq", "fastq")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
