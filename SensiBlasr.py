@@ -40,72 +40,55 @@ num_test = 500
 overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 fastq=SeqIO.index("D:/Data/20170116/filtered_subreads_15X.fastq", "fastq")
 
-tested = {}
-large_test = []
-medium_test = []
-small_test = []
-for pacbio_id in overlap_dict:
-    large_overlap = overlap_dict[pacbio_id][0]
-    medium_overlap = overlap_dict[pacbio_id][1]
-    small_overlap = overlap_dict[pacbio_id][2]
-    for overlap_seq in large_overlap:
-        if len(large_test)< num_test and tested.get(overlap_seq, False) is False:
-            large_test.append((pacbio_id, overlap_seq))
-
-    for overlap_seq in medium_overlap :
-        if len(medium_test)< num_test and tested.get(overlap_seq, False) is False:
-            medium_test.append((pacbio_id, overlap_seq))
-
-    for overlap_seq in small_overlap :
-        if len(small_test)< num_test and tested.get(overlap_seq, False) is False:
-            small_test.append((pacbio_id, overlap_seq))
-
-    tested[pacbio_id] = True
-
-    if len(large_test)>=num_test and len(medium_test)>=num_test and len(small_test)>=num_test:
-        break
-
-
 unfoudn_pair = []
 # print blasr_large
 with open("D:/Data/20170309/blasr_overlap_not_found_score_0_1500pair.txt","w")as f:
-    num_pair = 0
     num_found = 0
-    for pair in large_test:
-        if blasr_large.get(pair, False) is True:
-            num_found += 1
+    true_align = 0
+
+    for pair in blasr_large:
+        num_found += 1
+        query = pair[0]
+        target = pair[1]
+        if target in overlap_dict[query][0] or target in overlap_dict[query][1] or target in overlap_dict[query][2]:
+            true_align += 1
 
         else:
             print >> f, pair[0] + "\t" + pair[1]
 
-        num_pair += 1
-    print float(num_found) / num_pair
+    print float(true_align) / num_found
     print >> f, ""
 
-    num_pair = 0
     num_found = 0
-    for pair in medium_test:
-        if blasr_medium.get(pair, False) is True:
-            num_found += 1
+    true_align = 0
+
+    for pair in blasr_medium:
+        num_found += 1
+        query = pair[0]
+        target = pair[1]
+        if target in overlap_dict[query][0] or target in overlap_dict[query][1] or target in overlap_dict[query][2]:
+            true_align += 1
 
         else:
             print >> f, pair[0] + "\t" + pair[1]
 
-        num_pair += 1
-    print float(num_found) / num_pair
+    print float(true_align) / num_found
     print >> f, ""
 
-    num_pair = 0
     num_found = 0
-    for pair in small_test:
-        if blasr_small.get(pair, False) is True:
-            num_found += 1
+    true_align = 0
+
+    for pair in blasr_small:
+        num_found += 1
+        query = pair[0]
+        target = pair[1]
+        if target in overlap_dict[query][0] or target in overlap_dict[query][1] or target in overlap_dict[query][2]:
+            true_align += 1
 
         else:
             print >> f, pair[0] + "\t" + pair[1]
 
-        num_pair += 1
-    print float(num_found) / num_pair
+    print float(true_align) / num_found
     print >> f, ""
 
 

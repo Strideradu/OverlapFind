@@ -57,21 +57,36 @@ for pacbio_id in overlap_dict:
 
 with open("D:/Data/20170309/overlap_not_found_1500pair.txt","w")as f:
     for test in [large_test, medium_test, small_test]:
+        #num_pair = 0
         align_found = 0
+        true_align = 0
+        align_truth  = 0
         for query_seq in query:
-            for target_seq in test
-            record1 = fastq[pair[0]]
-            record2 = fastq[pair[1]]
-            seq1 = QualitySeq(record1)
-            seq2 = QualitySeq(record2)
-            process = DiagProcess(seq1, seq2)
-            process.diag_points(9)
-            chians = process.diag_chain(0.75, 0.2)
-            process.rechain(0.2)
-            if process.aligned:
-                align_found += 1
-            else:
-                print >>f, pair[0] + "\t" + pair[1]
+            large_overlap = overlap_dict[pacbio_id][0]
+            medium_overlap = overlap_dict[pacbio_id][1]
+            small_overlap = overlap_dict[pacbio_id][2]
+            for target_seq in test:
+                #num_pair += 1
+                record1 = fastq[query]
+                record2 = fastq[test]
+                seq1 = QualitySeq(record1)
+                seq2 = QualitySeq(record2)
+                process = DiagProcess(seq1, seq2)
+                process.diag_points(9)
+                chians = process.diag_chain(0.75, 0.2)
+                process.rechain(0.2)
+                if test in large_overlap or test in medium_overlap or test in small_overlap:
+                    align_truth += 1
+                    if process.aligned:
+                        align_found += 1
+                        true_align += 1
+                    else:
+                        print >>f, query + "\t" + test
+                else:
+                    if process.aligned:
+                        align_found += 1
 
-        print "sensitivity: ", float(align_found)/num_test
+        print "sensitivity: ", float(true_align)/align_truth
+        print "accuracy: ", float(true_align) / align_found
+        print align_truth
         print >>f, ""
