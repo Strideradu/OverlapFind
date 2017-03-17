@@ -18,9 +18,11 @@ overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 fastq=SeqIO.index("D:/Data/20170116/filtered_subreads_15X.fastq", "fastq")
 
 tested = {}
+query = []
 large_test = []
 medium_test = []
 small_test = []
+
 for pacbio_id in overlap_dict:
     large_overlap = overlap_dict[pacbio_id][0]
     medium_overlap = overlap_dict[pacbio_id][1]
@@ -43,7 +45,7 @@ for pacbio_id in overlap_dict:
         break
 
 with open("D:/Data/20170309/overlap_not_found_1500pair.txt","w")as f:
-    for test in [large_test,medium_test, small_test]:
+    for test in [large_test, medium_test, small_test]:
         align_found = 0
         for pair in test:
             record1 = fastq[pair[0]]
@@ -60,3 +62,4 @@ with open("D:/Data/20170309/overlap_not_found_1500pair.txt","w")as f:
                 print >>f, pair[0] + "\t" + pair[1]
 
         print "sensitivity: ", float(align_found)/num_test
+        print >>f, ""
