@@ -26,6 +26,8 @@ small_test = []
 in_large = {}
 in_medium = {}
 in_small = {}
+true_pair = {}
+
 
 for pacbio_id in overlap_dict:
     query.append(pacbio_id)
@@ -33,27 +35,35 @@ for pacbio_id in overlap_dict:
     medium_overlap = overlap_dict[pacbio_id][1]
     small_overlap = overlap_dict[pacbio_id][2]
     for overlap_seq in large_overlap:
-        if len(large_test)< num_test and tested.get(overlap_seq, False) is False:
-            if in_large.get(overlap_seq, False) is False:
-                large_test.append(overlap_seq)
-                in_large[overlap_seq] = True
+        if tested.get(overlap_seq, False) is False:
+            true_pair[(pacbio_id, overlap_seq)] = True
+            if len(large_test)< num_test:
+                if in_large.get(overlap_seq, False) is False:
+                    large_test.append(overlap_seq)
+                    in_large[overlap_seq] = True
 
     for overlap_seq in medium_overlap :
-        if len(medium_test)< num_test and tested.get(overlap_seq, False) is False:
-            if in_medium.get(overlap_seq, False) is False:
-                medium_test.append(overlap_seq)
-                in_medium[overlap_seq] = True
+        if tested.get(overlap_seq, False) is False:
+            true_pair[(pacbio_id, overlap_seq)] = True
+            if len(medium_test)< num_test:
+                if in_medium.get(overlap_seq, False) is False:
+                    medium_test.append(overlap_seq)
+                    in_medium[overlap_seq] = True
 
     for overlap_seq in small_overlap :
-        if len(small_test)< num_test and tested.get(overlap_seq, False) is False:
-            if in_small.get(overlap_seq, False) is False:
-                small_test.append(overlap_seq)
-                in_small[overlap_seq] = True
+        if tested.get(overlap_seq, False) is False:
+            true_pair[(pacbio_id, overlap_seq)] = True
+            if len(small_test)< num_test :
+                if in_small.get(overlap_seq, False) is False:
+                    small_test.append(overlap_seq)
+                    in_small[overlap_seq] = True
 
     tested[pacbio_id] = True
-
+    # print pacbio_id
     if len(large_test)>=num_test and len(medium_test)>=num_test and len(small_test)>=num_test:
         break
+#print len(query)
+
 
 with open("D:/Data/20170309/overlap_not_found_1500pair.txt","w")as f:
     for test in [large_test, medium_test, small_test]:
@@ -62,6 +72,7 @@ with open("D:/Data/20170309/overlap_not_found_1500pair.txt","w")as f:
         true_align = 0
         align_truth = 0
         for query_seq in query:
+            print  query_seq
             large_overlap = overlap_dict[pacbio_id][0]
             medium_overlap = overlap_dict[pacbio_id][1]
             small_overlap = overlap_dict[pacbio_id][2]
@@ -75,7 +86,7 @@ with open("D:/Data/20170309/overlap_not_found_1500pair.txt","w")as f:
                 process.diag_points(9)
                 chians = process.diag_chain(0.75, 0.2)
                 process.rechain(0.2)
-                if target_seq in large_overlap or target_seq in medium_overlap or target_seq in small_overlap:
+                if true_pair.get((query_seq, target_seq), False) is True or true_pair.get((target_seq, query_seq), False) is True:
                     align_truth += 1
                     if process.aligned:
                         align_found += 1
