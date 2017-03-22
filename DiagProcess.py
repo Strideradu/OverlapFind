@@ -180,7 +180,7 @@ class DiagProcess(object):
 
         self.rc_chain = rc_chain
 
-    def rechain(self, gap = 0.2, chain_threshold=5):
+    def rechain(self, gap = 0.2, rechain_threshold=5, span_threshold = 0):
         """
         connect the chain of the seeds from chaining step to generate final long chain
         :return:
@@ -231,7 +231,7 @@ class DiagProcess(object):
                     #print length / self.k
                     #print max(x_span, y_span) / 135
 
-                    if max(x_span, y_span)/135 < 3 * length/self.k and length > chain_threshold*self.k:
+                    if max(x_span, y_span)/135 < 3 * length/self.k and length > rechain_threshold*self.k and min(x_span, y_span) > span_threshold:
                         self.chain_align = align
                         self.is_forward = True
 
@@ -281,7 +281,7 @@ class DiagProcess(object):
                     #print length / self.k
                     #print max(x_span, y_span) / 135
                     # print x_span, y_span
-                    if max(x_span, y_span) / 135 < 3 * length / self.k and length > chain_threshold*self.k:
+                    if max(x_span, y_span) / 135 < 3 * length / self.k and length > rechain_threshold*self.k and min(x_span, y_span) > span_threshold:
                         self.chain_align = align
                         self.is_forward = False
 
@@ -322,16 +322,16 @@ class DiagProcess(object):
 if __name__ == '__main__':
     #record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
     #record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
-    record1 = SeqIO.read("D:/Data/20170213/pair1_query.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170213/pair1_target.fastq", "fastq")
-    #record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair1_1.fastq", "fastq")
-    #record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair1_4.fastq", "fastq")
+    #record1 = SeqIO.read("D:/Data/20170213/pair1_query.fastq", "fastq")
+    #record2 = SeqIO.read("D:/Data/20170213/pair1_target.fastq", "fastq")
+    record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
+    record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_5.fastq", "fastq")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
     chians = process.diag_chain(0.75, 0.2)
-    process.rechain(0.2)
+    process.rechain(0.2, 5, 50)
     print process.chain_align
     print process.aligned
     process.diag_plot()
