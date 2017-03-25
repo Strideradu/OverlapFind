@@ -325,13 +325,13 @@ if __name__ == '__main__':
     #record1 = SeqIO.read("D:/Data/20170213/pair1_query.fastq", "fastq")
     #record2 = SeqIO.read("D:/Data/20170213/pair1_target.fastq", "fastq")
     record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_5.fastq", "fastq")
+    record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
     chians = process.diag_chain(0.75, 0.2)
-    process.rechain(0.2, 5, 50)
+    process.rechain(0.2, 15, 100)
     print process.chain_align
     print process.aligned
     process.diag_plot()

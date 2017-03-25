@@ -8,9 +8,13 @@ class QualitySeq(object):
         self.length = len(self.seq)
         self.kmer_count = {}
 
-        Q = np.array(fastq_record.letter_annotations["phred_quality"])
-        P = 10.0 ** (-Q / 10.0)
-        self.quality = P
+        try:
+            Q = np.array(fastq_record.letter_annotations["phred_quality"])
+            P = 10.0 ** (-Q / 10.0)
+            self.quality = P
+        except KeyError:
+            self.quality = np.full(self.length, 0.2)
+
 
         if insertion_record:
             insertion_Q = np.array(insertion_record.letter_annotations["phred_quality"])
