@@ -8,7 +8,7 @@ from QualitySeq import QualitySeq
 import ProbFunc
 
 def reverse_com(string):
-    rev_com = {"A":"T", "C":"G", "T":"A", "G":"C"}
+    rev_com = {"A":"T", "C":"G", "T":"A", "G":"C", "N":"N"}
     result = ""
     for i in string:
         result = rev_com[i] + result
@@ -325,7 +325,7 @@ if __name__ == '__main__':
     #record1 = SeqIO.read("D:/Data/20170213/pair1_query.fastq", "fastq")
     #record2 = SeqIO.read("D:/Data/20170213/pair1_target.fastq", "fastq")
     record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)

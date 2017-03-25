@@ -29,6 +29,7 @@ def load_obj(filename ):
 num_test = 500
 overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 fastq=SeqIO.index("D:/Data/20170116/filtered_subreads_15X.fastq", "fastq")
+masked_fasta=SeqIO.index("D:/Data/20170116/filtered_subreads_15X.fastq", "fasta")
 
 tested = {}
 query = []
@@ -84,6 +85,7 @@ for test in [large_test, medium_test, small_test]:
     align_found = 0
     true_align = 0
     align_truth = 0
+    tested = 0
     for query_seq in query:
         # print  query_seq
         large_overlap = overlap_dict[pacbio_id][0]
@@ -91,31 +93,37 @@ for test in [large_test, medium_test, small_test]:
         small_overlap = overlap_dict[pacbio_id][2]
         for target_seq in test:
             # num_pair += 1
-            record1 = fastq[query_seq]
-            record2 = fastq[target_seq]
-            seq1 = QualitySeq(record1)
-            seq2 = QualitySeq(record2)
-            process = DiagProcess(seq1, seq2)
-            process.diag_points(9)
-            chians = process.diag_chain(0.75, 0.2)
-            process.rechain(0.2, args.rechain, args.span)
-            if true_pair.get((query_seq, target_seq), False) is True or true_pair.get((target_seq, query_seq), False) is True:
-                align_truth += 1
-                if process.aligned:
-                    align_found += 1
-                    true_align += 1
-                """
-                else:
-                    print >> f, query_seq + "\t" + target_seq
-                """
-            else:
-                if process.aligned:
-                    align_found += 1
+            if query_seq != target_seq:
+                tested += 1
 
-                    # false positive align
-                    print query_seq + "\t" + target_seq
-                    sys.stdout.flush()
+                record1 = fastq[query_seq]
+                record2 = masked_fasta[target_seq]
+                seq1 = QualitySeq(record1)
+                seq2 = QualitySeq(record2)
+                process = DiagProcess(seq1, seq2)
+                process.diag_points(9)
+                chians = process.diag_chain(0.75, 0.2)
+                process.rechain(0.2, args.rechain, args.span)
+                if true_pair.get((query_seq, target_seq), False) is True or true_pair.get((target_seq, query_seq), False) is True:
+                    align_truth += 1
+                    if process.aligned:
+                        align_found += 1
+                        true_align += 1
+                    """
+                    else:
+                        print >> f, query_seq + "\t" + target_seq
+                    """
+                else:
+                    if process.aligned:
+                        align_found += 1
+
+                        # false positive align
+                        print query_seq + "\t" + target_seq
+                        sys.stdout.flush()
 
     print "sensitivity: ", float(true_align) / align_truth
-    print "accuracy: ", float(true_align) / align_found
-    print align_truth
+    print "FPR ", float(align_found - true_align) / (tested - align_truth)
+    print "Found alignment: ", align_found
+    print "Found True Align: ", true_align
+    print "Ground Truth:", align_truth
+    print "How many pair", tested
