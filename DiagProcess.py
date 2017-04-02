@@ -4,6 +4,7 @@ didn't deal the exactly same case
 """
 from matplotlib import pyplot as plt
 from Bio import SeqIO
+from bintrees import *
 from QualitySeq import QualitySeq
 import ProbFunc
 
@@ -30,6 +31,13 @@ class DiagProcess(object):
         self.fw_seeds = 0
         self.rc_seeds = 0
         self.aligned = None
+
+        # I list for chaining of the group, the element is tuple (x_pos, cluster_index, 0 or -1(0 is start, -1 is end))
+        self.fw_I = []
+        self.rc_I = []
+        # L tree list of the y_pos of the start end of the group, (y_pos, cluster_index)
+        self.fw_L = FastRBTree()
+        self.rc_L = FastRBTree()
 
 
     def diag_points(self, k):
@@ -123,6 +131,9 @@ class DiagProcess(object):
                         break
 
                 if len(chain) > 1 and (abs(chain[-1][0] - chain[0][0]) > self.k or abs(chain[-1][1] - chain[0][1]) > self.k):
+                    self.fw_I.append((chain[0][0], len(fw_chain), 0))
+                    self.fw_I.append((chain[-1][0], len(fw_chain), -1))
+                    self.fw_L.insert(chain[-1][1], len(fw_chain))
                     fw_chain.append((chain, l))
                     self.fw_seeds += len(chain)
                 # print chain[0]
@@ -172,6 +183,9 @@ class DiagProcess(object):
                         break
 
                 if len(chain) > 1 and (abs(chain[-1][0] - chain[0][0]) > self.k and abs(chain[-1][1] - chain[0][1]) > self.k):
+                    self.rc_I.append((chain[0][0], len(rc_chain), 0))
+                    self.rc_I.append((chain[-1][0], len(rc_chain), -1))
+                    self.rc_L.insert(chain[-1][1], len(rc_chain))
                     rc_chain.append((chain, l))
                     self.rc_seeds += len(chain)
                 # print chain[0]
@@ -179,6 +193,266 @@ class DiagProcess(object):
             i += 1
 
         self.rc_chain = rc_chain
+
+    def optimal_fw_chain(self, chains, I_list, L_tree, gap = 0.2):
+        """
+
+        :param gap: gao rate of the read
+        :param chains:  a list contains all chain
+        :return:
+        """
+        r = len(I_list)
+        L = FastRBTree()
+        V = [0]*len(chains)
+        back_track = [-1]*len(chains)
+
+
+        for i in range(r):
+            # I_list[i] is a start point, noticed we go through the chain from botton to top
+            if I_list[i][2] == 0:
+                k = I_list[i][1]
+
+                l_k = chains[k][0][0][1]
+                start_y = l_k
+                start_x = I_list[i][0]
+                end_x = chains[k][0][-1][0]
+                end_y = chains[k][0][-1][1]
+                diagonal = start_y - start_x
+                # find largest h_j strictly smaller than l_k and also not off diagonal
+                try:
+                    j_item = L_tree.floor_item(l_k - 1)
+
+                    while True:
+                        prev_chain = chains[j_item[1]]
+                        prev_end_y = prev_chain[0][-1][1]
+                        prev_end_x = prev_chain[0][-1][0]
+                        prev_diagonal = prev_end_y - prev_end_x
+                        delta_y = abs(start_y - prev_end_y)
+                        delta_x = abs(start_x - prev_end_x)
+                        delta = max(delta_x, delta_y) * gap
+                        if abs(diagonal - prev_diagonal) > delta:
+                            try:
+                                j_item = L_tree.prev_item(j_item[0])
+                            except KeyError:
+                                v_j = 0
+                                j = -1
+                                prev_score = 0
+                                break
+                        else:
+                            prev_start_x = prev_chain[0][0][0]
+                            prev_start_y = prev_chain[0][0][1]
+                            v_j = min(abs(end_x - start_x), abs(end_y - start_y))
+                            j = j_item[1]
+
+                            prev_score = V[j]
+                            break
+                except KeyError:
+                    v_j = 0
+                    j= -1
+                    prev_score = 0
+
+                V[k] = prev_score + v_j
+                back_track[k] = j
+
+            # is a end point
+            else:
+                k = I_list[i][1]
+                h_k = chains[k][0][-1][1]
+
+                try:
+                    j_item = L.ceiling_item(h_k)
+                    j = j_item[1][1]
+                    V_j = j_item[1][0]
+                    if V[k] > V_j:
+                        L.insert(h_k, (V[k], k))
+
+                except KeyError:
+                    L.insert(h_k, (V[k], k))
+                # max_item = L_tree.max_item()
+                try:
+                    j1_item = L.ceiling_item(h_k)
+                    while True:
+                        prev_j1_item = j1_item
+                        try:
+                            j1_item = L.succ_item(j1_item[0])
+                            if V[k] > prev_j1_item[1][0]:
+                                L.remove(prev_j1_item)
+                        except KeyError:
+                            # print prev_j1_item
+                            if V[k] > prev_j1_item[1][0]:
+                                L.remove(prev_j1_item)
+                            break
+                except KeyError:
+                    continue
+
+        max_item = L.max_item()
+        score = max_item[1][0]
+
+        current_j = max_item[1][1]
+        # backtrack
+        chain_index = []
+        chain_index.append(current_j)
+
+        while True:
+            prev_j = back_track[current_j]
+            if prev_j == -1:
+                break
+            else:
+                current_j = prev_j
+                chain_index.append(current_j)
+
+        optimal_chain = []
+        length = 0
+        for i in chain_index[::-1]:
+            optimal_chain.extend(chains[i][0])
+            length += chains[i][1]
+
+        return optimal_chain, length
+
+    def optimal_rc_chain(self, chains, I_list, L_tree, gap=0.2):
+        """
+
+        :param gap: gao rate of the read
+        :param chains:  a list contains all chain
+        :return:
+        """
+        #print L_tree
+        r = len(I_list)
+        L = FastRBTree()
+        V = [0] * len(chains)
+        back_track = [-1] * len(chains)
+
+        for i in range(r):
+            # I_list[i] is a start point, noticed we go through the chain from botton to top
+            if I_list[i][2] == 0:
+                k = I_list[i][1]
+
+                l_k = chains[k][0][0][1]
+                start_y = l_k
+                start_x = I_list[i][0]
+                end_x = chains[k][0][-1][0]
+                end_y = chains[k][0][-1][1]
+                diagonal = start_y + start_x
+                # find largest h_j strictly smaller than l_k and also not off diagonal
+                try:
+                    j_item = L_tree.ceiling_item(l_k + 1)
+                    # print j_item
+
+                    while True:
+                        prev_chain = chains[j_item[1]]
+                        prev_end_y = prev_chain[0][-1][1]
+                        prev_end_x = prev_chain[0][-1][0]
+                        prev_diagonal = prev_end_y + prev_end_x
+                        delta_y = abs(start_y - prev_end_y)
+                        delta_x = abs(start_x - prev_end_x)
+                        delta = max(delta_x, delta_y) * gap
+                        if abs(diagonal - prev_diagonal) > delta:
+                            try:
+                                j_item = L_tree.succ_item(j_item[0])
+                                #print j_item
+                            except KeyError:
+                                v_k = 0
+                                j = -1
+                                prev_score = 0
+                                break
+                        else:
+
+                            v_k = min(abs(end_x - start_x), abs(end_y - start_y))
+                            j = j_item[1]
+
+                            prev_score = V[j]
+                            break
+                except KeyError:
+                    v_k = 0
+                    j = -1
+                    prev_score = 0
+
+                V[k] = prev_score + v_k
+                # print k, V[k]
+                back_track[k] = j
+
+            # is a end point
+            else:
+                # print "L", L
+                k = I_list[i][1]
+                h_k = chains[k][0][-1][1]
+
+                try:
+                    j_item = L.floor_item(h_k)
+                    j = j_item[1][1]
+                    V_j = j_item[1][0]
+                    if V[k] > V_j:
+                        L.insert(h_k, (V[k], k))
+
+                except KeyError:
+                    L.insert(h_k, (V[k], k))
+                # max_item = L_tree.max_item()
+                try:
+                    j1_item = L.floor_item(h_k)
+                    while True:
+                        prev_j1_item = j1_item
+                        try:
+                            j1_item = L.prev_item(j1_item[0])
+                            if V[k] > prev_j1_item[1][0]:
+                                L.remove(prev_j1_item)
+                        except KeyError:
+                            # print prev_j1_item
+                            if V[k] > prev_j1_item[1][0]:
+                                L.remove(prev_j1_item)
+                            break
+                except KeyError:
+                    continue
+
+        max_item = L.min_item()
+        score = max_item[1][0]
+
+        current_j = max_item[1][1]
+        # backtrack
+        chain_index = []
+        chain_index.append(current_j)
+
+        while True:
+            prev_j = back_track[current_j]
+            if prev_j == -1:
+                break
+            else:
+                current_j = prev_j
+                chain_index.append(current_j)
+
+        optimal_chain = []
+        length = 0
+        for i in chain_index[::-1]:
+            optimal_chain.extend(chains[i][0])
+            length += chains[i][1]
+
+        return optimal_chain, length
+
+    def optimal_rechain(self, gap = 0.2, rechain_threshold=5, span_threshold = 0):
+        align, length = self.optimal_fw_chain(self.fw_chain, self.fw_I, self.fw_L, gap)
+        x_span = abs(align[-1][0] - align[0][0])
+        y_span = abs(align[-1][1] - align[0][1])
+
+        if max(x_span, y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(x_span,
+                                                                                                           y_span) > span_threshold:
+            self.chain_align = align
+            self.is_forward = True
+
+        align, length = self.optimal_rc_chain(self.rc_chain, self.rc_I, self.rc_L, gap)
+        #print align
+        x_span = abs(align[-1][0] - align[0][0])
+        y_span = abs(align[-1][1] - align[0][1])
+
+        if len(align) > len(self.chain_align) and max(x_span, y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(x_span,
+                                                                                                           y_span) > span_threshold:
+            self.chain_align = align
+            self.is_forward = False
+
+        if len(self.chain_align) != 0:
+            self.aligned = True
+        else:
+            self.aligned = False
+
+
 
     def rechain(self, gap = 0.2, rechain_threshold=5, span_threshold = 0):
         """
@@ -247,6 +521,7 @@ class DiagProcess(object):
         i = 0
         seed_num = self.rc_seeds
         previous_seed_num = 0
+
         while i < len(self.rc_chain) - 1:
             if connected.get(i, False) is False:
                 align = []
@@ -322,16 +597,16 @@ class DiagProcess(object):
 if __name__ == '__main__':
     #record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
     #record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
-    #record1 = SeqIO.read("D:/Data/20170213/pair1_query.fastq", "fastq")
-    #record2 = SeqIO.read("D:/Data/20170213/pair1_target.fastq", "fastq")
-    record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170213/pair3_query.fastq", "fastq")
+    record2 = SeqIO.read("D:/Data/20170213/pair3_target.fastq", "fastq")
+    #record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
+    #record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
     chians = process.diag_chain(0.75, 0.2)
-    process.rechain(0.2, 15, 100)
+    process.optimal_rechain(0.5)
     print process.chain_align
     print process.aligned
     process.diag_plot()

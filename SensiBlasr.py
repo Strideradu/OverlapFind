@@ -5,8 +5,7 @@ from Bio import SeqIO
 blasr_large = {}
 blasr_medium = {}
 blasr_small = {}
-score_threshold = -5000
-
+score_threshold = -4000
 
 with open("D:/Data/20170312/sensitivety_large_overlap.m4") as f1:
     negative_large = 0
@@ -63,9 +62,9 @@ with open("D:/Data/20170309/blasr_overlap_not_found_score_0_1500pair.txt","w")as
             else:
                 print >> f, pair[0] + "\t" + pair[1]
     print num_found
-    print "accuracy", float(true_align) / num_found
+    # print "accuracy", float(true_align) / num_found
     print "sensitivity", float(true_align) / 610
-    # print "FPR", (610 - true_align)/float(negative_large - 610)
+    print "FPR", (num_found - true_align)/float(negative_large - 610)
     print >> f, ""
 
     num_found = 0
@@ -82,9 +81,9 @@ with open("D:/Data/20170309/blasr_overlap_not_found_score_0_1500pair.txt","w")as
             else:
                 print >> f, pair[0] + "\t" + pair[1]
     print num_found
-    print "accuracy", float(true_align) / num_found
+    # print "accuracy", float(true_align) / num_found
     print "sensitivity", float(true_align) / 588
-    # print "FPR", (588 - true_align) / float(negative_medium - 588)
+    print "FPR", (num_found - true_align) / float(negative_medium - 588)
     print >> f, ""
 
     num_found = 0
@@ -101,9 +100,9 @@ with open("D:/Data/20170309/blasr_overlap_not_found_score_0_1500pair.txt","w")as
             else:
                 print >> f, pair[0] + "\t" + pair[1]
     print num_found
-    print "accuracy", float(true_align) / num_found
+    # print "accuracy", float(true_align) / num_found
     print "sensitivity", float(true_align) /558
-    # print "FPR", (558 - true_align) / float(negative_small - 558)
+    print "FPR", (num_found - true_align) / float(negative_small - 558)
     print >> f, ""
 
 
