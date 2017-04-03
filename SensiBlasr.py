@@ -5,9 +5,9 @@ from Bio import SeqIO
 blasr_large = {}
 blasr_medium = {}
 blasr_small = {}
-score_threshold = -4000
+score_threshold = 1000
 
-with open("D:/Data/20170312/sensitivety_large_overlap.m4") as f1:
+with open("D:/Data/20170402_BLASR_bestn/sensitivety_large_overlap_bestn_125.m4") as f1:
     negative_large = 0
     for line in f1:
         negative_large += 1
@@ -17,7 +17,9 @@ with open("D:/Data/20170312/sensitivety_large_overlap.m4") as f1:
             if blasr_large.get(pair, False) is False:
                 blasr_large[pair] = True
 
-with open("D:/Data/20170312/sensitivety_medium_overlap.m4") as f1:
+print negative_large
+
+with open("D:/Data/20170402_BLASR_bestn/sensitivety_medium_overlap_bestn_125.m4") as f1:
     negative_medium = 0
     for line in f1:
         negative_medium += 1
@@ -27,7 +29,9 @@ with open("D:/Data/20170312/sensitivety_medium_overlap.m4") as f1:
             if blasr_medium.get(pair, False) is False:
                 blasr_medium[pair] = True
 
-with open("D:/Data/20170312/sensitivety_small_overlap.m4") as f1:
+print negative_medium
+
+with open("D:/Data/20170402_BLASR_bestn/sensitivety_small_overlap_bestn_125.m4") as f1:
     negative_small = 0
     for line in f1:
         negative_small += 1
@@ -36,6 +40,8 @@ with open("D:/Data/20170312/sensitivety_small_overlap.m4") as f1:
             pair = (blasr_record.target_id,blasr_record.id)
             if blasr_small.get(pair, False) is False:
                 blasr_small[pair] = True
+
+print negative_small
 
 def load_obj(filename ):
     with open(filename, 'rb') as f:
@@ -64,7 +70,8 @@ with open("D:/Data/20170309/blasr_overlap_not_found_score_0_1500pair.txt","w")as
     print num_found
     # print "accuracy", float(true_align) / num_found
     print "sensitivity", float(true_align) / 610
-    print "FPR", (num_found - true_align)/float(negative_large - 610)
+    # print "FPR", (num_found - true_align)/float(negative_large - 610)
+    print "FPR", (num_found - true_align) / float(70507- 610)
     print >> f, ""
 
     num_found = 0
@@ -83,7 +90,8 @@ with open("D:/Data/20170309/blasr_overlap_not_found_score_0_1500pair.txt","w")as
     print num_found
     # print "accuracy", float(true_align) / num_found
     print "sensitivity", float(true_align) / 588
-    print "FPR", (num_found - true_align) / float(negative_medium - 588)
+    # print "FPR", (num_found - true_align) / float(negative_medium - 588)
+    print "FPR", (num_found - true_align) / float(67453 - 588)
     print >> f, ""
 
     num_found = 0
@@ -102,7 +110,8 @@ with open("D:/Data/20170309/blasr_overlap_not_found_score_0_1500pair.txt","w")as
     print num_found
     # print "accuracy", float(true_align) / num_found
     print "sensitivity", float(true_align) /558
-    print "FPR", (num_found - true_align) / float(negative_small - 558)
+    # print "FPR", (num_found - true_align) / float(negative_small - 558)
+    print "FPR", (num_found - true_align) / float(65175 - 558)
     print >> f, ""
 
 
