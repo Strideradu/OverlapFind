@@ -11,6 +11,8 @@ The ground truth is divided into three categories as large, medium, small
 we will test each categories and to sees the sensitivith
 """
 parser = argparse.ArgumentParser()
+parser.add_argument("accuracy", help="accuracy of the reads", type=float)
+parser.add_argument("gap", help="gap rate", type=float)
 parser.add_argument("rechain", help="length of kmer", type=int)
 parser.add_argument("span", help="length of kmer", type=int)
 
@@ -102,8 +104,8 @@ for test in [large_test, medium_test, small_test]:
                 seq2 = QualitySeq(record2)
                 process = DiagProcess(seq1, seq2)
                 process.diag_points(9)
-                chians = process.diag_chain(0.75, 0.2)
-                process.rechain(0.2, args.rechain, args.span)
+                chians = process.diag_chain(args.accuracy, args.gap)
+                process.rechain(args.gap, args.rechain, args.span)
                 if true_pair.get((query_seq, target_seq), False) is True or true_pair.get((target_seq, query_seq), False) is True:
                     align_truth += 1
                     if process.aligned:
