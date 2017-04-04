@@ -105,7 +105,7 @@ for test in [large_test, medium_test, small_test]:
                 process = DiagProcess(seq1, seq2)
                 process.diag_points(9)
                 chians = process.diag_chain(args.accuracy, args.gap)
-                process.rechain(args.gap, args.rechain, args.span)
+                process.optimal_rechain(args.gap, args.rechain, args.span)
                 if true_pair.get((query_seq, target_seq), False) is True or true_pair.get((target_seq, query_seq), False) is True:
                     align_truth += 1
                     if process.aligned:
