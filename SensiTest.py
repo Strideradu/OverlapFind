@@ -30,7 +30,7 @@ def load_obj(filename ):
 
 num_test = 500
 overlap_dict = load_obj("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170317_ROC/overlap.pkl")
-fastq=SeqIO.index("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170317_ROC/filtered_subreads_15X.fastq" "fastq")
+fastq=SeqIO.index("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170317_ROC/filtered_subreads_15X.fastq", "fastq")
 masked_fasta=SeqIO.index("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170324_dust_group_hit/filtered_15X_masked.fasta", "fasta")
 
 tested = {}
