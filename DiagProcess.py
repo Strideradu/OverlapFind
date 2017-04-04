@@ -8,8 +8,9 @@ from bintrees import *
 from QualitySeq import QualitySeq
 import ProbFunc
 
+
 def reverse_com(string):
-    rev_com = {"A":"T", "C":"G", "T":"A", "G":"C", "N":"N"}
+    rev_com = {"A": "T", "C": "G", "T": "A", "G": "C", "N": "N"}
     result = ""
     for i in string:
         result = rev_com[i] + result
@@ -39,7 +40,6 @@ class DiagProcess(object):
         self.fw_L = FastRBTree()
         self.rc_L = FastRBTree()
 
-
     def diag_points(self, k):
         self.k = k
 
@@ -53,7 +53,7 @@ class DiagProcess(object):
 
         for key in allkey:
             # forward case
-            if not(dict2.get(key) is None) and not(dict1.get(key) is None):
+            if not (dict2.get(key) is None) and not (dict1.get(key) is None):
                 query_list = dict1[key]
                 target_list = dict2[key]
 
@@ -64,7 +64,7 @@ class DiagProcess(object):
 
             # reverse complement case
             rc_key = reverse_com(key)
-            if not(dict2.get(rc_key) is None) and not(dict1.get(key) is None):
+            if not (dict2.get(rc_key) is None) and not (dict1.get(key) is None):
                 query_list = dict1[key]
                 target_list = dict2[rc_key]
 
@@ -75,7 +75,7 @@ class DiagProcess(object):
             self.fw_points.sort()
             self.rc_points.sort()
 
-    def diag_chain(self, accuracy = 0.75, gap = 0.2):
+    def diag_chain(self, accuracy=0.75, gap=0.2):
         """
         chaining the seeds
         :param accuracy: expected match rate
@@ -109,13 +109,13 @@ class DiagProcess(object):
                 for j in range(i + 1, len(self.fw_points)):
                     x = self.fw_points[j][0]
                     y = self.fw_points[j][1]
-                    diagonal =  y - x
+                    diagonal = y - x
 
                     delta_y = abs(y - last_y)
                     delta_x = abs(x - last_x)
 
-                    if max(delta_y, delta_x)<=L and abs(diagonal - last_diagonal)<=delta:
-                        if max(delta_y, delta_x)<= self.k:
+                    if max(delta_y, delta_x) <= L and abs(diagonal - last_diagonal) <= delta:
+                        if max(delta_y, delta_x) <= self.k:
                             l += max(delta_y, delta_x)
                         else:
                             l += self.k
@@ -126,17 +126,18 @@ class DiagProcess(object):
                         chained[self.fw_points[j]] = True
 
 
-                    elif min(delta_y, delta_x)>L:
+                    elif min(delta_y, delta_x) > L:
                         last_i = j
                         break
 
-                if len(chain) > 1 and (abs(chain[-1][0] - chain[0][0]) > self.k or abs(chain[-1][1] - chain[0][1]) > self.k):
+                if len(chain) > 1 and (
+                        abs(chain[-1][0] - chain[0][0]) > self.k or abs(chain[-1][1] - chain[0][1]) > self.k):
                     self.fw_I.append((chain[0][0], len(fw_chain), 0))
                     self.fw_I.append((chain[-1][0], len(fw_chain), -1))
                     self.fw_L.insert(chain[-1][1], len(fw_chain))
                     fw_chain.append((chain, l))
                     self.fw_seeds += len(chain)
-                # print chain[0]
+                    # print chain[0]
 
             i += 1
 
@@ -162,13 +163,13 @@ class DiagProcess(object):
                 for j in range(i + 1, len(self.rc_points)):
                     x = self.rc_points[j][0]
                     y = self.rc_points[j][1]
-                    diagonal =  y + x
+                    diagonal = y + x
 
                     delta_y = abs(y - last_y)
                     delta_x = abs(x - last_x)
 
-                    if max(delta_y, delta_x)<=L and abs(diagonal - last_diagonal)<=delta:
-                        if max(delta_y, delta_x)<= self.k:
+                    if max(delta_y, delta_x) <= L and abs(diagonal - last_diagonal) <= delta:
+                        if max(delta_y, delta_x) <= self.k:
                             l += max(delta_y, delta_x)
                         else:
                             l += self.k
@@ -178,23 +179,24 @@ class DiagProcess(object):
                         chain.append(self.rc_points[j])
                         chained[self.rc_points[j]] = True
 
-                    elif min(delta_y, delta_x)>L:
+                    elif min(delta_y, delta_x) > L:
                         # last_i = j
                         break
 
-                if len(chain) > 1 and (abs(chain[-1][0] - chain[0][0]) > self.k and abs(chain[-1][1] - chain[0][1]) > self.k):
+                if len(chain) > 1 and (
+                        abs(chain[-1][0] - chain[0][0]) > self.k and abs(chain[-1][1] - chain[0][1]) > self.k):
                     self.rc_I.append((chain[0][0], len(rc_chain), 0))
                     self.rc_I.append((chain[-1][0], len(rc_chain), -1))
                     self.rc_L.insert(chain[-1][1], len(rc_chain))
                     rc_chain.append((chain, l))
                     self.rc_seeds += len(chain)
-                # print chain[0]
+                    # print chain[0]
 
             i += 1
 
         self.rc_chain = rc_chain
 
-    def optimal_fw_chain(self, chains, I_list, L_tree, gap = 0.2):
+    def optimal_fw_chain(self, chains, I_list, L_tree, gap=0.2):
         """
 
         :param gap: gao rate of the read
@@ -203,9 +205,8 @@ class DiagProcess(object):
         """
         r = len(I_list)
         L = FastRBTree()
-        V = [0]*len(chains)
-        back_track = [-1]*len(chains)
-
+        V = [0] * len(chains)
+        back_track = [-1] * len(chains)
 
         for i in range(r):
             # I_list[i] is a start point, noticed we go through the chain from botton to top
@@ -222,33 +223,14 @@ class DiagProcess(object):
                 try:
                     j_item = L_tree.floor_item(l_k - 1)
 
-                    while True:
-                        prev_chain = chains[j_item[1]]
-                        prev_end_y = prev_chain[0][-1][1]
-                        prev_end_x = prev_chain[0][-1][0]
-                        prev_diagonal = prev_end_y - prev_end_x
-                        delta_y = abs(start_y - prev_end_y)
-                        delta_x = abs(start_x - prev_end_x)
-                        delta = max(delta_x, delta_y) * gap
-                        if abs(diagonal - prev_diagonal) > delta:
-                            try:
-                                j_item = L_tree.prev_item(j_item[0])
-                            except KeyError:
-                                v_j = 0
-                                j = -1
-                                prev_score = 0
-                                break
-                        else:
-                            prev_start_x = prev_chain[0][0][0]
-                            prev_start_y = prev_chain[0][0][1]
-                            v_j = min(abs(end_x - start_x), abs(end_y - start_y))
-                            j = j_item[1]
+                    v_j = min(abs(end_x - start_x), abs(end_y - start_y))
+                    j = j_item[1]
 
-                            prev_score = V[j]
-                            break
+                    prev_score = V[j]
+
                 except KeyError:
                     v_j = 0
-                    j= -1
+                    j = -1
                     prev_score = 0
 
                 V[k] = prev_score + v_j
@@ -316,7 +298,7 @@ class DiagProcess(object):
         :param chains:  a list contains all chain
         :return:
         """
-        #print L_tree
+        # print L_tree
         r = len(I_list)
         L = FastRBTree()
         V = [0] * len(chains)
@@ -336,32 +318,12 @@ class DiagProcess(object):
                 # find largest h_j strictly smaller than l_k and also not off diagonal
                 try:
                     j_item = L_tree.ceiling_item(l_k + 1)
-                    # print j_item
 
-                    while True:
-                        prev_chain = chains[j_item[1]]
-                        prev_end_y = prev_chain[0][-1][1]
-                        prev_end_x = prev_chain[0][-1][0]
-                        prev_diagonal = prev_end_y + prev_end_x
-                        delta_y = abs(start_y - prev_end_y)
-                        delta_x = abs(start_x - prev_end_x)
-                        delta = max(delta_x, delta_y) * gap
-                        if abs(diagonal - prev_diagonal) > delta:
-                            try:
-                                j_item = L_tree.succ_item(j_item[0])
-                                #print j_item
-                            except KeyError:
-                                v_k = 0
-                                j = -1
-                                prev_score = 0
-                                break
-                        else:
+                    v_k = min(abs(end_x - start_x), abs(end_y - start_y))
+                    j = j_item[1]
 
-                            v_k = min(abs(end_x - start_x), abs(end_y - start_y))
-                            j = j_item[1]
+                    prev_score = V[j]
 
-                            prev_score = V[j]
-                            break
                 except KeyError:
                     v_k = 0
                     j = -1
@@ -427,7 +389,7 @@ class DiagProcess(object):
 
         return optimal_chain, length
 
-    def optimal_rechain(self, gap = 0.2, rechain_threshold=5, span_threshold = 0):
+    def optimal_rechain(self, gap=0.2, rechain_threshold=5, span_threshold=0):
         align, length = self.optimal_fw_chain(self.fw_chain, self.fw_I, self.fw_L, gap)
         x_span = abs(align[-1][0] - align[0][0])
         y_span = abs(align[-1][1] - align[0][1])
@@ -438,12 +400,14 @@ class DiagProcess(object):
             self.is_forward = True
 
         align, length = self.optimal_rc_chain(self.rc_chain, self.rc_I, self.rc_L, gap)
-        #print align
+        # print align
         x_span = abs(align[-1][0] - align[0][0])
         y_span = abs(align[-1][1] - align[0][1])
 
-        if len(align) > len(self.chain_align) and max(x_span, y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(x_span,
-                                                                                                           y_span) > span_threshold:
+        if len(align) > len(self.chain_align) and max(x_span,
+                                                      y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(
+                x_span,
+                y_span) > span_threshold:
             self.chain_align = align
             self.is_forward = False
 
@@ -452,9 +416,7 @@ class DiagProcess(object):
         else:
             self.aligned = False
 
-
-
-    def rechain(self, gap = 0.2, rechain_threshold=5, span_threshold = 0):
+    def rechain(self, gap=0.2, rechain_threshold=5, span_threshold=0):
         """
         connect the chain of the seeds from chaining step to generate final long chain
         :return:
@@ -468,10 +430,10 @@ class DiagProcess(object):
         seed_num = self.fw_seeds
         previous_seed_num = 0
         while i < len(self.fw_chain):
-            #print i
+            # print i
             if connected.get(i, False) is False:
                 align = []
-                length  = 0
+                length = 0
                 last_end_x = self.fw_chain[i][0][-1][0]
                 last_end_y = self.fw_chain[i][0][-1][1]
 
@@ -480,10 +442,10 @@ class DiagProcess(object):
                 length += self.fw_chain[i][1]
                 connected[i] = True
                 for j in range(i + 1, len(self.fw_chain)):
-                    #print "j", j
+                    # print "j", j
                     start_x = self.fw_chain[j][0][0][0]
                     start_y = self.fw_chain[j][0][0][1]
-                    diagonal =  start_y - start_x
+                    diagonal = start_y - start_x
                     delta_y = abs(start_y - last_end_y)
                     delta_x = abs(start_x - last_end_x)
                     delta = max(delta_x, delta_y) * gap
@@ -502,10 +464,11 @@ class DiagProcess(object):
 
                     x_span = abs(align[-1][0] - align[0][0])
                     y_span = abs(align[-1][1] - align[0][1])
-                    #print length / self.k
-                    #print max(x_span, y_span) / 135
+                    # print length / self.k
+                    # print max(x_span, y_span) / 135
 
-                    if max(x_span, y_span)/135 < 3 * length/self.k and length > rechain_threshold*self.k and min(x_span, y_span) > span_threshold:
+                    if max(x_span, y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(
+                            x_span, y_span) > span_threshold:
                         self.chain_align = align
                         self.is_forward = True
 
@@ -536,7 +499,7 @@ class DiagProcess(object):
                 for j in range(i + 1, len(self.rc_chain)):
                     start_x = self.rc_chain[j][0][0][0]
                     start_y = self.rc_chain[j][0][0][1]
-                    diagonal =  start_y + start_x
+                    diagonal = start_y + start_x
                     delta_y = abs(start_y - last_end_y)
                     delta_x = abs(start_x - last_end_x)
                     delta = max(delta_x, delta_y) * gap
@@ -553,10 +516,11 @@ class DiagProcess(object):
 
                     x_span = abs(align[-1][0] - align[0][0])
                     y_span = abs(align[-1][1] - align[0][1])
-                    #print length / self.k
-                    #print max(x_span, y_span) / 135
+                    # print length / self.k
+                    # print max(x_span, y_span) / 135
                     # print x_span, y_span
-                    if max(x_span, y_span) / 135 < 3 * length / self.k and length > rechain_threshold*self.k and min(x_span, y_span) > span_threshold:
+                    if max(x_span, y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(
+                            x_span, y_span) > span_threshold:
                         self.chain_align = align
                         self.is_forward = False
 
@@ -572,8 +536,6 @@ class DiagProcess(object):
         else:
             self.aligned = False
 
-
-
     def diag_plot(self):
         plt.figure()
         coordinates = map(list, zip(*self.fw_points))
@@ -581,26 +543,27 @@ class DiagProcess(object):
         plt.scatter(coordinates[0], coordinates[1], c=coordinates[2], cmap="Reds")
         plt.colorbar()
         for chain in self.fw_chain:
-            #print chain
+            # print chain
             chain_coor = map(list, zip(*chain[0]))
             plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
         plt.figure()
         coordinates = map(list, zip(*self.rc_points))
-        plt.scatter(coordinates[0], coordinates[1],c = coordinates[2], cmap="Greens")
+        plt.scatter(coordinates[0], coordinates[1], c=coordinates[2], cmap="Greens")
         plt.colorbar()
         for chain in self.rc_chain:
-            #print chain
+            # print chain
             chain_coor = map(list, zip(*chain[0]))
             plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
         plt.show()
 
+
 if __name__ == '__main__':
-    #record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
-    #record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
-    record1 = SeqIO.read("D:/Data/20170213/pair3_query.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170213/pair3_target.fastq", "fastq")
-    #record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
-    #record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
+    # record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
+    record1 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
+    record2 = SeqIO.read("D:/Data/20170213/pair2_target.fastq", "fastq")
+    # record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
+    # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)

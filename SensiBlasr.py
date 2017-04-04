@@ -7,7 +7,7 @@ blasr_medium = {}
 blasr_small = {}
 score_threshold = 1000
 
-with open("D:/Data/20170402_BLASR_bestn/sensitivety_large_overlap_bestn_200.m4") as f1:
+with open("D:/Data/20170402_BLASR_bestn/sensitivety_large_overlap_bestn_1.m4") as f1:
     negative_large = 0
     large_all_count = {}
     for line in f1:
@@ -25,7 +25,7 @@ with open("D:/Data/20170402_BLASR_bestn/sensitivety_large_overlap_bestn_200.m4")
 
 print negative_large
 
-with open("D:/Data/20170402_BLASR_bestn/sensitivety_medium_overlap_bestn_125.m4") as f1:
+with open("D:/Data/20170402_BLASR_bestn/sensitivety_medium_overlap_bestn_1.m4") as f1:
     negative_medium = 0
     medium_all_count = {}
     for line in f1:
@@ -42,7 +42,7 @@ with open("D:/Data/20170402_BLASR_bestn/sensitivety_medium_overlap_bestn_125.m4"
 
 print negative_medium
 
-with open("D:/Data/20170402_BLASR_bestn/sensitivety_small_overlap_bestn_125.m4") as f1:
+with open("D:/Data/20170402_BLASR_bestn/sensitivety_small_overlap_bestn_1.m4") as f1:
     negative_small = 0
     small_all_count = {}
     for line in f1:
