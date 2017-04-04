@@ -267,27 +267,32 @@ class DiagProcess(object):
                 except KeyError:
                     continue
 
-        max_item = L.max_item()
-        score = max_item[1][0]
+        try:
+            max_item = L.max_item()
+            score = max_item[1][0]
 
-        current_j = max_item[1][1]
-        # backtrack
-        chain_index = []
-        chain_index.append(current_j)
+            current_j = max_item[1][1]
+            # backtrack
+            chain_index = []
+            chain_index.append(current_j)
 
-        while True:
-            prev_j = back_track[current_j]
-            if prev_j == -1:
-                break
-            else:
-                current_j = prev_j
-                chain_index.append(current_j)
+            while True:
+                prev_j = back_track[current_j]
+                if prev_j == -1:
+                    break
+                else:
+                    current_j = prev_j
+                    chain_index.append(current_j)
 
-        optimal_chain = []
-        length = 0
-        for i in chain_index[::-1]:
-            optimal_chain.extend(chains[i][0])
-            length += chains[i][1]
+            optimal_chain = []
+            length = 0
+            for i in chain_index[::-1]:
+                optimal_chain.extend(chains[i][0])
+                length += chains[i][1]
+
+        except ValueError:
+            optimal_chain = None
+            length = 0
 
         return optimal_chain, length
 
@@ -365,51 +370,61 @@ class DiagProcess(object):
                 except KeyError:
                     continue
 
-        max_item = L.min_item()
-        score = max_item[1][0]
+        try:
+            max_item = L.min_item()
+            score = max_item[1][0]
 
-        current_j = max_item[1][1]
-        # backtrack
-        chain_index = []
-        chain_index.append(current_j)
+            current_j = max_item[1][1]
+            # backtrack
+            chain_index = []
+            chain_index.append(current_j)
 
-        while True:
-            prev_j = back_track[current_j]
-            if prev_j == -1:
-                break
-            else:
-                current_j = prev_j
-                chain_index.append(current_j)
+            while True:
+                prev_j = back_track[current_j]
+                if prev_j == -1:
+                    break
+                else:
+                    current_j = prev_j
+                    chain_index.append(current_j)
 
-        optimal_chain = []
-        length = 0
-        for i in chain_index[::-1]:
-            optimal_chain.extend(chains[i][0])
-            length += chains[i][1]
+            optimal_chain = []
+            length = 0
+            for i in chain_index[::-1]:
+                optimal_chain.extend(chains[i][0])
+                length += chains[i][1]
+
+        except ValueError:
+            optimal_chain = None
+            length = 0
+
+
 
         return optimal_chain, length
 
     def optimal_rechain(self, gap=0.2, rechain_threshold=5, span_threshold=0):
         align, length = self.optimal_fw_chain(self.fw_chain, self.fw_I, self.fw_L, gap)
-        x_span = abs(align[-1][0] - align[0][0])
-        y_span = abs(align[-1][1] - align[0][1])
 
-        if max(x_span, y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(x_span,
-                                                                                                           y_span) > span_threshold:
-            self.chain_align = align
-            self.is_forward = True
+        if align:
+            x_span = abs(align[-1][0] - align[0][0])
+            y_span = abs(align[-1][1] - align[0][1])
+
+            if max(x_span, y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(x_span,
+                                                                                                               y_span) > span_threshold:
+                self.chain_align = align
+                self.is_forward = True
 
         align, length = self.optimal_rc_chain(self.rc_chain, self.rc_I, self.rc_L, gap)
         # print align
-        x_span = abs(align[-1][0] - align[0][0])
-        y_span = abs(align[-1][1] - align[0][1])
+        if align:
+            x_span = abs(align[-1][0] - align[0][0])
+            y_span = abs(align[-1][1] - align[0][1])
 
-        if len(align) > len(self.chain_align) and max(x_span,
-                                                      y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(
-                x_span,
-                y_span) > span_threshold:
-            self.chain_align = align
-            self.is_forward = False
+            if len(align) > len(self.chain_align) and max(x_span,
+                                                          y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(
+                    x_span,
+                    y_span) > span_threshold:
+                self.chain_align = align
+                self.is_forward = False
 
         if len(self.chain_align) != 0:
             self.aligned = True
