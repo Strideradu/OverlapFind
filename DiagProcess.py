@@ -576,7 +576,7 @@ if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
     record1 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170213/pair2_target.fastq", "fastq")
+    record2 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
     # record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     seq1 = QualitySeq(record1)

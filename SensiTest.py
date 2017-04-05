@@ -29,11 +29,11 @@ def load_obj(filename ):
         return pickle.load(f)
 
 num_test = 500
-overlap_dict = load_obj("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170317_ROC/overlap.pkl")
-fastq=SeqIO.index("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170317_ROC/filtered_subreads_15X.fastq", "fastq")
-masked_fasta=SeqIO.index("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170324_dust_group_hit/filtered_15X_masked.fasta", "fasta")
+overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
+fastq=SeqIO.index("D:/Data/20170116/filtered_subreads_15X.fastq", "fastq")
+masked_fasta=SeqIO.index("D:/Data/20170116/filtered_15X_masked.fasta", "fasta")
 
-tested = {}
+tested_query = {}
 query = []
 large_test = []
 medium_test = []
@@ -51,7 +51,7 @@ for pacbio_id in overlap_dict:
     medium_overlap = overlap_dict[pacbio_id][1]
     small_overlap = overlap_dict[pacbio_id][2]
     for overlap_seq in large_overlap:
-        if tested.get(overlap_seq, False) is False:
+        if tested_query.get(overlap_seq, False) is False:
             true_pair[(pacbio_id, overlap_seq)] = True
             if len(large_test)< num_test:
                 if in_large.get(overlap_seq, False) is False:
@@ -59,7 +59,7 @@ for pacbio_id in overlap_dict:
                     in_large[overlap_seq] = True
 
     for overlap_seq in medium_overlap :
-        if tested.get(overlap_seq, False) is False:
+        if tested_query.get(overlap_seq, False) is False:
             true_pair[(pacbio_id, overlap_seq)] = True
             if len(medium_test)< num_test:
                 if in_medium.get(overlap_seq, False) is False:
@@ -67,21 +67,21 @@ for pacbio_id in overlap_dict:
                     in_medium[overlap_seq] = True
 
     for overlap_seq in small_overlap :
-        if tested.get(overlap_seq, False) is False:
+        if tested_query.get(overlap_seq, False) is False:
             true_pair[(pacbio_id, overlap_seq)] = True
             if len(small_test)< num_test :
                 if in_small.get(overlap_seq, False) is False:
                     small_test.append(overlap_seq)
                     in_small[overlap_seq] = True
 
-    tested[pacbio_id] = True
+    tested_query[pacbio_id] = True
     # print pacbio_id
     if len(large_test)>=num_test and len(medium_test)>=num_test and len(small_test)>=num_test:
         break
 #print len(query)
 
 
-
+qual_seqs = {}
 for test in [large_test, medium_test, small_test]:
     # num_pair = 0
     align_found = 0
@@ -98,10 +98,23 @@ for test in [large_test, medium_test, small_test]:
             if query_seq != target_seq:
                 tested += 1
 
-                record1 = fastq[query_seq]
-                record2 = masked_fasta[target_seq]
-                seq1 = QualitySeq(record1)
-                seq2 = QualitySeq(record2)
+
+
+
+                try:
+                    seq1 = qual_seqs[query_seq]
+                except KeyError:
+                    record1 = fastq[query_seq]
+                    seq1 = QualitySeq(record1)
+                    qual_seqs[query_seq] = seq1
+
+                try:
+                    seq2 = qual_seqs[target_seq]
+                except KeyError:
+                    record2 = masked_fasta[target_seq]
+                    seq2 = QualitySeq(record2)
+                    qual_seqs[target_seq] = seq2
+
                 process = DiagProcess(seq1, seq2)
                 process.diag_points(9)
                 chians = process.diag_chain(args.accuracy, args.gap)
