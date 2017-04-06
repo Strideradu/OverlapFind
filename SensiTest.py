@@ -96,20 +96,18 @@ for test in [large_test, medium_test, small_test]:
         large_overlap = overlap_dict[pacbio_id][0]
         medium_overlap = overlap_dict[pacbio_id][1]
         small_overlap = overlap_dict[pacbio_id][2]
+
+        try:
+            seq1 = qual_seqs[query_seq]
+        except KeyError:
+            record1 = fastq[query_seq]
+            seq1 = QualitySeq(record1)
+            qual_seqs[query_seq] = seq1
+
         for target_seq in test:
             # num_pair += 1
             if query_seq != target_seq:
                 tested += 1
-
-
-
-
-                try:
-                    seq1 = qual_seqs[query_seq]
-                except KeyError:
-                    record1 = fastq[query_seq]
-                    seq1 = QualitySeq(record1)
-                    qual_seqs[query_seq] = seq1
 
                 try:
                     seq2 = qual_seqs[target_seq]
@@ -136,8 +134,13 @@ for test in [large_test, medium_test, small_test]:
                         align_found += 1
 
                         # false positive align
-                        print query_seq + "\t" + target_seq
-                        sys.stdout.flush()
+                        print "False Positive" + query_seq + "\t" + target_seq
+                        #sys.stdout.flush()
+
+                print query_seq + "\t" + target_seq
+                sys.stdout.flush()
+
+
 
     print "sensitivity: ", float(true_align) / align_truth
     print "FPR ", float(align_found - true_align) / (tested - align_truth)
