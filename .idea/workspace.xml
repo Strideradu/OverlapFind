@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11908691-7248-4bca-af62-dc1f7fc6843f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/KmerProfile.py" afterPath="$PROJECT_DIR$/KmerProfile.py" />
     </list>
     <ignored path="OverlapFind.iws" />
@@ -67,9 +68,11 @@
       <file leaf-file-name="CompareKmerProfileOverlap.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/old_code/CompareKmerProfileOverlap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="14" selection-end-column="36" />
-              <folding />
+            <state relative-caret-position="561">
+              <caret line="202" column="126" lean-forward="true" selection-start-line="202" selection-start-column="3" selection-end-line="202" selection-end-column="126" />
+              <folding>
+                <element signature="e#83#96#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,8 +80,8 @@
       <file leaf-file-name="KmerProfile.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/KmerProfile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="539">
-              <caret line="62" column="39" lean-forward="true" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
+            <state relative-caret-position="1998">
+              <caret line="74" column="20" lean-forward="false" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -89,7 +92,7 @@
       <file leaf-file-name="SensiTest.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SensiTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2145">
+            <state relative-caret-position="-2910">
               <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="24" selection-end-column="15" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
@@ -470,7 +473,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="2182" height="1402" extended-state="6" />
+    <frame x="-11" y="-11" width="2182" height="1402" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23695345" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -846,14 +849,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/old_code/CompareKmerProfileOverlap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="14" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SensiMinimap15X.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1053">
@@ -874,7 +869,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SensiTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2145">
+        <state relative-caret-position="-2910">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="24" selection-end-column="15" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
@@ -882,10 +877,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/old_code/CompareKmerProfileOverlap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="202" column="126" lean-forward="true" selection-start-line="202" selection-start-column="3" selection-end-line="202" selection-end-column="126" />
+          <folding>
+            <element signature="e#83#96#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/KmerProfile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="62" column="39" lean-forward="true" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
+        <state relative-caret-position="1998">
+          <caret line="74" column="20" lean-forward="false" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>

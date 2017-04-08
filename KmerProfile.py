@@ -10,6 +10,7 @@ import sys
 parser = argparse.ArgumentParser()
 parser.add_argument("query", help="query fasta path", type=str)
 parser.add_argument("target", help="target fasta path", type=str)
+parser.add_argument("fig", help="fig path", type=str)
 parser.add_argument("k", help="kmer", type=int)
 
 try:
@@ -71,4 +72,4 @@ bins = np.linspace(0, 2000, 100)
 print tested_pair
 plt.hist(true, bins, alpha=0.5, label='true', color = "r")
 plt.hist(false, bins, alpha=0.5, label='false', color = "b")
-plt.show()
+plt.savefig(args.fig)
