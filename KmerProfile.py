@@ -4,6 +4,20 @@ from DiagProcess import DiagProcess
 import pickle
 from matplotlib import pyplot as plt
 import numpy as np
+import argparse
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument("query", help="query fasta path", type=str)
+parser.add_argument("target", help="target fasta path", type=str)
+parser.add_argument("k", help="kmer", type=int)
+
+try:
+    args = parser.parse_args()
+
+except:
+    parser.print_help()
+    sys.exit(1)
 
 def load_obj(filename ):
     with open(filename, 'rb') as f:
@@ -11,12 +25,13 @@ def load_obj(filename ):
 
 overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 
+
 masked_fasta=SeqIO.index("D:/Data/20170116/filtered_15X_masked.fasta", "fasta")
 
-query_fasta = SeqIO.parse("D:/Data/20170312/sensitivety_query.fasta", "fasta")
+query_fasta = SeqIO.parse(args.query, "fasta")
 
 # target only extract the id, sequence should get from masked_fasta
-target_fasta = SeqIO.parse("D:/Data/20170312/sensitivety_small_overlap.fasta", "fasta")
+target_fasta = SeqIO.parse(args.target, "fasta")
 # SeqIO only generate an iterator so cannot iterate many times, generate a list first
 target_list = []
 for target_seq in target_fasta:
@@ -36,7 +51,7 @@ for query_seq in query_fasta:
             target_masked = masked_fasta[target_id]
             seq_2 = QualitySeq(target_masked)
             process = DiagProcess(seq_1, seq_2)
-            process.diag_points(9)
+            process.diag_points(args.k)
             if len(process.fw_points) > len(process.rc_points):
                 shared_num = len(process.fw_points)
             else:
