@@ -24,10 +24,10 @@ def load_obj(filename ):
     with open(filename, 'rb') as f:
         return pickle.load(f)
 
-overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
+overlap_dict = load_obj("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170317_ROC/overlap.pkl")
 
 
-masked_fasta=SeqIO.index("D:/Data/20170116/filtered_15X_masked.fasta", "fasta")
+masked_fasta=SeqIO.index("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170324_dust_group_hit/filtered_15X_masked.fasta", "fasta")
 
 query_fasta = SeqIO.parse(args.query, "fasta")
 
