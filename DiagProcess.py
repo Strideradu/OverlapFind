@@ -253,6 +253,8 @@ class DiagProcess(object):
                 # max_item = L_tree.max_item()
                 try:
                     j1_item = L.ceiling_item(h_k)
+
+                    # maybe mofify here
                     while True:
                         prev_j1_item = j1_item
                         try:
@@ -575,10 +577,12 @@ class DiagProcess(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
-    record1 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
+    # record1 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
+    # record2 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
     # record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170406/debug_query.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170406/debug_target.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
