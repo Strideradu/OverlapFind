@@ -70,7 +70,7 @@ for query_seq in query_fasta:
 
 
 plt.figure()
-bins = np.linspace(0, 2000, 100)
+bins = np.linspace(0, 2000, 200)
 print tested_pair
 plt.hist(true, bins, alpha=0.5, label='true', color = "r")
 plt.hist(false, bins, alpha=0.5, label='false', color = "b")
