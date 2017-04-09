@@ -1,9 +1,9 @@
+import matplotlib
+matplotlib.use('Agg')
 from Bio import SeqIO
 from QualitySeq import QualitySeq
 from DiagProcess import DiagProcess
 import pickle
-import matplotlib
-matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import numpy as np
 import argparse
