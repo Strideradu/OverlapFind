@@ -14,6 +14,8 @@ parser.add_argument("query", help="query fasta path", type=str)
 parser.add_argument("target", help="target fasta path", type=str)
 parser.add_argument("fig", help="fig path", type=str)
 parser.add_argument("k", help="kmer", type=int)
+parser.add_argument("max_k", help="max shared kmer in fugure", type=int)
+parser.add_argument("bin_size", help="number of bins", type=int)
 
 try:
     args = parser.parse_args()
@@ -71,7 +73,7 @@ for query_seq in query_fasta:
 
 
 plt.figure()
-bins = np.linspace(0, 2000, 200)
+bins = np.linspace(0, args.max_k, args.bin_size)
 print tested_pair
 plt.hist(true, bins, alpha=0.5, label='true', color = "r", normed=1)
 plt.hist(false, bins, alpha=0.5, label='false', color = "b", normed=1)
