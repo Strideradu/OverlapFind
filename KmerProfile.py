@@ -69,9 +69,10 @@ for query_seq in query_fasta:
                 false.append(shared_num)
 
 
+
 plt.figure()
 bins = np.linspace(0, 2000, 200)
 print tested_pair
-plt.hist(true, bins, alpha=0.5, label='true', color = "r")
-plt.hist(false, bins, alpha=0.5, label='false', color = "b")
+plt.hist(true, bins, alpha=0.5, label='true', color = "r", normed=1)
+plt.hist(false, bins, alpha=0.5, label='false', color = "b", normed=1)
 plt.savefig(args.fig)
