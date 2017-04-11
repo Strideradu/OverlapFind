@@ -83,7 +83,7 @@ for pacbio_id in overlap_dict:
         break
 #print len(query)
 
-
+debug_start = False
 qual_seqs = {}
 for test in [large_test, medium_test, small_test]:
     # num_pair = 0
@@ -93,52 +93,55 @@ for test in [large_test, medium_test, small_test]:
     tested = 0
     for query_seq in query:
         # print  query_seq
-        large_overlap = overlap_dict[pacbio_id][0]
-        medium_overlap = overlap_dict[pacbio_id][1]
-        small_overlap = overlap_dict[pacbio_id][2]
+        if query_seq == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/113629/18766_29441":
+            debug_start = True
+        if debug_start:
+            large_overlap = overlap_dict[pacbio_id][0]
+            medium_overlap = overlap_dict[pacbio_id][1]
+            small_overlap = overlap_dict[pacbio_id][2]
 
-        try:
-            seq1 = qual_seqs[query_seq]
-        except KeyError:
-            record1 = fastq[query_seq]
-            seq1 = QualitySeq(record1)
-            qual_seqs[query_seq] = seq1
+            try:
+                seq1 = qual_seqs[query_seq]
+            except KeyError:
+                record1 = fastq[query_seq]
+                seq1 = QualitySeq(record1)
+                qual_seqs[query_seq] = seq1
 
-        for target_seq in test:
-            # num_pair += 1
-            if query_seq != target_seq:
-                tested += 1
+            for target_seq in test:
+                # num_pair += 1
+                if query_seq != target_seq:
+                    tested += 1
 
-                try:
-                    seq2 = qual_seqs[target_seq]
-                except KeyError:
-                    record2 = masked_fasta[target_seq]
-                    seq2 = QualitySeq(record2)
-                    qual_seqs[target_seq] = seq2
+                    try:
+                        seq2 = qual_seqs[target_seq]
+                    except KeyError:
+                        record2 = masked_fasta[target_seq]
+                        seq2 = QualitySeq(record2)
+                        qual_seqs[target_seq] = seq2
 
-                process = DiagProcess(seq1, seq2)
-                process.diag_points(9)
-                chians = process.diag_chain(args.accuracy, args.gap)
-                process.optimal_rechain(args.gap, args.rechain, args.span)
-                if true_pair.get((query_seq, target_seq), False) is True or true_pair.get((target_seq, query_seq), False) is True:
-                    align_truth += 1
-                    if process.aligned:
-                        align_found += 1
-                        true_align += 1
-                    """
+                    process = DiagProcess(seq1, seq2)
+                    process.diag_points(9)
+                    chians = process.diag_chain(args.accuracy, args.gap)
+                    process.optimal_rechain(args.gap, args.rechain, args.span)
+                    if true_pair.get((query_seq, target_seq), False) is True or true_pair.get((target_seq, query_seq), False) is True:
+                        align_truth += 1
+                        if process.aligned:
+                            align_found += 1
+                            true_align += 1
+                        """
+                        else:
+                            print >> f, query_seq + "\t" + target_seq
+                        """
                     else:
-                        print >> f, query_seq + "\t" + target_seq
-                    """
-                else:
-                    if process.aligned:
-                        align_found += 1
+                        if process.aligned:
+                            align_found += 1
 
-                        # false positive align
-                        print "False Positive" + query_seq + "\t" + target_seq
-                        #sys.stdout.flush()
+                            # false positive align
+                            print "False Positive" + query_seq + "\t" + target_seq
+                            #sys.stdout.flush()
 
-                print query_seq + "\t" + target_seq
-                sys.stdout.flush()
+                    print query_seq + "\t" + target_seq
+                    sys.stdout.flush()
 
 
 
