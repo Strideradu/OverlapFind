@@ -268,7 +268,7 @@ class DiagProcess(object):
                             break
                 except KeyError:
                     continue
-
+        print "DP finished"
         try:
             max_item = L.max_item()
             score = max_item[1][0]
@@ -371,7 +371,7 @@ class DiagProcess(object):
                             break
                 except KeyError:
                     continue
-
+        print "DP finished"
         try:
             max_item = L.min_item()
             score = max_item[1][0]
@@ -405,6 +405,7 @@ class DiagProcess(object):
 
     def optimal_rechain(self, gap=0.2, rechain_threshold=5, span_threshold=0):
         align, length = self.optimal_fw_chain(self.fw_chain, self.fw_I, self.fw_L, gap)
+        print "Forward Chain Completed"
 
         if align:
             x_span = abs(align[-1][0] - align[0][0])
@@ -416,6 +417,7 @@ class DiagProcess(object):
                 self.is_forward = True
 
         align, length = self.optimal_rc_chain(self.rc_chain, self.rc_I, self.rc_L, gap)
+        print "Reversed Chain Completed"
         # print align
         if align:
             x_span = abs(align[-1][0] - align[0][0])
@@ -581,14 +583,14 @@ if __name__ == '__main__':
     # record2 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
     # record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170406/debug_query.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
     record2 = SeqIO.read("D:/Data/20170406/debug_target.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
-    chians = process.diag_chain(0.75, 0.2)
-    process.optimal_rechain(0.5)
+    chians = process.diag_chain(0.9, 0.08)
+    process.optimal_rechain(0.08, 3, 0)
     print process.chain_align
     print process.aligned
     process.diag_plot()
