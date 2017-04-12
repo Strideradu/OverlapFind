@@ -121,7 +121,7 @@ for test in [large_test, medium_test, small_test]:
                         record2 = masked_fasta[target_seq]
                         seq2 = QualitySeq(record2)
                         qual_seqs[target_seq] = seq2
-
+                    print query_seq + "\t" + target_seq + "\t start"
                     process = DiagProcess(seq1, seq2)
                     process.diag_points(9)
                     chians = process.diag_chain(args.accuracy, args.gap)
@@ -143,7 +143,7 @@ for test in [large_test, medium_test, small_test]:
                             print "False Positive" + query_seq + "\t" + target_seq
                             #sys.stdout.flush()
 
-                    print query_seq + "\t" + target_seq
+                    print query_seq + "\t" + target_seq + "\t finished"
                     sys.stdout.flush()
 
 
