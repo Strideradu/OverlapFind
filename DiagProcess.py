@@ -327,6 +327,7 @@ class DiagProcess(object):
                 # find largest h_j strictly smaller than l_k and also not off diagonal
                 try:
                     j_item = L_tree.ceiling_item(l_k + 1)
+                    print "ceiling", j_item
 
                     v_k = min(abs(end_x - start_x), abs(end_y - start_y))
                     j = j_item[1]
@@ -594,7 +595,8 @@ if __name__ == '__main__':
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
-    chians = process.diag_chain(0.9, 0.08)
+    process.diag_chain(0.85, 0.12)
+    print process.fw_chain
     process.optimal_rechain(0.08, 3, 0)
     print process.chain_align
     print process.aligned
