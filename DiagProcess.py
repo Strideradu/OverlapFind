@@ -312,6 +312,7 @@ class DiagProcess(object):
         L = FastRBTree()
         V = [0] * len(chains)
         back_track = [-1] * len(chains)
+        print L_tree
 
         for i in range(r):
             # I_list[i] is a start point, noticed we go through the chain from botton to top
