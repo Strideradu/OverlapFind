@@ -377,6 +377,7 @@ class DiagProcess(object):
         try:
             max_item = L.min_item()
             score = max_item[1][0]
+            print max_item
 
             current_j = max_item[1][1]
             # backtrack
@@ -385,6 +386,7 @@ class DiagProcess(object):
 
             while True:
                 prev_j = back_track[current_j]
+                print prev_j
                 if prev_j == -1:
                     break
                 else:
