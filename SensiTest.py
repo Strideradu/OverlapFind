@@ -17,12 +17,15 @@ parser.add_argument("rechain", help="length of kmer", type=int)
 parser.add_argument("span", help="length of kmer", type=int)
 
 
+
 try:
     args = parser.parse_args()
 
 except:
     parser.print_help()
     sys.exit(1)
+
+print args.accuracy, args.gap, args.rechain, args.span
 
 def load_obj(filename ):
     with open(filename, 'rb') as f:

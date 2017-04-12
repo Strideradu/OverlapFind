@@ -588,7 +588,7 @@ if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170406/debug_target.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170412/debug_target_2.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
