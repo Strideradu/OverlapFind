@@ -203,6 +203,7 @@ class DiagProcess(object):
         :param chains:  a list contains all chain
         :return:
         """
+        print "FW DP start"
         r = len(I_list)
         L = FastRBTree()
         V = [0] * len(chains)
@@ -305,6 +306,7 @@ class DiagProcess(object):
         :param chains:  a list contains all chain
         :return:
         """
+        print "RC DP start"
         # print L_tree
         r = len(I_list)
         L = FastRBTree()
