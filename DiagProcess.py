@@ -374,6 +374,7 @@ class DiagProcess(object):
                 except KeyError:
                     continue
         print "DP finished"
+        print back_track
         try:
             max_item = L.min_item()
             score = max_item[1][0]
@@ -386,7 +387,7 @@ class DiagProcess(object):
 
             while True:
                 prev_j = back_track[current_j]
-                print prev_j
+                # print prev_j
                 if prev_j == -1:
                     break
                 else:
