@@ -93,7 +93,7 @@ for test in [large_test, medium_test, small_test]:
     tested = 0
     for query_seq in query:
         # print  query_seq
-        if query_seq == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/113629/18766_29441":
+        if query_seq == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/147663/18690_27107":
             debug_start = True
         if debug_start:
             large_overlap = overlap_dict[pacbio_id][0]

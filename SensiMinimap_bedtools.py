@@ -23,7 +23,7 @@ total_pairs = size*(size - 1)/2
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170407/minimap_all_vs_all_15X_k13_w5.out") as f1:
+with open("D:/Data/20170409/minimap_all_vs_all_15X_k11w5.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
