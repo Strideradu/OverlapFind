@@ -89,8 +89,8 @@ class DiagProcess(object):
         L = ProbFunc.statistical_bound_of_waiting_time(accuracy, self.k)
         delta = ProbFunc.statistical_bound_of_randomwalk(gap, L)
 
-        print L
-        print delta
+        #print L
+        #print delta
         # L = 64
         # delta = 6
 
@@ -221,7 +221,7 @@ class DiagProcess(object):
         :param chains:  a list contains all chain
         :return:
         """
-        print "FW DP start"
+        #print "FW DP start"
         r = len(I_list)
         L = FastRBTree()
         V = [0] * len(chains)
@@ -287,7 +287,7 @@ class DiagProcess(object):
                             break
                 except KeyError:
                     continue
-        print "DP finished"
+        #print "DP finished"
         try:
             max_item = L.max_item()
             score = max_item[1][0]
@@ -324,10 +324,10 @@ class DiagProcess(object):
         :param chains:  a list contains all chain
         :return:
         """
-        print "RC DP start"
-        print L_tree
-        print I_list
-        print chains
+        #print "RC DP start"
+        #print L_tree
+        #print I_list
+        #print chains
         r = len(I_list)
         L = FastRBTree()
         V = [0] * len(chains)
@@ -340,7 +340,7 @@ class DiagProcess(object):
 
                 l_k = chains[k][0][0][1]
                 start_y = l_k
-                print l_k
+                #print l_k
                 start_x = I_list[i][0]
                 end_x = chains[k][0][-1][0]
                 end_y = chains[k][0][-1][1]
@@ -348,7 +348,7 @@ class DiagProcess(object):
                 # find largest h_j strictly smaller than l_k and also not off diagonal
                 try:
                     j_item = L_tree.ceiling_item(l_k + 1)
-                    print "ceiling", j_item
+                    # print "ceiling", j_item
 
                     v_k = min(abs(end_x - start_x), abs(end_y - start_y))
                     j = j_item[1]
@@ -395,8 +395,8 @@ class DiagProcess(object):
                             break
                 except KeyError:
                     continue
-        print "DP finished"
-        print back_track
+        #print "DP finished"
+        #print back_track
         try:
             max_item = L.min_item()
             score = max_item[1][0]
@@ -433,7 +433,7 @@ class DiagProcess(object):
 
     def optimal_rechain(self, gap=0.2, rechain_threshold=5, span_threshold=0):
         align, length = self.optimal_fw_chain(self.fw_chain, self.fw_I, self.fw_L, gap)
-        print "Forward Chain Completed"
+        #print "Forward Chain Completed"
 
         if align:
             x_span = abs(align[-1][0] - align[0][0])
@@ -445,7 +445,7 @@ class DiagProcess(object):
                 self.is_forward = True
 
         align, length = self.optimal_rc_chain(self.rc_chain, self.rc_I, self.rc_L, gap)
-        print "Reversed Chain Completed"
+        #print "Reversed Chain Completed"
         # print align
         if align:
             x_span = abs(align[-1][0] - align[0][0])
@@ -619,7 +619,7 @@ if __name__ == '__main__':
     process.diag_points(9)
     process.diag_chain(0.75, 0.2)
     print process.fw_chain
-    process.optimal_rechain(0.08, 3, 0)
+    process.optimal_rechain(0.2, 3, 0)
     print process.chain_align
     print process.aligned
     process.diag_plot()
