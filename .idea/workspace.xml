@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11908691-7248-4bca-af62-dc1f7fc6843f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DiagProcess.py" afterPath="$PROJECT_DIR$/DiagProcess.py" />
     </list>
     <ignored path="OverlapFind.iws" />
@@ -47,9 +48,11 @@
       <file leaf-file-name="DiagProcess.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DiagProcess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-831">
-              <caret line="314" column="20" lean-forward="false" selection-start-line="314" selection-start-column="20" selection-end-line="314" selection-end-column="20" />
-              <folding />
+            <state relative-caret-position="486">
+              <caret line="18" column="17" lean-forward="true" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+              <folding>
+                <element signature="e#113#149#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -425,7 +428,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="2182" height="1402" extended-state="7" />
+    <frame x="-11" y="-11" width="2182" height="1402" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.232252" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -803,9 +806,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DiagProcess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-831">
-          <caret line="314" column="20" lean-forward="false" selection-start-line="314" selection-start-column="20" selection-end-line="314" selection-end-column="20" />
-          <folding />
+        <state relative-caret-position="486">
+          <caret line="18" column="17" lean-forward="true" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+          <folding>
+            <element signature="e#113#149#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -7,6 +7,7 @@ from Bio import SeqIO
 from bintrees import *
 from QualitySeq import QualitySeq
 import ProbFunc
+import copy
 
 
 def reverse_com(string):
@@ -299,7 +300,7 @@ class DiagProcess(object):
 
         return optimal_chain, length
 
-    def optimal_rc_chain(self, chains, I_list, L_tree, gap=0.2):
+    def optimal_rc_chain(self, chains, I_list, L_tree_copy, gap=0.2):
         """
 
         :param gap: gao rate of the read
@@ -312,8 +313,7 @@ class DiagProcess(object):
         L = FastRBTree()
         V = [0] * len(chains)
         back_track = [-1] * len(chains)
-        print I_list
-        print L_tree
+        L_tree = copy.deepcopy(L_tree_copy)
 
         for i in range(r):
             # I_list[i] is a start point, noticed we go through the chain from botton to top
