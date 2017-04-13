@@ -190,6 +190,7 @@ class DiagProcess(object):
                     self.rc_I.append((chain[0][0], len(rc_chain), 0))
                     self.rc_I.append((chain[-1][0], len(rc_chain), -1))
                     self.rc_L.insert(chain[-1][1], len(rc_chain))
+                    print chain[-1]
                     rc_chain.append((chain, l))
                     self.rc_seeds += len(chain)
                     # print chain[0]
