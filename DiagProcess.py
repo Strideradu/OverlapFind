@@ -135,7 +135,7 @@ class DiagProcess(object):
                         last_i = j
                         break
 
-                print chain
+                #print chain
 
                 if len(chain) > 1 and (
                         abs(chain[-1][0] - chain[0][0]) > self.k or abs(chain[-1][1] - chain[0][1]) > self.k):
