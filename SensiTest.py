@@ -96,8 +96,10 @@ for test in [large_test, medium_test, small_test]:
     tested = 0
     for query_seq in query:
         # print  query_seq
+        """
         if query_seq == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/74269/1811_10011":
             debug_start = True
+        """
         if debug_start:
             large_overlap = overlap_dict[pacbio_id][0]
             medium_overlap = overlap_dict[pacbio_id][1]
@@ -121,7 +123,7 @@ for test in [large_test, medium_test, small_test]:
                         record2 = masked_fasta[target_seq]
                         seq2 = QualitySeq(record2)
                         qual_seqs[target_seq] = seq2
-                    print query_seq + "\t" + target_seq + "\t start"
+                    #print query_seq + "\t" + target_seq + "\t start"
                     process = DiagProcess(seq1, seq2)
                     process.diag_points(9)
                     process.diag_chain(args.accuracy, args.gap)
@@ -131,6 +133,7 @@ for test in [large_test, medium_test, small_test]:
                         if process.aligned:
                             align_found += 1
                             true_align += 1
+                            print "True Positive" + query_seq + "\t" + target_seq
                         """
                         else:
                             print >> f, query_seq + "\t" + target_seq
