@@ -70,7 +70,7 @@ class DiagProcess(object):
 
                 for x_i in query_list:
                     for y_j in target_list:
-                        point = (x_i[0] - k, y_j[0], x_i[1] + y_j[1])
+                        point = (x_i[0], y_j[0], x_i[1] + y_j[1])
                         self.rc_points.append(point)
             self.fw_points.sort()
             self.rc_points.sort()
