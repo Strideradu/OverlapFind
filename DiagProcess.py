@@ -98,6 +98,7 @@ class DiagProcess(object):
         # the list of chain we found, tuple of (seeds, l), seed is the list of all seed in the chain, l is the aligned lengthh.
         fw_chain = []
         chained = {}
+        chained_end = {}
 
         i = 0
         while i < len(self.fw_points):
@@ -139,11 +140,14 @@ class DiagProcess(object):
 
                 if len(chain) > 1 and (
                         abs(chain[-1][0] - chain[0][0]) > self.k or abs(chain[-1][1] - chain[0][1]) > self.k):
-                    self.fw_I.append((chain[0][0], len(fw_chain), 0))
-                    self.fw_I.append((chain[-1][0], len(fw_chain), -1))
-                    self.fw_L.insert(chain[-1][1], len(fw_chain))
-                    fw_chain.append((chain, l))
-                    self.fw_seeds += len(chain)
+                    end_y =  chain[-1][1]
+                    if chained_end.get(end_y, False) is False:
+                        self.fw_I.append((chain[0][0], len(fw_chain), 0))
+                        self.fw_I.append((chain[-1][0], len(fw_chain), -1))
+                        self.fw_L.insert(chain[-1][1], len(fw_chain))
+                        fw_chain.append((chain, l))
+                        self.fw_seeds += len(chain)
+                        chained_end[end_y] = True
                     # print chain[0]
 
             i += 1
@@ -154,6 +158,7 @@ class DiagProcess(object):
 
         rc_chain = []
         chained = {}
+        chained_end = {}
 
         i = 0
         while i < len(self.rc_points):
@@ -192,15 +197,18 @@ class DiagProcess(object):
 
                 if len(chain) > 1 and (
                         abs(chain[-1][0] - chain[0][0]) > self.k and abs(chain[-1][1] - chain[0][1]) > self.k):
-                    self.rc_I.append((chain[0][0], len(rc_chain), 0))
-                    self.rc_I.append((chain[-1][0], len(rc_chain), -1))
-                    self.rc_L.insert(chain[-1][1], len(rc_chain))
-                    print
-                    print chain
-                    print self.rc_L
-                    print self.rc_I
-                    rc_chain.append((chain, l))
-                    self.rc_seeds += len(chain)
+                    end_y = chain[-1][1]
+                    if chained_end.get(end_y, False) is False:
+                        self.rc_I.append((chain[0][0], len(rc_chain), 0))
+                        self.rc_I.append((chain[-1][0], len(rc_chain), -1))
+                        self.rc_L.insert(chain[-1][1], len(rc_chain))
+                        print
+                        print chain
+                        print self.rc_L
+                        print self.rc_I
+                        rc_chain.append((chain, l))
+                        self.rc_seeds += len(chain)
+                        chained_end[end_y] = True
                     # print chain[0]
 
             i += 1
