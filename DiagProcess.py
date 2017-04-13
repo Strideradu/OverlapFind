@@ -202,10 +202,7 @@ class DiagProcess(object):
                         self.rc_I.append((chain[0][0], len(rc_chain), 0))
                         self.rc_I.append((chain[-1][0], len(rc_chain), -1))
                         self.rc_L.insert(chain[-1][1], len(rc_chain))
-                        print
-                        print chain
-                        print self.rc_L
-                        print self.rc_I
+
                         rc_chain.append((chain, l))
                         self.rc_seeds += len(chain)
                         chained_end[end_y] = True
@@ -326,7 +323,8 @@ class DiagProcess(object):
         :return:
         """
         print "RC DP start"
-        # print L_tree
+        print L_tree
+        print I_list
         r = len(I_list)
         L = FastRBTree()
         V = [0] * len(chains)
@@ -413,7 +411,7 @@ class DiagProcess(object):
                 else:
                     current_j = prev_j
                     chain_index.append(current_j)
-                    print chain_index
+
 
             optimal_chain = []
             length = 0
