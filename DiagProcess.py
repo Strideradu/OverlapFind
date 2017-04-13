@@ -413,6 +413,7 @@ class DiagProcess(object):
                 else:
                     current_j = prev_j
                     chain_index.append(current_j)
+                    print chain_index
 
             optimal_chain = []
             length = 0
