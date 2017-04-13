@@ -50,6 +50,7 @@ class DiagProcess(object):
         self.rc_points = []
 
         allkey = set().union(dict1, dict2)
+        #print allkey
 
         for key in allkey:
             # forward case
@@ -88,6 +89,8 @@ class DiagProcess(object):
         L = ProbFunc.statistical_bound_of_waiting_time(accuracy, self.k)
         delta = ProbFunc.statistical_bound_of_randomwalk(gap, L)
 
+        print L
+        print delta
         # L = 64
         # delta = 6
 
@@ -131,6 +134,8 @@ class DiagProcess(object):
                     elif min(delta_y, delta_x) > L:
                         last_i = j
                         break
+
+                print chain
 
                 if len(chain) > 1 and (
                         abs(chain[-1][0] - chain[0][0]) > self.k or abs(chain[-1][1] - chain[0][1]) > self.k):
@@ -600,7 +605,7 @@ if __name__ == '__main__':
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
-    process.diag_chain(0.85, 0.12)
+    process.diag_chain(0.75, 0.2)
     print process.fw_chain
     process.optimal_rechain(0.08, 3, 0)
     print process.chain_align

@@ -16,6 +16,8 @@ class QualitySeq(object):
             self.quality = np.full(self.length, 0.2)
 
 
+        #print self.quality
+
         if insertion_record:
             insertion_Q = np.array(insertion_record.letter_annotations["phred_quality"])
             insertion_P = 10.0 ** (-insertion_Q / 10.0)
@@ -57,6 +59,7 @@ class QualitySeq(object):
 
             kmer_dict[kmer].append((i, score))
 
+        #print kmer_dict
         return kmer_dict
 
     def generate_kmer(self, k, freq_dict, freq_threshold):
