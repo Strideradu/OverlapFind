@@ -38,8 +38,7 @@ class DiagProcess(object):
         self.fw_I = []
         self.rc_I = []
         # L tree list of the y_pos of the start end of the group, (y_pos, cluster_index)
-        self.fw_L = FastRBTree()
-        self.rc_L = FastRBTree()
+
 
     def diag_points(self, k):
         self.k = k
@@ -83,6 +82,8 @@ class DiagProcess(object):
         :param gap: expected gap rate
         :return:
         """
+        self.fw_L = FastRBTree()
+        self.rc_L = FastRBTree()
 
         L = ProbFunc.statistical_bound_of_waiting_time(accuracy, self.k)
         delta = ProbFunc.statistical_bound_of_randomwalk(gap, L)
@@ -300,7 +301,7 @@ class DiagProcess(object):
 
         return optimal_chain, length
 
-    def optimal_rc_chain(self, chains, I_list, L_tree_copy, gap=0.2):
+    def optimal_rc_chain(self, chains, I_list, L_tree, gap=0.2):
         """
 
         :param gap: gao rate of the read
@@ -313,7 +314,6 @@ class DiagProcess(object):
         L = FastRBTree()
         V = [0] * len(chains)
         back_track = [-1] * len(chains)
-        L_tree = copy.deepcopy(L_tree_copy)
 
         for i in range(r):
             # I_list[i] is a start point, noticed we go through the chain from botton to top
