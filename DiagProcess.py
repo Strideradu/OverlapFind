@@ -60,7 +60,7 @@ class DiagProcess(object):
 
                 for x_i in query_list:
                     for y_j in target_list:
-                        point = (x_i[0], y_j[0], x_i[1] + y_j[1])
+                        point = (x_i[0], self.target.length - y_j[0] + k, x_i[1] + y_j[1])
                         self.fw_points.append(point)
 
             # reverse complement case
