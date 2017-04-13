@@ -325,6 +325,7 @@ class DiagProcess(object):
         print "RC DP start"
         print L_tree
         print I_list
+        print chains
         r = len(I_list)
         L = FastRBTree()
         V = [0] * len(chains)
@@ -337,6 +338,7 @@ class DiagProcess(object):
 
                 l_k = chains[k][0][0][1]
                 start_y = l_k
+                print l_k
                 start_x = I_list[i][0]
                 end_x = chains[k][0][-1][0]
                 end_y = chains[k][0][-1][1]

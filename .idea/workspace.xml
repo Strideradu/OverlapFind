@@ -48,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/DiagProcess.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="377">
-              <caret line="323" column="11" lean-forward="true" selection-start-line="323" selection-start-column="11" selection-end-line="323" selection-end-column="11" />
+              <caret line="335" column="33" lean-forward="true" selection-start-line="335" selection-start-column="33" selection-end-line="335" selection-end-column="33" />
               <folding>
                 <element signature="e#113#149#0" expanded="true" />
               </folding>
@@ -817,7 +817,7 @@
     <entry file="file://$PROJECT_DIR$/DiagProcess.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
-          <caret line="323" column="11" lean-forward="true" selection-start-line="323" selection-start-column="11" selection-end-line="323" selection-end-column="11" />
+          <caret line="335" column="33" lean-forward="true" selection-start-line="335" selection-start-column="33" selection-end-line="335" selection-end-column="33" />
           <folding>
             <element signature="e#113#149#0" expanded="true" />
           </folding>
