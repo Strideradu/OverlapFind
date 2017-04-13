@@ -616,7 +616,7 @@ if __name__ == '__main__':
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
-    process.diag_points(9)
+    process.diag_points(11)
     process.diag_chain(0.75, 0.2)
     print process.fw_chain
     process.optimal_rechain(0.2, 3, 0)

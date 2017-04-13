@@ -86,7 +86,7 @@ for pacbio_id in overlap_dict:
         break
 #print len(query)
 
-debug_start = False
+debug_start = True
 qual_seqs = {}
 for test in [large_test, medium_test, small_test]:
     # num_pair = 0
