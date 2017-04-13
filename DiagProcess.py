@@ -139,7 +139,8 @@ class DiagProcess(object):
                 #print chain
 
                 if len(chain) > 1 and (
-                        abs(chain[-1][0] - chain[0][0]) > self.k or abs(chain[-1][1] - chain[0][1]) > self.k):
+                        abs(chain[-1][0] - chain[0][0]) > self.k or abs(chain[-1][1] - chain[0][1]) > self.k)\
+                        and (chain[0][1]<= chain[-1][1]):
                     end_y =  chain[-1][1]
                     if chained_end.get(end_y, False) is False:
                         self.fw_I.append((chain[0][0], len(fw_chain), 0))
@@ -196,7 +197,8 @@ class DiagProcess(object):
                         break
 
                 if len(chain) > 1 and (
-                        abs(chain[-1][0] - chain[0][0]) > self.k and abs(chain[-1][1] - chain[0][1]) > self.k):
+                        abs(chain[-1][0] - chain[0][0]) > self.k and abs(chain[-1][1] - chain[0][1]) > self.k)\
+                        and (chain[-1][1]<=chain[0][1]):
                     end_y = chain[-1][1]
                     if chained_end.get(end_y, False) is False:
                         self.rc_I.append((chain[0][0], len(rc_chain), 0))
