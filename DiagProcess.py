@@ -60,7 +60,7 @@ class DiagProcess(object):
 
                 for x_i in query_list:
                     for y_j in target_list:
-                        point = (x_i[0], self.target.length - y_j[0] + k, x_i[1] + y_j[1])
+                        point = (x_i[0], y_j[0], x_i[1] + y_j[1])
                         self.fw_points.append(point)
 
             # reverse complement case
@@ -71,7 +71,7 @@ class DiagProcess(object):
 
                 for x_i in query_list:
                     for y_j in target_list:
-                        point = (x_i[0], y_j[0], x_i[1] + y_j[1])
+                        point = (x_i[0], y_j[0]  + k, x_i[1] + y_j[1])
                         self.rc_points.append(point)
             self.fw_points.sort()
             self.rc_points.sort()
@@ -607,12 +607,12 @@ class DiagProcess(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
-    # record1 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
-    # record2 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
+    record1 = SeqIO.read("D:/Data/20170213/pair1_query.fastq", "fastq")
+    record2 = SeqIO.read("D:/Data/20170213/pair1_target.fastq", "fastq")
     # record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170412/debug_target_2.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170412/debug_target_2.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
