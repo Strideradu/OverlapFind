@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11908691-7248-4bca-af62-dc1f7fc6843f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old_code/SensiTestHard.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/old_code/SensiTestHard.py" afterPath="$PROJECT_DIR$/SensiTestHard.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="OverlapFind.iws" />
@@ -60,10 +60,10 @@
         </entry>
       </file>
       <file leaf-file-name="SensiTestHard.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/old_code/SensiTestHard.py">
+        <entry file="file://$PROJECT_DIR$/SensiTestHard.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2133">
-              <caret line="88" column="66" lean-forward="true" selection-start-line="88" selection-start-column="66" selection-end-line="88" selection-end-column="66" />
+            <state relative-caret-position="27">
+              <caret line="10" column="55" lean-forward="true" selection-start-line="10" selection-start-column="55" selection-end-line="10" selection-end-column="55" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -188,6 +188,11 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../17spr_wang_zhu_du/RNN_GAN" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nan\Documents\GitHub\OverlapFind" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.DiagProcess">
     <configuration default="false" name="SensiMinimap15X" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -815,10 +820,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/old_code/SensiTestHard.py">
+    <entry file="file://$PROJECT_DIR$/SensiTestHard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2133">
-          <caret line="88" column="66" lean-forward="true" selection-start-line="88" selection-start-column="66" selection-end-line="88" selection-end-column="66" />
+        <state relative-caret-position="27">
+          <caret line="10" column="55" lean-forward="true" selection-start-line="10" selection-start-column="55" selection-end-line="10" selection-end-column="55" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
