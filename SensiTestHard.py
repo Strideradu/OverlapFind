@@ -27,7 +27,7 @@ masked_fasta=SeqIO.index("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads
 qual_seqs = {}
 miss_num = 0
 miss_found = 0
-with open("D:/Data/20170414/minimap_15X_k13w5_missing_align.out") as f:
+with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_minimap_missing_case/minimap_15X_k13w5_missing_align.out") as f:
     for line in f:
         line = line.strip()
         pair = line.split("\t")
@@ -61,7 +61,7 @@ print "minimpa missed hit", miss_num
 
 fp_num = 0
 fp_found = 0
-with open("D:/Data/20170414/minimap_15X_k13w5_fp_align.out") as f:
+with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_minimap_missing_case/minimap_15X_k13w5_fp_align.out") as f:
     for line in f:
         line = line.strip()
         pair = line.split("\t")
