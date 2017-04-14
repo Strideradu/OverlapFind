@@ -240,7 +240,7 @@ class DiagProcess(object):
                 diagonal = start_y - start_x
                 # find largest h_j strictly smaller than l_k and also not off diagonal
                 try:
-                    j_item = L_tree.floor_item(l_k - 1)
+                    j_item = L.floor_item(l_k - 1)
 
                     v_j = min(abs(end_x - start_x), abs(end_y - start_y))
                     j = j_item[1]
@@ -278,8 +278,8 @@ class DiagProcess(object):
                         prev_j1_item = j1_item
                         try:
                             j1_item = L.succ_item(j1_item[0])
-                            if V[k] > prev_j1_item[1][0]:
-                                L.remove(prev_j1_item)
+                            if V[k] > j1_item[1][0]:
+                                L.remove(j1_item)
                         except KeyError:
                             # print prev_j1_item
                             if V[k] > prev_j1_item[1][0]:
@@ -333,6 +333,7 @@ class DiagProcess(object):
         V = [0] * len(chains)
         back_track = [-1] * len(chains)
 
+
         for i in range(r):
             # I_list[i] is a start point, noticed we go through the chain from botton to top
             if I_list[i][2] == 0:
@@ -340,18 +341,18 @@ class DiagProcess(object):
 
                 l_k = chains[k][0][0][1]
                 start_y = l_k
-                #print l_k
+                print l_k
                 start_x = I_list[i][0]
                 end_x = chains[k][0][-1][0]
                 end_y = chains[k][0][-1][1]
                 diagonal = start_y + start_x
                 # find largest h_j strictly smaller than l_k and also not off diagonal
                 try:
-                    j_item = L_tree.ceiling_item(l_k + 1)
-                    # print "ceiling", j_item
+                    j_item = L.ceiling_item(l_k + 1)
+                    print "ceiling", j_item
 
                     v_k = min(abs(end_x - start_x), abs(end_y - start_y))
-                    j = j_item[1]
+                    j = j_item[1][1]
 
                     prev_score = V[j]
 
@@ -366,7 +367,7 @@ class DiagProcess(object):
 
             # is a end point
             else:
-                # print "L", L
+                print "L", L
                 k = I_list[i][1]
                 h_k = chains[k][0][-1][1]
 
@@ -374,20 +375,31 @@ class DiagProcess(object):
                     j_item = L.floor_item(h_k)
                     j = j_item[1][1]
                     V_j = j_item[1][0]
+                    """
                     if V[k] > V_j:
                         L.insert(h_k, (V[k], k))
+                    """
+                    L.insert(h_k, (V[k], k))
 
                 except KeyError:
-                    L.insert(h_k, (V[k], k))
+                    print len(L)
+                    if len(L) == 0 or L.min_item()[1][0] < V[k]:
+                        L.insert(h_k, (V[k], k))
                 # max_item = L_tree.max_item()
+                print L
                 try:
                     j1_item = L.floor_item(h_k)
+                    # print "j1_item", j1_item
                     while True:
                         prev_j1_item = j1_item
                         try:
                             j1_item = L.prev_item(j1_item[0])
-                            if V[k] > prev_j1_item[1][0]:
-                                L.remove(prev_j1_item)
+                            # item compared not right, corrected
+                            if V[k] > j1_item[1][0]:
+
+                                L.remove_items(j1_item)
+
+
                         except KeyError:
                             # print prev_j1_item
                             if V[k] > prev_j1_item[1][0]:
@@ -400,7 +412,7 @@ class DiagProcess(object):
         try:
             max_item = L.min_item()
             score = max_item[1][0]
-            print max_item
+            print score
 
             current_j = max_item[1][1]
             # backtrack
@@ -446,7 +458,7 @@ class DiagProcess(object):
 
         align, length = self.optimal_rc_chain(self.rc_chain, self.rc_I, self.rc_L, gap)
         #print "Reversed Chain Completed"
-        # print align
+        print align
         if align:
             x_span = abs(align[-1][0] - align[0][0])
             y_span = abs(align[-1][1] - align[0][1])
@@ -616,9 +628,9 @@ if __name__ == '__main__':
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
-    process.diag_points(11)
+    process.diag_points(9)
     process.diag_chain(0.75, 0.2)
-    print process.fw_chain
+    print process.rc_chain
     process.optimal_rechain(0.2, 3, 0)
     print process.chain_align
     print process.aligned
