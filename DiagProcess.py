@@ -243,7 +243,7 @@ class DiagProcess(object):
                     j_item = L.floor_item(l_k - 1)
 
                     v_j = min(abs(end_x - start_x), abs(end_y - start_y))
-                    j = j_item[1]
+                    j = j_item[1][1]
 
                     prev_score = V[j]
 
@@ -264,11 +264,16 @@ class DiagProcess(object):
                     j_item = L.ceiling_item(h_k)
                     j = j_item[1][1]
                     V_j = j_item[1][0]
+
+                    """
                     if V[k] > V_j:
                         L.insert(h_k, (V[k], k))
-
-                except KeyError:
+                    """
                     L.insert(h_k, (V[k], k))
+                except KeyError:
+                    if len(L) == 0 or L.max_item()[1][0] < V[k]:
+                        L.insert(h_k, (V[k], k))
+                    # L.insert(h_k, (V[k], k))
                 # max_item = L_tree.max_item()
                 try:
                     j1_item = L.ceiling_item(h_k)
@@ -619,8 +624,8 @@ class DiagProcess(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
-    record1 = SeqIO.read("D:/Data/20170213/pair1_query.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170213/pair1_target.fastq", "fastq")
+    record1 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
+    record2 = SeqIO.read("D:/Data/20170213/pair2_target.fastq", "fastq")
     # record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
