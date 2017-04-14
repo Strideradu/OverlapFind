@@ -346,7 +346,7 @@ class DiagProcess(object):
 
                 l_k = chains[k][0][0][1]
                 start_y = l_k
-                print l_k
+                #print l_k
                 start_x = I_list[i][0]
                 end_x = chains[k][0][-1][0]
                 end_y = chains[k][0][-1][1]
@@ -354,7 +354,7 @@ class DiagProcess(object):
                 # find largest h_j strictly smaller than l_k and also not off diagonal
                 try:
                     j_item = L.ceiling_item(l_k + 1)
-                    print "ceiling", j_item
+                    #print "ceiling", j_item
 
                     v_k = min(abs(end_x - start_x), abs(end_y - start_y))
                     j = j_item[1][1]
@@ -372,7 +372,7 @@ class DiagProcess(object):
 
             # is a end point
             else:
-                print "L", L
+                #print "L", L
                 k = I_list[i][1]
                 h_k = chains[k][0][-1][1]
 
@@ -387,11 +387,11 @@ class DiagProcess(object):
                     L.insert(h_k, (V[k], k))
 
                 except KeyError:
-                    print len(L)
+                    #print len(L)
                     if len(L) == 0 or L.min_item()[1][0] < V[k]:
                         L.insert(h_k, (V[k], k))
                 # max_item = L_tree.max_item()
-                print L
+                #print L
                 try:
                     j1_item = L.floor_item(h_k)
                     # print "j1_item", j1_item
@@ -417,7 +417,7 @@ class DiagProcess(object):
         try:
             max_item = L.min_item()
             score = max_item[1][0]
-            print score
+            #print score
 
             current_j = max_item[1][1]
             # backtrack
@@ -463,7 +463,7 @@ class DiagProcess(object):
 
         align, length = self.optimal_rc_chain(self.rc_chain, self.rc_I, self.rc_L, gap)
         #print "Reversed Chain Completed"
-        print align
+        #print align
         if align:
             x_span = abs(align[-1][0] - align[0][0])
             y_span = abs(align[-1][1] - align[0][1])
