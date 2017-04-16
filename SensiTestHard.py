@@ -58,6 +58,7 @@ with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_
 
 print "found aligned pair in missing dataset", miss_found
 print "minimpa missed hit", miss_num
+sys.stdout.flush()
 
 fp_num = 0
 fp_found = 0
@@ -92,3 +93,4 @@ with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_
 
 print "found aligned pair in missing dataset", fp_num - fp_found
 print "minimpa missed hit", fp_num
+sys.stdout.flush()
