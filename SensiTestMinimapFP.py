@@ -57,6 +57,9 @@ with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_
         if process.aligned:
             fp_found += 1
 
+        print query_id + "\t" + target_id + "\t finished"
+        sys.stdout.flush()
+
 print "found aligned pair in missing dataset", fp_num - fp_found
 print "minimpa missed hit", fp_num
 sys.stdout.flush()
