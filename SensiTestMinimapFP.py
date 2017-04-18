@@ -28,18 +28,18 @@ qual_seqs = {}
 
 fp_num = 0
 fp_found = 0
-debug = False
+debug = True
 with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_minimap_missing_case/minimap_15X_k13w5_fp_align.out") as f:
     for line in f:
         line = line.strip()
         pair = line.split("\t")
         query_id = pair[0]
         target_id = pair[1]
-
+        """
         if query_id == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/140044/0_1446"\
                 and target_id == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/52235/0_18912":
             debug = True
-
+        """
         if debug:
 
             record1 = fastq[query_id]
@@ -58,9 +58,11 @@ with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_
             process.optimal_rechain(args.gap, args.rechain, args.span)
             if process.aligned:
                 fp_found += 1
+                print query_id + "\t" + target_id + "\t found"
+                sys.stdout.flush()
 
-            print query_id + "\t" + target_id + "\t finished"
-            sys.stdout.flush()
+
+
 
 print "found aligned pair in missing dataset", fp_num - fp_found
 print "minimpa missed hit", fp_num
