@@ -41,19 +41,15 @@ with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_
             debug = True
 
         if debug:
-            try:
-                seq1 = qual_seqs[query_id]
-            except KeyError:
-                record1 = fastq[query_id]
-                seq1 = QualitySeq(record1)
-                qual_seqs[query_id] = seq1
 
-            try:
-                seq2 = qual_seqs[target_id]
-            except KeyError:
-                record2 = masked_fasta[target_id]
-                seq2 = QualitySeq(record2)
-                qual_seqs[target_id] = seq2
+            record1 = fastq[query_id]
+            seq1 = QualitySeq(record1)
+            qual_seqs[query_id] = seq1
+
+
+            record2 = masked_fasta[target_id]
+            seq2 = QualitySeq(record2)
+            qual_seqs[target_id] = seq2
 
             fp_num += 1
             process = DiagProcess(seq1, seq2)
