@@ -28,6 +28,7 @@ qual_seqs = {}
 
 fp_num = 0
 fp_found = 0
+debug = False
 with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_minimap_missing_case/minimap_15X_k13w5_fp_align.out") as f:
     for line in f:
         line = line.strip()
@@ -35,30 +36,35 @@ with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_
         query_id = pair[0]
         target_id = pair[1]
 
-        try:
-            seq1 = qual_seqs[query_id]
-        except KeyError:
-            record1 = fastq[query_id]
-            seq1 = QualitySeq(record1)
-            qual_seqs[query_id] = seq1
+        if query_id == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/23974/0_13024"\
+                and target_id == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/144083/0_7888":
+            debug = True
 
-        try:
-            seq2 = qual_seqs[target_id]
-        except KeyError:
-            record2 = masked_fasta[target_id]
-            seq2 = QualitySeq(record2)
-            qual_seqs[target_id] = seq2
+        if debug:
+            try:
+                seq1 = qual_seqs[query_id]
+            except KeyError:
+                record1 = fastq[query_id]
+                seq1 = QualitySeq(record1)
+                qual_seqs[query_id] = seq1
+    
+            try:
+                seq2 = qual_seqs[target_id]
+            except KeyError:
+                record2 = masked_fasta[target_id]
+                seq2 = QualitySeq(record2)
+                qual_seqs[target_id] = seq2
 
-        fp_num += 1
-        process = DiagProcess(seq1, seq2)
-        process.diag_points(args.k)
-        process.diag_chain(args.accuracy, args.gap)
-        process.optimal_rechain(args.gap, args.rechain, args.span)
-        if process.aligned:
-            fp_found += 1
+            fp_num += 1
+            process = DiagProcess(seq1, seq2)
+            process.diag_points(args.k)
+            process.diag_chain(args.accuracy, args.gap)
+            process.optimal_rechain(args.gap, args.rechain, args.span)
+            if process.aligned:
+                fp_found += 1
 
-        print query_id + "\t" + target_id + "\t finished"
-        sys.stdout.flush()
+            print query_id + "\t" + target_id + "\t finished"
+            sys.stdout.flush()
 
 print "found aligned pair in missing dataset", fp_num - fp_found
 print "minimpa missed hit", fp_num
