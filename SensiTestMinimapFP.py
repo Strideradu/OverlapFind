@@ -36,8 +36,8 @@ with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_
         query_id = pair[0]
         target_id = pair[1]
 
-        if query_id == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/23974/0_13024"\
-                and target_id == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/144083/0_7888":
+        if query_id == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/140044/0_1446"\
+                and target_id == "m141013_011508_sherri_c100709962550000001823135904221533_s1_p0/52235/0_18912":
             debug = True
 
         if debug:
@@ -47,7 +47,7 @@ with open("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170414_test_
                 record1 = fastq[query_id]
                 seq1 = QualitySeq(record1)
                 qual_seqs[query_id] = seq1
-    
+
             try:
                 seq2 = qual_seqs[target_id]
             except KeyError:
