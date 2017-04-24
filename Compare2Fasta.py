@@ -21,11 +21,13 @@ except:
     sys.exit(1)
 
 query_seq = SeqIO.parse(args.query, "fasta")
-target_seq = SeqIO.parse(args.target, "fasta")
+target_seq = SeqIO.index(args.target, "fasta")
+target_ids = target_seq.keys()
 
 for record1 in query_seq:
-    for record2 in target_seq:
+    for record2_id in target_ids:
         seq1 = QualitySeq(record1)
+        record2 = target_seq[record2_id]
         seq2 = QualitySeq(record2)
 
         process = DiagProcess(seq1, seq2)
