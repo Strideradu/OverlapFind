@@ -26,7 +26,7 @@ target_seq = list(SeqIO.parse(args.target, "fasta"))
 for record1 in query_seq:
 
     for record2 in target_seq:
-        print record1.id, record2.id
+        # print record1.id, record2.id
         seq1 = QualitySeq(record1)
         seq2 = QualitySeq(record2)
 
@@ -36,4 +36,4 @@ for record1 in query_seq:
         process.optimal_rechain(args.gap, args.rechain, args.span)
 
         if process.aligned:
-            print record1.id + "\t" + record2.id
+            print record1.id + "\t" + record2.id + "\t" + "True"
