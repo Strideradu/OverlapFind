@@ -25,9 +25,9 @@ target_seq = SeqIO.index(args.target, "fasta")
 target_ids = target_seq.keys()
 
 for record1 in query_seq:
-    print record1.id
+
     for record2_id in target_ids:
-        print record2_id
+        print record1.id, record2_id
         seq1 = QualitySeq(record1)
         record2 = target_seq[record2_id]
         seq2 = QualitySeq(record2)
