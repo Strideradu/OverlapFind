@@ -76,13 +76,16 @@ class DiagProcess(object):
             self.fw_points.sort()
             self.rc_points.sort()
 
-    def diag_chain(self, accuracy=0.75, gap=0.2):
+    def diag_chain(self, accuracy=0.75, gap=0.2, w = 0):
         """
         chaining the seeds
         :param accuracy: expected match rate
         :param gap: expected gap rate
         :return:
         """
+        if w == 0:
+            w =  self.k
+
         self.fw_L = FastRBTree()
         self.rc_L = FastRBTree()
 
@@ -139,7 +142,7 @@ class DiagProcess(object):
                 #print chain
 
                 if len(chain) > 1 and (
-                        abs(chain[-1][0] - chain[0][0]) > self.k or abs(chain[-1][1] - chain[0][1]) > self.k)\
+                        abs(chain[-1][0] - chain[0][0]) > w and abs(chain[-1][1] - chain[0][1]) > w)\
                         and (chain[0][1]<= chain[-1][1]):
                     end_y =  chain[-1][1]
                     if chained_end.get(end_y, False) is False:
@@ -197,7 +200,7 @@ class DiagProcess(object):
                         break
 
                 if len(chain) > 1 and (
-                        abs(chain[-1][0] - chain[0][0]) > self.k and abs(chain[-1][1] - chain[0][1]) > self.k)\
+                        abs(chain[-1][0] - chain[0][0]) > w and abs(chain[-1][1] - chain[0][1]) > w)\
                         and (chain[-1][1]<=chain[0][1]):
                     end_y = chain[-1][1]
                     if chained_end.get(end_y, False) is False:

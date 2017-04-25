@@ -13,13 +13,13 @@ overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170406/query_large_minimap.out") as f1:
+with open("D:/Data/20170424/large_13mer_0.85_0.12_3_align_found.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
             line_sp = line.split("\t")
             query_id = line_sp[0]
-            target_id = line_sp[5]
+            target_id = line_sp[1]
             if query_id!=target_id:
                 if found.get((query_id, target_id), False) is False and found.get((target_id, query_id), False) is False:
                     #check is this pair tested before
@@ -38,13 +38,13 @@ print "FPR", (num_found - true_align) / float(42497- 610)
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170406/query_medium_minimap.out") as f1:
+with open("D:/Data/20170424/medium_13mer_0.85_0.12_3_align_found.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
             line_sp = line.split("\t")
             query_id = line_sp[0]
-            target_id = line_sp[5]
+            target_id = line_sp[1]
             if query_id!=target_id:
                 if found.get((query_id, target_id), False) is False and found.get((target_id, query_id), False) is False:
                     #check is this pair tested before
@@ -63,13 +63,13 @@ print "FPR", (num_found - true_align) / float(42499- 588)
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170406/query_small_minimap.out") as f1:
+with open("D:/Data/20170424/small_13mer_0.85_0.12_3_align_found.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
             line_sp = line.split("\t")
             query_id = line_sp[0]
-            target_id = line_sp[5]
+            target_id = line_sp[1]
             if query_id!=target_id:
                 if found.get((query_id, target_id), False) is False and found.get((target_id, query_id), False) is False:
                     #check is this pair tested before
