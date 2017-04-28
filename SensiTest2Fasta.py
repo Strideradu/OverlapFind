@@ -1,8 +1,8 @@
 import pickle
 from Bio import SeqIO
-# minimap output format, tab delimited file with the following column
-# query name, length, 0-based start, end, strand, target name, length, start, end, the number of matching bases,
-#  the number of co-linear minimizers in the match, the fraction of matching bases
+# Compare2Fast output tab delimited,
+# query name, target name, True
+
 
 def load_obj(filename ):
     with open(filename, 'rb') as f:
@@ -13,7 +13,7 @@ overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170424/large_13mer_0.85_0.12_3_align_found.out") as f1:
+with open("D:/Data/20170426/large_13mer_0.8_0.15_5_align_found.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
@@ -38,7 +38,7 @@ print "FPR", (num_found - true_align) / float(42497- 610)
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170424/medium_13mer_0.85_0.12_3_align_found.out") as f1:
+with open("D:/Data/20170426/medium_13mer_0.8_0.15_5_align_found.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
@@ -63,7 +63,7 @@ print "FPR", (num_found - true_align) / float(42499- 588)
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170424/small_13mer_0.85_0.12_3_align_found.out") as f1:
+with open("D:/Data/20170426/small_13mer_0.85_0.12_3_align_found.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":

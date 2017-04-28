@@ -76,29 +76,14 @@ class DiagProcess(object):
             self.fw_points.sort()
             self.rc_points.sort()
 
-    def diag_chain(self, accuracy=0.75, gap=0.2, w = 0):
-        """
-        chaining the seeds
-        :param accuracy: expected match rate
-        :param gap: expected gap rate
-        :return:
-        """
+    def diag_group_hit(self, L, delta, w = 0):
+
         if w == 0:
             w =  self.k
 
         self.fw_L = FastRBTree()
         self.rc_L = FastRBTree()
 
-        L = ProbFunc.statistical_bound_of_waiting_time(accuracy, self.k)
-        delta = ProbFunc.statistical_bound_of_randomwalk(gap, L)
-
-        #print L
-        #print delta
-        # L = 64
-        # delta = 6
-
-        # process the forward read comparison
-        # the list of chain we found, tuple of (seeds, l), seed is the list of all seed in the chain, l is the aligned lengthh.
         fw_chain = []
         chained = {}
         chained_end = {}
@@ -139,12 +124,12 @@ class DiagProcess(object):
                         last_i = j
                         break
 
-                #print chain
+                # print chain
 
                 if len(chain) > 1 and (
-                        abs(chain[-1][0] - chain[0][0]) > w and abs(chain[-1][1] - chain[0][1]) > w)\
-                        and (chain[0][1]<= chain[-1][1]):
-                    end_y =  chain[-1][1]
+                                abs(chain[-1][0] - chain[0][0]) > w and abs(chain[-1][1] - chain[0][1]) > w) \
+                        and (chain[0][1] <= chain[-1][1]):
+                    end_y = chain[-1][1]
                     if chained_end.get(end_y, False) is False:
                         self.fw_I.append((chain[0][0], len(fw_chain), 0))
                         self.fw_I.append((chain[-1][0], len(fw_chain), -1))
@@ -152,7 +137,7 @@ class DiagProcess(object):
                         fw_chain.append((chain, l))
                         self.fw_seeds += len(chain)
                         chained_end[end_y] = True
-                    # print chain[0]
+                        # print chain[0]
 
             i += 1
 
@@ -200,8 +185,8 @@ class DiagProcess(object):
                         break
 
                 if len(chain) > 1 and (
-                        abs(chain[-1][0] - chain[0][0]) > w and abs(chain[-1][1] - chain[0][1]) > w)\
-                        and (chain[-1][1]<=chain[0][1]):
+                                abs(chain[-1][0] - chain[0][0]) > w and abs(chain[-1][1] - chain[0][1]) > w) \
+                        and (chain[-1][1] <= chain[0][1]):
                     end_y = chain[-1][1]
                     if chained_end.get(end_y, False) is False:
                         self.rc_I.append((chain[0][0], len(rc_chain), 0))
@@ -211,11 +196,31 @@ class DiagProcess(object):
                         rc_chain.append((chain, l))
                         self.rc_seeds += len(chain)
                         chained_end[end_y] = True
-                    # print chain[0]
+                        # print chain[0]
 
             i += 1
 
         self.rc_chain = rc_chain
+
+    def diag_chain(self, accuracy=0.75, gap=0.2, w = 0):
+        """
+        chaining the seeds
+        :param accuracy: expected match rate
+        :param gap: expected gap rate
+        :return:
+        """
+        L = ProbFunc.statistical_bound_of_waiting_time(accuracy, self.k)
+        delta = ProbFunc.statistical_bound_of_randomwalk(gap, L)
+
+        #print L
+        #print delta
+        # L = 64
+        # delta = 6
+
+        # process the forward read comparison
+        # the list of chain we found, tuple of (seeds, l), seed is the list of all seed in the chain, l is the aligned lengthh.
+        self.diag_group_hit(L, delta, w)
+
 
     def optimal_fw_chain(self, chains, I_list, L_tree, gap=0.2):
         """
@@ -605,23 +610,33 @@ class DiagProcess(object):
 
     def diag_plot(self):
         plt.figure()
-        coordinates = map(list, zip(*self.fw_points))
+        try:
+            coordinates = map(list, zip(*self.fw_points))
 
-        plt.scatter(coordinates[0], coordinates[1], c=coordinates[2], cmap="Reds")
-        plt.colorbar()
-        for chain in self.fw_chain:
-            # print chain
-            chain_coor = map(list, zip(*chain[0]))
-            plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
+            plt.scatter(coordinates[0], coordinates[1], c=coordinates[2], cmap="Reds")
+            plt.colorbar()
+            for chain in self.fw_chain:
+                # print chain
+                chain_coor = map(list, zip(*chain[0]))
+                plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
+
+        except IndexError:
+            print "No forward hits"
         plt.figure()
-        coordinates = map(list, zip(*self.rc_points))
-        plt.scatter(coordinates[0], coordinates[1], c=coordinates[2], cmap="Greens")
-        plt.colorbar()
-        for chain in self.rc_chain:
-            # print chain
-            chain_coor = map(list, zip(*chain[0]))
-            plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
+        try:
+            coordinates = map(list, zip(*self.rc_points))
+            print coordinates
+            plt.scatter(coordinates[0], coordinates[1], c=coordinates[2], cmap="Greens")
+            plt.colorbar()
+            for chain in self.rc_chain:
+                # print chain
+                chain_coor = map(list, zip(*chain[0]))
+                plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
+
+        except IndexError:
+            print "No reverse hits"
         plt.show()
+
 
 
 if __name__ == '__main__':
@@ -633,15 +648,15 @@ if __name__ == '__main__':
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170412/debug_target_2.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170418/query_fp_debug.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170418/target_fp_debug.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170426/GroupHitMissing/missing_pair2_query.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170426/GroupHitMissing/missing_pair2_target.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
-    process.diag_chain(0.75, 0.2)
+    process.diag_chain(0.85, 0.25)
     print process.rc_chain
-    process.optimal_rechain(0.2, 3, 0)
+    process.optimal_rechain(0.12, 3, 0)
     print process.chain_align
     print process.aligned
     process.diag_plot()

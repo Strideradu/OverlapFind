@@ -3,6 +3,7 @@ from Bio import SeqIO
 import sys
 from QualitySeq import QualitySeq
 from DiagProcess import DiagProcess
+import ProbFunc
 
 parser = argparse.ArgumentParser()
 parser.add_argument("query", help="path of query file", type=str)
@@ -23,6 +24,9 @@ except:
 query_seq = list(SeqIO.parse(args.query, "fasta"))
 target_seq = list(SeqIO.parse(args.target, "fasta"))
 
+L = ProbFunc.statistical_bound_of_waiting_time(args.accuracy, args.k)
+delta = ProbFunc.statistical_bound_of_randomwalk(args.gap, L)
+
 for record1 in query_seq:
 
     for record2 in target_seq:
@@ -32,7 +36,7 @@ for record1 in query_seq:
 
         process = DiagProcess(seq1, seq2)
         process.diag_points(args.k)
-        process.diag_chain(args.accuracy, args.gap)
+        process.diag_group_hit(L, delta)
         process.optimal_rechain(args.gap, args.rechain, args.span)
 
         if process.aligned:
