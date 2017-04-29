@@ -265,6 +265,7 @@ class DiagProcess(object):
 
             # is a end point
             else:
+                print L
                 k = I_list[i][1]
                 h_k = chains[k][0][-1][1]
 
@@ -286,22 +287,27 @@ class DiagProcess(object):
                 try:
                     j1_item = L.ceiling_item(h_k)
 
-                    # maybe mofify here
+                    # maybe mofify here'
+                    print "Vk", V[k]
+                    print L
                     while True:
                         prev_j1_item = j1_item
                         try:
                             j1_item = L.succ_item(j1_item[0])
                             if V[k] > j1_item[1][0]:
-                                L.remove(j1_item)
+                                L.remove_items(j1_item)
                         except KeyError:
                             # print prev_j1_item
                             if V[k] > prev_j1_item[1][0]:
-                                L.remove(prev_j1_item)
+                                L.remove_items(prev_j1_item)
                             break
+
+                    print L
                 except KeyError:
                     continue
         #print "DP finished"
         try:
+            print L
             max_item = L.max_item()
             score = max_item[1][0]
 
@@ -416,7 +422,7 @@ class DiagProcess(object):
                         except KeyError:
                             # print prev_j1_item
                             if V[k] > prev_j1_item[1][0]:
-                                L.remove(prev_j1_item)
+                                L.remove_items(prev_j1_item)
                             break
                 except KeyError:
                     continue
@@ -459,6 +465,7 @@ class DiagProcess(object):
     def optimal_rechain(self, gap=0.2, rechain_threshold=5, span_threshold=0):
         align, length = self.optimal_fw_chain(self.fw_chain, self.fw_I, self.fw_L, gap)
         #print "Forward Chain Completed"
+        print align
 
         if align:
             x_span = abs(align[-1][0] - align[0][0])
@@ -625,7 +632,7 @@ class DiagProcess(object):
         plt.figure()
         try:
             coordinates = map(list, zip(*self.rc_points))
-            print coordinates
+            # print coordinates
             plt.scatter(coordinates[0], coordinates[1], c=coordinates[2], cmap="Greens")
             plt.colorbar()
             for chain in self.rc_chain:
@@ -648,15 +655,15 @@ if __name__ == '__main__':
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170412/debug_target_2.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170426/GroupHitMissing/missing_pair2_query.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170426/GroupHitMissing/missing_pair2_target.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_target.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_query.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
-    process.diag_chain(0.85, 0.25)
+    process.diag_chain(0.85, 0.12)
     print process.rc_chain
-    process.optimal_rechain(0.12, 3, 0)
+    process.optimal_rechain(0.12, 5, 0)
     print process.chain_align
     print process.aligned
     process.diag_plot()
