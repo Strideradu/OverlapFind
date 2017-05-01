@@ -78,6 +78,9 @@ class DiagProcess(object):
 
     def diag_group_hit(self, L, delta, w = 0):
 
+        self.L = L
+        self.delta = delta
+
         if w == 0:
             w =  self.k
 
@@ -209,8 +212,8 @@ class DiagProcess(object):
         :param gap: expected gap rate
         :return:
         """
-        L = ProbFunc.statistical_bound_of_waiting_time(accuracy, self.k)
-        delta = ProbFunc.statistical_bound_of_randomwalk(gap, L)
+        self.L = ProbFunc.statistical_bound_of_waiting_time(accuracy, self.k)
+        self.delta = ProbFunc.statistical_bound_of_randomwalk(gap, self.L)
 
         #print L
         #print delta
@@ -219,7 +222,7 @@ class DiagProcess(object):
 
         # process the forward read comparison
         # the list of chain we found, tuple of (seeds, l), seed is the list of all seed in the chain, l is the aligned lengthh.
-        self.diag_group_hit(L, delta, w)
+        self.diag_group_hit(self.L, self.delta, w)
 
 
     def optimal_fw_chain(self, chains, I_list, L_tree, gap=0.2):
@@ -265,7 +268,7 @@ class DiagProcess(object):
 
             # is a end point
             else:
-                print L
+                #print L
                 k = I_list[i][1]
                 h_k = chains[k][0][-1][1]
 
@@ -288,8 +291,8 @@ class DiagProcess(object):
                     j1_item = L.ceiling_item(h_k)
 
                     # maybe mofify here'
-                    print "Vk", V[k]
-                    print L
+                    #print "Vk", V[k]
+                    #print L
                     while True:
                         prev_j1_item = j1_item
                         try:
@@ -302,12 +305,12 @@ class DiagProcess(object):
                                 L.remove_items(prev_j1_item)
                             break
 
-                    print L
+                    #print L
                 except KeyError:
                     continue
         #print "DP finished"
         try:
-            print L
+            #print L
             max_item = L.max_item()
             score = max_item[1][0]
 
@@ -462,17 +465,29 @@ class DiagProcess(object):
 
         return optimal_chain, length
 
-    def optimal_rechain(self, gap=0.2, rechain_threshold=5, span_threshold=0):
+    def optimal_rechain(self, gap=0.2, rechain_threshold=5, span_coefficient=1.0):
+        query_len = self.query.length
+        target_len = self.target.length
         align, length = self.optimal_fw_chain(self.fw_chain, self.fw_I, self.fw_L, gap)
         #print "Forward Chain Completed"
-        print align
-
         if align:
-            x_span = abs(align[-1][0] - align[0][0])
-            y_span = abs(align[-1][1] - align[0][1])
+            # find left side extension length
+            if align[0][0]< align[0][1]:
+                left_extend = align[0][0]
+            else:
+                left_extend = align[0][1]
 
-            if max(x_span, y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(x_span,
-                                                                                                               y_span) > span_threshold:
+            if query_len-align[-1][0] < target_len - align[-1][1]:
+                right_extend = query_len-align[-1][0]
+            else:
+                right_extend = target_len - align[-1][1]
+
+            # middle span
+            middle_extend = 0.5*(abs(align[-1][0] - align[0][0])) + 0.5*abs(align[-1][1] - align[0][1])
+
+            extend = left_extend + middle_extend + right_extend
+
+            if extend/float(4*span_coefficient*self.L) <= float(length)/self.k and length > rechain_threshold * self.k:
                 self.chain_align = align
                 self.is_forward = True
 
@@ -480,13 +495,24 @@ class DiagProcess(object):
         #print "Reversed Chain Completed"
         #print align
         if align:
-            x_span = abs(align[-1][0] - align[0][0])
-            y_span = abs(align[-1][1] - align[0][1])
+            # find left side extension length
+            if align[0][0] < target_len - align[0][1]:
+                left_extend = align[0][0]
+            else:
+                left_extend = target_len - align[0][1]
 
-            if len(align) > len(self.chain_align) and max(x_span,
-                                                          y_span) / 135 < 3 * length / self.k and length > rechain_threshold * self.k and min(
-                    x_span,
-                    y_span) > span_threshold:
+            if query_len - align[-1][0] < align[-1][1]:
+                right_extend = query_len - align[-1][0]
+            else:
+                right_extend = align[-1][1]
+
+            # middle span
+            middle_extend = 0.5 * (abs(align[-1][0] - align[0][0])) + 0.5 * abs(align[-1][1] - align[0][1])
+
+            extend = left_extend + middle_extend + right_extend
+
+            if extend / float(4 * span_coefficient * self.L) <= float(
+                    length) / self.k and length > rechain_threshold * self.k:
                 self.chain_align = align
                 self.is_forward = False
 
@@ -655,15 +681,15 @@ if __name__ == '__main__':
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170412/debug_target_2.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_target.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_query.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair1_query.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair1_target.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
     process.diag_chain(0.85, 0.12)
     print process.rc_chain
-    process.optimal_rechain(0.12, 5, 0)
+    process.optimal_rechain(0.12, 5, 1)
     print process.chain_align
     print process.aligned
     process.diag_plot()

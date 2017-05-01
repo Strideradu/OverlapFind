@@ -12,7 +12,7 @@ parser.add_argument("k", help="kmer", type=int)
 parser.add_argument("accuracy", help="accuracy of the reads", type=float)
 parser.add_argument("gap", help="gap rate", type=float)
 parser.add_argument("rechain", help="length of kmer", type=int)
-parser.add_argument("span", help="length of kmer", type=int)
+parser.add_argument("span_coefficient", help="must be non-zero float", type=float)
 
 try:
     args = parser.parse_args()
@@ -37,7 +37,7 @@ for record1 in query_seq:
         process = DiagProcess(seq1, seq2)
         process.diag_points(args.k)
         process.diag_group_hit(L, delta)
-        process.optimal_rechain(args.gap, args.rechain, args.span)
+        process.optimal_rechain(args.gap, args.rechain, args.span_coefficient)
 
         if process.aligned:
             print record1.id + "\t" + record2.id + "\t" + "True"
