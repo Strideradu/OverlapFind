@@ -41,6 +41,11 @@ class DiagProcess(object):
 
 
     def diag_points(self, k):
+        """
+
+        :param k: kmer size
+        :return: the list of hit points (x, y, score)
+        """
         self.k = k
 
         dict1 = self.query.generate_kmer_pos(k)
@@ -75,6 +80,159 @@ class DiagProcess(object):
                         self.rc_points.append(point)
             self.fw_points.sort()
             self.rc_points.sort()
+
+    def fw_cluster(self, gap_rate):
+        # cluster forward hits
+        best_cluster = None
+        best_length = 0
+        clustered = {}
+        for i, hit in enumerate(self.fw_points):
+            pair = (hit[0], hit[1])
+            if clustered.get(pair) is None:
+                # start new cluster
+                cluster = []
+                cluster_len = 0
+                cluster.append(hit)
+                cluster_len += self.k
+                last_x = hit[0]
+                last_y = hit[1]
+                clustered[pair] = True
+
+                for j in range(i, len(self.fw_points)):
+                    next_hit = self.fw_points[j]
+                    if next_hit[1] >= last_y:
+                        pair = (next_hit[0], next_hit[1])
+
+                        dist = max(next_hit[0] - last_x, abs(next_hit[1] - last_y))
+                        diag_limit = dist * gap_rate
+                        if abs(next_hit[1] - next_hit[0] - (last_y - last_x)) <= diag_limit:
+                            last_x = next_hit[0]
+                            last_y = next_hit[1]
+                            cluster.append(next_hit)
+                            clustered[pair] = True
+                            if dist < self.k:
+                                cluster_len += self.k - dist
+                            else:
+                                cluster_len += self.k
+
+
+                if cluster_len > best_length:
+                    best_length = cluster_len
+                    best_cluster = cluster
+
+
+        return best_cluster, best_length
+
+    def rc_cluster(self, gap_rate):
+        # cluster forward hits
+        best_cluster = None
+        best_length = 0
+        clustered = {}
+        for i, hit in enumerate(self.rc_points):
+            pair = (hit[0], hit[1])
+            if clustered.get(pair) is None:
+                # start new cluster
+                cluster = []
+                cluster_len = 0
+                cluster.append(hit)
+                cluster_len += self.k
+                last_x = hit[0]
+                last_y = hit[1]
+                clustered[pair] = True
+
+                for j in range(i, len(self.rc_points)):
+                    next_hit = self.rc_points[j]
+                    if next_hit[1] <= last_y:
+                        pair = (next_hit[0], next_hit[1])
+
+                        dist = max(next_hit[0] - last_x, abs( - next_hit[1] + last_y))
+                        diag_limit = dist * gap_rate
+                        if abs(next_hit[1] + next_hit[0] - (last_y + last_x)) <= diag_limit:
+                            last_x = next_hit[0]
+                            last_y = next_hit[1]
+                            cluster.append(next_hit)
+                            clustered[pair] = True
+                            if dist < self.k:
+                                cluster_len += self.k - dist
+                            else:
+                                cluster_len += self.k
+
+
+                if cluster_len > best_length:
+                    best_length = cluster_len
+                    best_cluster = cluster
+
+
+        return best_cluster, best_length
+
+    def cluster_hits(self, L,  gap_rate, size_threshold = 5, group_hit = 1.0):
+        query_len = self.query.length
+        target_len = self.target.length
+        align, length = self.fw_cluster(gap_rate)
+
+        if align:
+            # find left side extension length
+            if align[0][0] < align[0][1]:
+                left_extend = align[0][0]
+            else:
+                left_extend = align[0][1]
+
+            if query_len - align[-1][0] < target_len - align[-1][1]:
+                right_extend = query_len - align[-1][0]
+            else:
+                right_extend = target_len - align[-1][1]
+
+            # middle span
+            middle_extend = 0.5 * (abs(align[-1][0] - align[0][0])) + 0.5 * abs(align[-1][1] - align[0][1])
+
+            extend = left_extend + middle_extend + right_extend
+
+            if extend / float(4 * group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
+                self.chain_align = align
+                self.is_forward = True
+
+        align, length = self.rc_cluster(gap_rate)
+
+        # print align
+
+        if align:
+            # find left side extension length
+            if align[0][0] < target_len - align[0][1]:
+                left_extend = align[0][0]
+            else:
+                left_extend = target_len - align[0][1]
+
+            if query_len - align[-1][0] < align[-1][1]:
+                right_extend = query_len - align[-1][0]
+            else:
+                right_extend = align[-1][1]
+
+            # middle span
+            middle_extend = 0.5 * (abs(align[-1][0] - align[0][0])) + 0.5 * abs(align[-1][1] - align[0][1])
+
+            extend = left_extend + middle_extend + right_extend
+
+            if extend / float(4 * group_hit * self.L) <= float(
+                    length) / self.k and length > size_threshold * self.k:
+                self.chain_align = align
+                self.is_forward = False
+
+        if len(self.chain_align) != 0:
+            self.aligned = True
+        else:
+            self.aligned = False
+
+    def single_cluster_hit(self, accuracy, gap_rate, size_threshold = 5, group_hit = 1.0):
+        """
+        cluatering all the hits based on Hough Transofromation inspired method
+        :param gap_rate:
+        :return: the cluster has most exact matched
+        """
+        self.L = ProbFunc.statistical_bound_of_waiting_time(accuracy, self.k)
+        self.cluster_hits(self.L, gap_rate, size_threshold, group_hit)
+
+
+
 
     def diag_group_hit(self, L, delta, w = 0):
 
@@ -675,21 +833,31 @@ class DiagProcess(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
-    # record1 = SeqIO.read("D:/Data/20170213/pair2_query.fastq", "fastq")
-    # record2 = SeqIO.read("D:/Data/20170213/pair2_target.fastq", "fastq")
+    record1 = SeqIO.read("D:/Data/20170213/pair3_query.fastq", "fastq")
+    record2 = SeqIO.read("D:/Data/20170213/pair3_target.fastq", "fastq")
     # record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170412/debug_target_2.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair1_query.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair1_target.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair1_query.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair1_target.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
+
+    print process.single_cluster_hit(0.85, 0.15,5, 0.5)
+    print process.chain_align
+    print process.aligned
+    """
     process.diag_chain(0.85, 0.12)
     print process.rc_chain
     process.optimal_rechain(0.12, 5, 1)
     print process.chain_align
     print process.aligned
     process.diag_plot()
+    """
+
+
+
+
