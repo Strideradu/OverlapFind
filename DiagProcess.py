@@ -166,6 +166,7 @@ class DiagProcess(object):
         return best_cluster, best_length
 
     def cluster_hits(self, L,  gap_rate, size_threshold = 5, group_hit = 1.0):
+        self.L = L
         query_len = self.query.length
         target_len = self.target.length
         align, length = self.fw_cluster(gap_rate)
@@ -228,8 +229,8 @@ class DiagProcess(object):
         :param gap_rate:
         :return: the cluster has most exact matched
         """
-        self.L = ProbFunc.statistical_bound_of_waiting_time(accuracy, self.k)
-        self.cluster_hits(self.L, gap_rate, size_threshold, group_hit)
+        L = ProbFunc.statistical_bound_of_waiting_time(accuracy, self.k)
+        self.cluster_hits(L, gap_rate, size_threshold, group_hit)
 
 
 
