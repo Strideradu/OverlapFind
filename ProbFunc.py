@@ -148,7 +148,7 @@ def r_matches_probability(r, k, p, L):
     return p_matrix[L][r]
 
 
-def r_randommatch_probability(r, k, L1, L2, p = 0.25):
+def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
     """
 
     :param r: number of kmer hit
@@ -161,52 +161,83 @@ def r_randommatch_probability(r, k, L1, L2, p = 0.25):
     p_matrix = np.zeros((L1 + 1, L2 + 1, r + 1), dtype=np.double)
 
     # initialize p_matrix
-    p_k = float(p) ** (k)
+    p_k = float(p) ** (size_k)
     qp_k = (1 - p) * p_k
     sum_0_xk1 = 0  # store the x-k-1 term of sun
-    last_k_prob = np.zeros((k + 1), dtype=np.double)
+    last_k_prob = np.zeros((size_k + 1), dtype=np.double)
     sum = 0
 
     for x in range(L1 + 1):
-        if x < k:
-            last_k_prob[x % (k + 1)] = 0.00
-        elif x == k:
-            last_k_prob[x % (k + 1)] = p_k
+        if x < size_k:
+            last_k_prob[x % (size_k + 1)] = 0.00
+        elif x == size_k:
+            last_k_prob[x % (size_k + 1)] = p_k
         else:
-            sum_0_xk1 += last_k_prob[x % (k + 1)]
-            last_k_prob[x % (k + 1)] = qp_k * (1 - sum_0_xk1)
+            sum_0_xk1 += last_k_prob[x % (size_k + 1)]
+            last_k_prob[x % (size_k + 1)] = qp_k * (1 - sum_0_xk1)
             # last_k_prob[x % (k + 1)] = p_k * (1 - sum_0_xk1)
 
-        sum += last_k_prob[x % (k + 1)]
+        sum += last_k_prob[x % (size_k + 1)]
 
-        p_matrix[x][k][0] = 1 - sum
+        p_matrix[x][size_k][0] = 1 - sum
 
-    print p_matrix[k][k][0]
+    ##print p_matrix[k][k][0]
+    #print p_matrix[11][size_k][0]
+
     sum_0_xk1 = 0  # store the x-k-1 term of sun
-    last_k_prob = np.zeros((k + 1), dtype=np.double)
+    last_k_prob = np.zeros((size_k + 1), dtype=np.double)
     sum = 0
 
     for x in range(L2 + 1):
-        if x < k:
-            last_k_prob[x % (k + 1)] = 0.00
-        elif x == k:
-            last_k_prob[x % (k + 1)] = p_k
+        if x < size_k:
+            last_k_prob[x % (size_k + 1)] = 0.00
+        elif x == size_k:
+            last_k_prob[x % (size_k + 1)] = p_k
         else:
-            sum_0_xk1 += last_k_prob[x % (k + 1)]
-            last_k_prob[x % (k + 1)] = qp_k * (1 - sum_0_xk1)
+            sum_0_xk1 += last_k_prob[x % (size_k + 1)]
+            last_k_prob[x % (size_k + 1)] = qp_k * (1 - sum_0_xk1)
             # last_k_prob[x % (k + 1)] = p_k * (1 - sum_0_xk1)
 
-        sum += last_k_prob[x % (k + 1)]
+        sum += last_k_prob[x % (size_k + 1)]
 
-        p_matrix[k][x][0] = 1 - sum
-    print p_matrix[k][k][0]
+        p_matrix[size_k][x][0] = 1 - sum
+    #print p_matrix[size_k][11][0]
+    #print p_matrix[k][k][0]
     for i in range(L1 + 1):
         for j in range(L2 + 1):
-            for k in range(1, r+1):
-                p_matrix[i][j][k] = (p_matrix[i - 1][j][k] - p_matrix[i-1][j-1][k])*(1-p) \
-                                    + (p_matrix[i][j-1][k] - p_matrix[i-1][j-1][k])*(1-p) \
-                                    + p_matrix[i-1][j-1][k]*(1-p) \
-                                    + qp_k*(p_matrix[i-k-1][j-k-1][k-1] - p_matrix[i-k-1][j-k-1][k])
+            if i > size_k and j > size_k:
+                sum_diag = 0
+                for k in range(1, size_k):
+                    sum_diag += (p_matrix[i-k-1][j-k-1][0])*p**(k)*(1-p)
+                p_matrix[i][j][0] = (p_matrix[i - 1][j][0] - p_matrix[i-1][j-1][0])*(1-p) \
+                                    + (p_matrix[i][j-1][0] - p_matrix[i-1][j-1][0])*(1-p) \
+                                    + p_matrix[i - 1][j - 1][0] * (1 - p) \
+                                    + sum_diag
+                if p_matrix[i][j][0] < 0:
+                    p_matrix[i][j][0] = 0.0
+
+    print "test",p_matrix[L1][L2][0]
+    #print p_matrix[L1 -30][L2 - 30][0]
+
+    for k in range(1, r + 1):
+        for i in range(1, L1 + 1):
+            for j in range(1, L2 + 1):
+
+                if i > size_k  and j > size_k:
+
+                    p_matrix[i][j][k] = (p_matrix[i - 1][j][k] - p_matrix[i-1][j-1][k])*(1-p) \
+                                        + (p_matrix[i][j-1][k] - p_matrix[i-1][j-1][k])*(1-p) \
+                                        + p_matrix[i-1][j-1][k]*(1-p) \
+                                        + qp_k * (p_matrix[i - size_k - 1][j - size_k - 1][k - 1])
+
+                else:
+                    p_matrix[i][j][k] = (p_matrix[i - 1][j][k] - p_matrix[i - 1][j - 1][k]) * (1 - p) \
+                                        + (p_matrix[i][j - 1][k] - p_matrix[i - 1][j - 1][k]) * (1 - p) \
+                                        + p_matrix[i - 1][j - 1][k] * (1 - p)
+    #print p_matrix[L1/2][L2/2][r]
+    #print p_matrix[L1 - 50][L2 - 50][1]
+    for k in range(r):
+        print k, p_matrix[L1][L2][k]
 
     return p_matrix[L1][L2][r]
 
@@ -217,13 +248,13 @@ if __name__ == '__main__':
     #print L
     #print statistical_bound_of_randomwalk(0.15, L)
 
-    print r_matches_probability(30, 13, 0.85*0.85, 5000)
+    # print r_matches_probability(30, 13, 0.85*0.85, 5000)
     # so if we change accuracy to 1- accuracy, we can calculate the probability of have r matches given two non-overlap reads?
     # if we have p(1-0.85*0.85), then we have r matches given two non overlap reads is ((1/3)**k*(x-k))**r*p + (1/4)**(kr)*L
 
-    #print r_falsepositive_probability(5, 9, 2000, 5000, p=0.25)
-    #print r_falsepositive_probability(5, 9, 5000, 2000, p=0.25)
-    print r_randommatch_probability(5, 9, 45, 20, p = 0.25)
-    print r_randommatch_probability(5, 9, 20, 45, p=0.25)
+    print r_randommatch_probability(50, 9, 2000, 5000, p=0.25)
+    #print r_randommatch_probability(5, 9, 5000, 2000, p=0.25)
+    #print r_randommatch_probability(5, 9, 50, 100, p = 0.25)
+    #print r_randommatch_probability(5, 9, 100, 50, p=0.25)
 
 

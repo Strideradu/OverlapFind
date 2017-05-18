@@ -13,7 +13,7 @@ overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170501/small_9mer_0.85_0.12_3_2_align_found.out") as f1:
+with open("D:/Data/20170515/large_9mer_0.85_0.15_3_0.5_cluster.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
