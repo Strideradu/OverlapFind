@@ -120,7 +120,7 @@ def r_matches_probability(r, k, p, L):
     last_k_prob = np.zeros((k + 1), dtype=np.double)
     sum = 0
 
-    for x in range(L + 1):
+    for x in range(L + 1 - k):
 
 
         if x < k:
@@ -134,7 +134,10 @@ def r_matches_probability(r, k, p, L):
 
         sum += last_k_prob[x % (k + 1)]
 
-        p_matrix[x][0] = 1 - sum
+        if x < k:
+            p_matrix[x][0] = 1.0
+
+        p_matrix[x + k][0] = 1 - sum
 
     # special case x = k , r = 1 p = p**k
 
@@ -209,8 +212,8 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
                 sum_diag = 0
                 for k in range(1, size_k):
                     sum_diag += (p_matrix[i-k-1][j-k-1][0])*p**(k)*(1-p)
-                p_matrix[i][j][0] = (p_matrix[i - 1][j][0] - p_matrix[i-1][j-1][0])*(1-p) \
-                                    + (p_matrix[i][j-1][0] - p_matrix[i-1][j-1][0])*(1-p) \
+                p_matrix[i][j][0] = (p_matrix[i - 1][j][0] - p_matrix[i-1][j-1][0]) * (1 - p) \
+                                    + (p_matrix[i][j-1][0] - p_matrix[i-1][j-1][0]) * (1 - p) \
                                     + p_matrix[i - 1][j - 1][0] * (1 - p) \
                                     + sum_diag
                 if p_matrix[i][j][0] < 0:
@@ -225,15 +228,15 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
 
                 if i > size_k  and j > size_k:
 
-                    p_matrix[i][j][k] = (p_matrix[i - 1][j][k] - p_matrix[i-1][j-1][k])*(1-p) \
-                                        + (p_matrix[i][j-1][k] - p_matrix[i-1][j-1][k])*(1-p) \
-                                        + p_matrix[i-1][j-1][k]*(1-p) \
+                    p_matrix[i][j][k] = (p_matrix[i - 1][j][k] - p_matrix[i-1][j-1][k]) \
+                                        + (p_matrix[i][j-1][k] - p_matrix[i-1][j-1][k]) \
+                                        + p_matrix[i-1][j-1][k] \
                                         + qp_k * (p_matrix[i - size_k - 1][j - size_k - 1][k - 1])
 
                 else:
-                    p_matrix[i][j][k] = (p_matrix[i - 1][j][k] - p_matrix[i - 1][j - 1][k]) * (1 - p) \
-                                        + (p_matrix[i][j - 1][k] - p_matrix[i - 1][j - 1][k]) * (1 - p) \
-                                        + p_matrix[i - 1][j - 1][k] * (1 - p)
+                    p_matrix[i][j][k] = (p_matrix[i - 1][j][k] - p_matrix[i - 1][j - 1][k])  \
+                                        + (p_matrix[i][j - 1][k] - p_matrix[i - 1][j - 1][k]) \
+                                        + p_matrix[i - 1][j - 1][k]
     #print p_matrix[L1/2][L2/2][r]
     #print p_matrix[L1 - 50][L2 - 50][1]
     for k in range(r):
@@ -248,13 +251,13 @@ if __name__ == '__main__':
     #print L
     #print statistical_bound_of_randomwalk(0.15, L)
 
-    # print r_matches_probability(30, 13, 0.85*0.85, 5000)
+    print r_matches_probability(30, 13, 0.85*0.85, 5000)
     # so if we change accuracy to 1- accuracy, we can calculate the probability of have r matches given two non-overlap reads?
     # if we have p(1-0.85*0.85), then we have r matches given two non overlap reads is ((1/3)**k*(x-k))**r*p + (1/4)**(kr)*L
 
-    print r_randommatch_probability(50, 9, 2000, 5000, p=0.25)
+    #print r_randommatch_probability(50, 9, 2000, 5000, p=0.25)
     #print r_randommatch_probability(5, 9, 5000, 2000, p=0.25)
-    #print r_randommatch_probability(5, 9, 50, 100, p = 0.25)
-    #print r_randommatch_probability(5, 9, 100, 50, p=0.25)
+    print r_randommatch_probability(5, 9, 50, 100, p = 0.25)
+    print r_randommatch_probability(5, 9, 100, 50, p = 0.25)
 
 
