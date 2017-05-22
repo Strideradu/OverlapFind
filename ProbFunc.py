@@ -147,6 +147,7 @@ def r_matches_probability(r, k, p, L):
             if i > k:
                 # if i < k, the p is always 0
                 p_matrix[i][j] = p_matrix[i-1][j] + qp_k*(p_matrix[i-k-1][j-1] - p_matrix[i-k-1][j])
+                # p_matrix[i][j] = p_matrix[i - 1][j] + qp_k * p_matrix[i - k - 1][j - 1]
 
     return p_matrix[L][r]
 
@@ -170,9 +171,10 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
     last_k_prob = np.zeros((size_k + 1), dtype=np.double)
     sum = 0
 
-    for x in range(L1 + 1):
+    for x in range(L1 + 1 - size_k):
         if x < size_k:
             last_k_prob[x % (size_k + 1)] = 0.00
+            p_matrix[x][size_k][0] = 1.0
         elif x == size_k:
             last_k_prob[x % (size_k + 1)] = p_k
         else:
@@ -182,7 +184,8 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
 
         sum += last_k_prob[x % (size_k + 1)]
 
-        p_matrix[x][size_k][0] = 1 - sum
+
+        p_matrix[x + size_k][size_k][0] = 1 - sum
 
     ##print p_matrix[k][k][0]
     #print p_matrix[11][size_k][0]
@@ -191,9 +194,10 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
     last_k_prob = np.zeros((size_k + 1), dtype=np.double)
     sum = 0
 
-    for x in range(L2 + 1):
+    for x in range(L2 + 1 - size_k):
         if x < size_k:
             last_k_prob[x % (size_k + 1)] = 0.00
+            p_matrix[size_k][x][0] = 1.0
         elif x == size_k:
             last_k_prob[x % (size_k + 1)] = p_k
         else:
@@ -203,7 +207,7 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
 
         sum += last_k_prob[x % (size_k + 1)]
 
-        p_matrix[size_k][x][0] = 1 - sum
+        p_matrix[size_k][x + size_k][0] = 1 - sum
     #print p_matrix[size_k][11][0]
     #print p_matrix[k][k][0]
     for i in range(L1 + 1):
@@ -212,9 +216,10 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
                 sum_diag = 0
                 for k in range(1, size_k):
                     sum_diag += (p_matrix[i-k-1][j-k-1][0])*p**(k)*(1-p)
-                p_matrix[i][j][0] = (p_matrix[i - 1][j][0] - p_matrix[i-1][j-1][0]) * (1 - p) \
-                                    + (p_matrix[i][j-1][0] - p_matrix[i-1][j-1][0]) * (1 - p) \
-                                    + p_matrix[i - 1][j - 1][0] * (1 - p) \
+                print("sum diagnal", sum_diag)
+                p_matrix[i][j][0] = (p_matrix[i - 1][j][0]) * (1 - p) \
+                                    + (p_matrix[i][j-1][0]) * (1 - p) \
+                                    - p_matrix[i - 1][j - 1][0] * (1 - p) \
                                     + sum_diag
                 if p_matrix[i][j][0] < 0:
                     p_matrix[i][j][0] = 0.0
