@@ -171,10 +171,10 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
     last_k_prob = np.zeros((size_k + 1), dtype=np.double)
     sum = 0
 
-    for x in range(L1 + 1 - size_k):
+    for x in range(L1 + 1):
         if x < size_k:
             last_k_prob[x % (size_k + 1)] = 0.00
-            p_matrix[x][size_k][0] = 1.0
+
         elif x == size_k:
             last_k_prob[x % (size_k + 1)] = p_k
         else:
@@ -185,7 +185,7 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
         sum += last_k_prob[x % (size_k + 1)]
 
 
-        p_matrix[x + size_k][size_k][0] = 1 - sum
+        p_matrix[x][size_k][0] = 1 - sum
 
     ##print p_matrix[k][k][0]
     #print p_matrix[11][size_k][0]
@@ -194,10 +194,10 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
     last_k_prob = np.zeros((size_k + 1), dtype=np.double)
     sum = 0
 
-    for x in range(L2 + 1 - size_k):
+    for x in range(L2 + 1):
         if x < size_k:
             last_k_prob[x % (size_k + 1)] = 0.00
-            p_matrix[size_k][x][0] = 1.0
+
         elif x == size_k:
             last_k_prob[x % (size_k + 1)] = p_k
         else:
@@ -207,7 +207,7 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
 
         sum += last_k_prob[x % (size_k + 1)]
 
-        p_matrix[size_k][x + size_k][0] = 1 - sum
+        p_matrix[size_k][x][0] = 1 - sum
     #print p_matrix[size_k][11][0]
     #print p_matrix[k][k][0]
     for i in range(L1 + 1):
@@ -216,13 +216,15 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
                 sum_diag = 0
                 for k in range(1, size_k):
                     sum_diag += (p_matrix[i-k-1][j-k-1][0])*p**(k)*(1-p)
-                print("sum diagnal", sum_diag)
-                p_matrix[i][j][0] = (p_matrix[i - 1][j][0]) * (1 - p) \
-                                    + (p_matrix[i][j-1][0]) * (1 - p) \
-                                    - p_matrix[i - 1][j - 1][0] * (1 - p) \
+                # print("sum diagnal", sum_diag)
+                p_matrix[i][j][0] =  (p_matrix[i - 1][j][0] - p_matrix[i - 1][j - 1][0]) * (1 - p) \
+                                    + (p_matrix[i][j-1][0] - p_matrix[i - 1][j - 1][0]) * (1 - p) \
+                                    +  p_matrix[i - 1][j - 1][0] * (1 - p) \
                                     + sum_diag
+                """
                 if p_matrix[i][j][0] < 0:
                     p_matrix[i][j][0] = 0.0
+                """
 
     print "test",p_matrix[L1][L2][0]
     #print p_matrix[L1 -30][L2 - 30][0]
@@ -247,10 +249,9 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
     for k in range(r):
         print k, p_matrix[L1][L2][k]
 
-    return p_matrix[L1][L2][r]
+    return p_matrix
 
 if __name__ == '__main__':
-
 
     #L = statistical_bound_of_waiting_time(0.8, 9)
     #print L
@@ -262,7 +263,12 @@ if __name__ == '__main__':
 
     #print r_randommatch_probability(50, 9, 2000, 5000, p=0.25)
     #print r_randommatch_probability(5, 9, 5000, 2000, p=0.25)
-    print r_randommatch_probability(5, 9, 50, 100, p = 0.25)
-    print r_randommatch_probability(5, 9, 100, 50, p = 0.25)
+    # print r_randommatch_probability(5, 9, 50, 100, p = 0.25)
+    # print r_randommatch_probability(5, 9, 500, 1000, p = 0.25)
+
+    p_matrix = r_randommatch_probability(5, 9, 50, 100, p = 0.25)
+    np.savetxt("D:/Data/20170522/p_matrix.csv", p_matrix[:,:,0], fmt='%.10f', delimiter=",")
+    #p_matrix.tofile("D:/Data/20170522/p_matrix.csv", sep=',', format=
+
 
 
