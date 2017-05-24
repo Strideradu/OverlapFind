@@ -212,13 +212,15 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
     #print p_matrix[k][k][0]
     for i in range(L1 + 1):
         for j in range(L2 + 1):
+            if i < size_k or j < size_k:
+                p_matrix[i][j][0] = 1.0
             if i > size_k and j > size_k:
                 sum_diag = 0
                 for k in range(1, size_k):
                     sum_diag += (p_matrix[i-k-1][j-k-1][0])*p**(k)*(1-p)
                 # print("sum diagnal", sum_diag)
-                p_matrix[i][j][0] =  (p_matrix[i - 1][j][0] - p_matrix[i - 1][j - 1][0]) * (1 - p) \
-                                    + (p_matrix[i][j-1][0] - p_matrix[i - 1][j - 1][0]) * (1 - p) \
+                p_matrix[i][j][0] = (p_matrix[i - 1][j][0] - p_matrix[i-1][j-1][0])*(1-p) \
+                                    + (p_matrix[i][j-1][0] - p_matrix[i-1][j-1][0])*(1-p) \
                                     +  p_matrix[i - 1][j - 1][0] * (1 - p) \
                                     + sum_diag
                 """
@@ -266,9 +268,10 @@ if __name__ == '__main__':
     # print r_randommatch_probability(5, 9, 50, 100, p = 0.25)
     # print r_randommatch_probability(5, 9, 500, 1000, p = 0.25)
 
-    p_matrix = r_randommatch_probability(5, 9, 50, 100, p = 0.25)
-    np.savetxt("D:/Data/20170522/p_matrix.csv", p_matrix[:,:,0], fmt='%.10f', delimiter=",")
-    #p_matrix.tofile("D:/Data/20170522/p_matrix.csv", sep=',', format=
+    p_matrix = r_randommatch_probability(5, 9, 500, 1000, p = 0.25)
+    print(p_matrix[500][1000][0])
+    #np.savetxt("D:/Data/20170522/p_matrix_test_again.csv", p_matrix[:,:,0], fmt='%.10f', delimiter=",")
+
 
 
 
