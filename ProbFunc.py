@@ -241,7 +241,7 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
                     p_matrix[i][j][k] = (p_matrix[i - 1][j][k] - p_matrix[i-1][j-1][k])*(1 - p) \
                                         + (p_matrix[i][j-1][k] - p_matrix[i-1][j-1][k])*(1 - p) \
                                         + p_matrix[i-1][j-1][k]*(1 - p) \
-                                        + qp_k*p_matrix[i-size_k-1][j-size_k-1][k-1] + sum_diag
+                                        + p_k*p_matrix[i-size_k-1][j-size_k-1][k-1] + sum_diag
 
                 else:
                     max_iter = min(i, j)
@@ -263,7 +263,7 @@ if __name__ == '__main__':
     #print L
     #print statistical_bound_of_randomwalk(0.15, L)
 
-    print r_matches_probability(1, 9, 0.25, 2000)
+    print r_matches_probability(10, 9, 0.25, 2000)
     # so if we change accuracy to 1- accuracy, we can calculate the probability of have r matches given two non-overlap reads?
     # if we have p(1-0.85*0.85), then we have r matches given two non overlap reads is ((1/3)**k*(x-k))**r*p + (1/4)**(kr)*L
 
@@ -271,16 +271,17 @@ if __name__ == '__main__':
     #print r_randommatch_probability(5, 9, 5000, 2000, p=0.25)
     # print r_randommatch_probability(5, 9, 50, 100, p = 0.25)
     # print r_randommatch_probability(5, 9, 500, 1000, p = 0.25)
-
+    """
     p_matrix = r_randommatch_probability(50, 9, 2000, 3000, p = 0.25)
     #print(p_matrix[2000][2000][1])
     #print(p_matrix[500][1000][0])
-    np.savetxt("D:/Data/20170522/p_matrix_0.csv", p_matrix[:,:,0], fmt='%.10f', delimiter=",")
-    np.savetxt("D:/Data/20170522/p_matrix_10.csv", p_matrix[:, :, 10], fmt='%.10f', delimiter=",")
-    np.savetxt("D:/Data/20170522/p_matrix_20.csv", p_matrix[:, :, 20], fmt='%.10f', delimiter=",")
-    np.savetxt("D:/Data/20170522/p_matrix_30.csv", p_matrix[:, :, 30], fmt='%.10f', delimiter=",")
-    np.savetxt("D:/Data/20170522/p_matrix_40.csv", p_matrix[:, :, 40], fmt='%.10f', delimiter=",")
-    np.savetxt("D:/Data/20170522/p_matrix_50.csv", p_matrix[:, :, 50], fmt='%.10f', delimiter=",")
+    np.savetxt("D:/Data/20170522/p_matrix_0.csv", p_matrix[:,:,0], fmt='%.10e', delimiter=",")
+    np.savetxt("D:/Data/20170522/p_matrix_10.csv", p_matrix[:, :, 10], fmt='%.10e', delimiter=",")
+    np.savetxt("D:/Data/20170522/p_matrix_20.csv", p_matrix[:, :, 20], fmt='%.10e', delimiter=",")
+    np.savetxt("D:/Data/20170522/p_matrix_30.csv", p_matrix[:, :, 30], fmt='%.10e', delimiter=",")
+    np.savetxt("D:/Data/20170522/p_matrix_40.csv", p_matrix[:, :, 40], fmt='%.10e', delimiter=",")
+    np.savetxt("D:/Data/20170522/p_matrix_50.csv", p_matrix[:, :, 50], fmt='%.10e', delimiter=",")
+    """
 
 
 
