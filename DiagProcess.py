@@ -832,16 +832,16 @@ class DiagProcess(object):
 
 
 if __name__ == '__main__':
-    # record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_1.fastq", "fastq")
-    # record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_3_2.fastq", "fastq")
-    record1 = SeqIO.read("D:/Data/20170213/pair3_query.fastq", "fastq")
-    record2 = SeqIO.read("D:/Data/20170213/pair3_target.fastq", "fastq")
+    #record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_2_1.fastq", "fastq")
+    #record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_2_2.fastq", "fastq")
+    # record1 = SeqIO.read("D:/Data/20170213/pair3_query.fastq", "fastq")
+    # record2 = SeqIO.read("D:/Data/20170213/pair3_target.fastq", "fastq")
     # record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170412/debug_target_2.fasta", "fasta")
-    # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair1_query.fasta", "fasta")
-    # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair1_target.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_query.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_target.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
@@ -850,6 +850,13 @@ if __name__ == '__main__':
     print process.single_cluster_hit(0.85, 0.15,5, 0.5)
     print process.chain_align
     print process.aligned
+    print process.is_forward
+
+
+    print len(record1.seq)
+    print len(record2.seq)
+    print len(process.fw_points)
+    print len(process.rc_points)
     """
     process.diag_chain(0.85, 0.12)
     print process.rc_chain

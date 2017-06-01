@@ -263,7 +263,7 @@ if __name__ == '__main__':
     #print L
     #print statistical_bound_of_randomwalk(0.15, L)
 
-    print r_matches_probability(10, 9, 0.25, 2000)
+    print r_matches_probability(60, 9, 0.25, 3500)
     # so if we change accuracy to 1- accuracy, we can calculate the probability of have r matches given two non-overlap reads?
     # if we have p(1-0.85*0.85), then we have r matches given two non overlap reads is ((1/3)**k*(x-k))**r*p + (1/4)**(kr)*L
 
