@@ -27,13 +27,13 @@ for seq in overlap_dict.keys():
                 found_overlap[(seq, target)] = True
 print expect
 
-hit_thresholds = [0, 1, 2, 3, 4, 5]
+hit_thresholds = [0, 1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50]
 
 for hit_threshold in hit_thresholds:
     num_found = 0
     true_align = 0
     found = {}
-    with open("D:/Data/20170603/compare_kmer_13mer.out") as f1:
+    with open("D:/Data/20170603/compare_kmer_11mer.out") as f1:
         for line in f1:
             line = line.rstrip()
             if line != "" and line[0] != "#":

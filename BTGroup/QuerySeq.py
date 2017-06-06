@@ -25,6 +25,8 @@ class QuerySeq(object):
         self.fw_hits = []
         self.rc_hits = []
         self.k = bloom_filter.get_k()
+        self.L = bloom_filter.get_L()
+        self.target_length = bloom_filter.get_length()
         num_bins = bloom_filter.get_num_bins()
 
         for i in range(self.length - self.k + 1):
@@ -37,12 +39,153 @@ class QuerySeq(object):
                 if bloom_filter.check_bin(reverse_kmer, j):
                     self.rc_hits.append((i, j, kmer))
 
+        self.fw_hits.sort()
+        self.rc_hits.sort()
+
+    def fw_diag_group(self):
+        best_cluster = None
+        best_length = 0
+        clustered = {}
+        for i, hit in enumerate(self.fw_hits):
+            pair = (hit[0], hit[1])
+            if clustered.get(pair) is None:
+                cluster = []
+                cluster_len = 0
+                cluster.append(hit)
+                cluster_len += self.k
+                last_x = hit[0]
+                last_y = hit[1]
+                clustered[pair] = True
+
+                for j in range(i, len(self.fw_hits)):
+                    next_hit = self.fw_hits[j]
+                    if next_hit[0] > last_x + self.L:
+                        break
+
+                    if next_hit[1] == last_y or next_hit == last_y + 1:
+                        pair = (next_hit[0], next_hit[1])
+                        dist = pair[0] - last_x
+                        last_x = next_hit[0]
+                        last_y = next_hit[1]
+                        cluster.append(next_hit)
+                        clustered[pair] = True
+                        if dist < self.k:
+                            cluster_len += self.k - dist
+                        else:
+                            cluster_len += self.k
+
+                if cluster_len > best_length:
+                    best_length = cluster_len
+                    best_cluster = cluster
+
+        return best_cluster, best_length
+
+    def rc_diag_group(self):
+        best_cluster = None
+        best_length = 0
+        clustered = {}
+        for i, hit in enumerate(self.rc_hits):
+            pair = (hit[0], hit[1])
+            if clustered.get(pair) is None:
+                cluster = []
+                cluster_len = 0
+                cluster.append(hit)
+                cluster_len += self.k
+                last_x = hit[0]
+                last_y = hit[1]
+                clustered[pair] = True
+
+                for j in range(i, len(self.rc_hits)):
+                    next_hit = self.rc_hits[j]
+                    if next_hit[0] > last_x + self.L:
+                        break
+
+                    if next_hit[1] == last_y or next_hit == last_y - 1:
+                        pair = (next_hit[0], next_hit[1])
+                        dist = pair[0] - last_x
+                        last_x = next_hit[0]
+                        last_y = next_hit[1]
+                        cluster.append(next_hit)
+                        clustered[pair] = True
+                        if dist < self.k:
+                            cluster_len += self.k - dist
+                        else:
+                            cluster_len += self.k
+
+                if cluster_len > best_length:
+                    best_length = cluster_len
+                    best_cluster = cluster
+
+        return best_cluster, best_length
+
+    def cluster_hits(self, size_threshold = 5, group_hit = 1.0):
+        self.chain_align = []
+        query_len = self.length
+        target_len = self.target_length
+
+        align, length = self.fw_diag_group()
+
+        if align:
+            # find left side extension length
+            if align[0][0] < align[0][1] * self.L:
+                left_extend = align[0][0]
+            else:
+                left_extend = align[0][1] * self.L
+
+            if query_len - align[-1][0] < target_len - align[-1][1] * self.L:
+                right_extend = query_len - align[-1][0]
+            else:
+                right_extend = target_len - align[-1][1] * self.L
+
+            # middle span
+            middle_extend = (abs(align[-1][0] - align[0][0]))
+
+            extend = left_extend + middle_extend + right_extend
+
+            if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
+                self.chain_align = align
+                self.is_forward = True
+
+        align, length = self.rc_diag_group()
+
+        if align:
+            # find left side extension length
+            if align[0][0] < target_len - align[0][1] * self.k:
+                left_extend = align[0][0]
+            else:
+                left_extend = target_len - align[0][1] * self.k
+
+            if query_len - align[-1][0] < align[-1][1] * self.k:
+                right_extend = query_len - align[-1][0]
+            else:
+                right_extend = align[-1][1] * self.k
+
+            # middle span
+            middle_extend = abs(align[-1][0] - align[0][0])
+
+            extend = left_extend + middle_extend + right_extend
+
+            if extend / float(group_hit * self.L) <= float(
+                    length) / self.k and length > size_threshold * self.k:
+                self.chain_align = align
+                self.is_forward = False
+
+        if len(self.chain_align) != 0:
+            self.aligned = True
+        else:
+            self.aligned = False
+
 if __name__ == '__main__':
-    record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_query.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_target.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_query.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_target.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_query.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_target.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 0, 0.75)
     test_filter.generate_filter()
     test_query = QuerySeq(record1)
     test_query.check_kmer(test_filter)
     print(test_query.fw_hits)
+    print(test_query.rc_hits)
+    test_query.cluster_hits()
+    print test_query.aligned
 

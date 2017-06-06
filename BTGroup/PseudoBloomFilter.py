@@ -48,11 +48,16 @@ class PseudoBloomFilter(object):
         return kmer in self.bin[bin_index]
 
     def get_num_bins(self):
-
         return self.num_bins
 
     def get_k(self):
         return self.k
+
+    def get_L(self):
+        return self.L
+
+    def get_length(self):
+        return self.length
 
 
 if __name__ == '__main__':
