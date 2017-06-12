@@ -27,7 +27,7 @@ print expect
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170523/query_all_target_9_0.85_0.12_3_0.5.out") as f1:
+with open("D:/Data/20170608/query_all_target_13_0.85_3_1.0.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
