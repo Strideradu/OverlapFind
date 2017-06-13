@@ -35,17 +35,23 @@ class PseudoBloomFilter(object):
         """
         self.num_bins = self.length // self.L + 1
 
-        bin = [set() for row in range(self.num_bins)]
+        bin = [{} for row in range(self.num_bins)]
 
         for i in range(self.length - self.k + 1):
             kmer = str(self.seq[i:i + self.k])
             bin_index = i // self.L
-            bin[bin_index].add(kmer)
+            kmer_list = bin[bin_index].get(kmer)
+            if not kmer_list:
+                bin[bin_index][kmer] = []
+                kmer_list = bin[bin_index][kmer]
+
+            kmer_list.append(i)
+
 
         self.bin = bin
 
     def check_bin(self, kmer, bin_index):
-        return kmer in self.bin[bin_index]
+        return self.bin[bin_index].get(kmer)
 
     def get_num_bins(self):
         return self.num_bins
