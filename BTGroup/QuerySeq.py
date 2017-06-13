@@ -218,8 +218,8 @@ class QuerySeq(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170613/Missing_5_query.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170613/Missing_5_target.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170613/FP_4_query.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170613/FP_4_target.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 0, 0.75)
     print test_filter.L
     test_filter.generate_filter()
