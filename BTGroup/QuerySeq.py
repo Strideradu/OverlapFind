@@ -3,6 +3,7 @@ Queyr sequence process
 """
 from Bio import SeqIO
 import PseudoBloomFilter
+from matplotlib import pyplot as plt
 
 def reverse_com(string):
     rev_com = {"A": "T", "C": "G", "T": "A", "G": "C", "N": "N"}
@@ -33,11 +34,13 @@ class QuerySeq(object):
             kmer = str(self.seq[i:i + self.k])
             reverse_kmer = reverse_com(kmer)
             for j in range(int(num_bins)):
-                if bloom_filter.check_bin(kmer, j):
-                    self.fw_hits.append((i, j, kmer))
+                fw_pos = bloom_filter.check_bin(kmer, j)
+                if fw_pos:
+                    self.fw_hits.append((i, j, kmer, fw_pos))
 
-                if bloom_filter.check_bin(reverse_kmer, j):
-                    self.rc_hits.append((i, j, kmer))
+                rc_pos = bloom_filter.check_bin(reverse_kmer, j)
+                if rc_pos:
+                    self.rc_hits.append((i, j, kmer, rc_pos))
 
         self.fw_hits.sort()
         self.rc_hits.sort()
@@ -57,12 +60,15 @@ class QuerySeq(object):
                 last_y = hit[1]
                 clustered[pair] = True
 
-                for j in range(i, len(self.fw_hits)):
+                for j in range(i + 1, len(self.fw_hits)):
+
                     next_hit = self.fw_hits[j]
+                    if hit[0] == 1814:
+                        print next_hit
                     if next_hit[0] > last_x + self.L:
                         break
 
-                    if next_hit[1] == last_y or next_hit == last_y + 1:
+                    if next_hit[1] == last_y or next_hit[1] == last_y + 1:
                         pair = (next_hit[0], next_hit[1])
                         dist = pair[0] - last_x
                         last_x = next_hit[0]
@@ -95,12 +101,12 @@ class QuerySeq(object):
                 last_y = hit[1]
                 clustered[pair] = True
 
-                for j in range(i, len(self.rc_hits)):
+                for j in range(i + 1, len(self.rc_hits)):
                     next_hit = self.rc_hits[j]
                     if next_hit[0] > last_x + self.L:
                         break
 
-                    if next_hit[1] == last_y or next_hit == last_y - 1:
+                    if next_hit[1] == last_y or next_hit[1] == last_y - 1:
                         pair = (next_hit[0], next_hit[1])
                         dist = pair[0] - last_x
                         last_x = next_hit[0]
@@ -124,6 +130,7 @@ class QuerySeq(object):
         target_len = self.target_length
 
         align, length = self.fw_diag_group()
+        self.fw_chain = align
 
         if align:
             # find left side extension length
@@ -143,10 +150,12 @@ class QuerySeq(object):
             extend = left_extend + middle_extend + right_extend
 
             if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
-                self.chain_align = align
-                self.is_forward = True
+                if length > len(self.chain_align):
+                    self.chain_align = align
+                    self.is_forward = True
 
         align, length = self.rc_diag_group()
+        self.rc_chain = align
 
         if align:
             # find left side extension length
@@ -167,25 +176,59 @@ class QuerySeq(object):
 
             if extend / float(group_hit * self.L) <= float(
                     length) / self.k and length > size_threshold * self.k:
-                self.chain_align = align
-                self.is_forward = False
+                if length > len(self.chain_align):
+                    self.chain_align = align
+                    self.is_forward = False
 
         if len(self.chain_align) != 0:
             self.aligned = True
         else:
             self.aligned = False
 
+    def plot(self):
+        plt.figure()
+
+        for hit in self.fw_hits:
+            # hit[0] x coordinate, hit[3] list of y coordinate
+            x = [hit[0]] * len(hit[3])
+            plt.scatter(x, hit[3])
+
+
+        for aligned_hit in self.fw_chain:
+            x = [aligned_hit[0]] * len(aligned_hit[3])
+            plt.scatter(x, aligned_hit[3], edgecolors="black", linewidths=2)
+
+
+        plt.figure()
+
+        for hit in self.rc_hits:
+            # hit[0] x coordinate, hit[3] list of y coordinate
+            x = [hit[0]] * len(hit[3])
+            plt.scatter(x, hit[3])
+
+
+
+        for aligned_hit in self.rc_chain:
+            x = [aligned_hit[0]] * len(aligned_hit[3])
+            plt.scatter(x, aligned_hit[3], edgecolors="black", linewidths=2)
+
+        plt.show()
+
+
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_query.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_target.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170613/Missing_5_query.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170613/Missing_5_target.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 0, 0.75)
+    print test_filter.L
     test_filter.generate_filter()
     test_query = QuerySeq(record1)
     test_query.check_kmer(test_filter)
-    print(test_query.fw_hits)
-    print(test_query.rc_hits)
+    # print(test_query.fw_hits)
+    # print(test_query.rc_hits)
     test_query.cluster_hits()
+    print test_query.chain_align
     print test_query.aligned
+    test_query.plot()
 

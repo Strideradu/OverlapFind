@@ -15,7 +15,7 @@ overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 # we start to build list of minimap output
 minimap_output = []
 found = {} # make sure no duplicate
-with open("D:/Data/20170406/query_small_minimap.out") as f1:
+with open("D:/Data/20170523/query_all_minimap.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
@@ -30,7 +30,7 @@ with open("D:/Data/20170406/query_small_minimap.out") as f1:
 
 # we build list of group hit output
 group_output = []
-with open("D:/Data/20170429/small_9mer_0.85_0.12_5_align_found.out") as f1:
+with open("D:/Data/20170608/query_target_9_0.85_3_1.0.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
@@ -51,8 +51,8 @@ FP_group_worse = []
 for pair in group_extra:
     query_id = pair[0]
     target_id = pair[1]
-    if target_id in overlap_dict[query_id][0] or target_id in overlap_dict[query_id][1] or target_id in \
-            overlap_dict[query_id][2]:
+    if overlap_dict.get(query_id) and (target_id in overlap_dict[query_id][0] or target_id in overlap_dict[query_id][1] or target_id in \
+            overlap_dict[query_id][2]):
         TP_group_better.append(pair)
     else:
         FP_group_worse.append(pair)
@@ -63,13 +63,13 @@ FP_minimap_worse = []
 for pair in minimap_extra:
     query_id = pair[0]
     target_id = pair[1]
-    if target_id in overlap_dict[query_id][0] or target_id in overlap_dict[query_id][1] or target_id in \
-            overlap_dict[query_id][2]:
+    if overlap_dict.get(query_id) and (target_id in overlap_dict[query_id][0] or target_id in overlap_dict[query_id][1] or target_id in \
+            overlap_dict[query_id][2]):
         TP_minimap_better.append(pair)
     else:
         FP_minimap_worse.append(pair)
 
-with open("D:/Data/20170429/small_compare_with_minimap_9mer_0.85_0.12_5.out", "w") as fout:
+with open("D:/Data/20170608/compare_with_minimap_9mer_0.85_0.12_3_1.0.out", "w") as fout:
     print >> fout, "# True Align only found by Group Hit:"
     for pair in TP_group_better:
         print >> fout, pair[0] + "\t" + pair[1]
