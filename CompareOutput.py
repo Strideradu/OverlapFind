@@ -14,8 +14,8 @@ overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 
 # we start to build list of minimap output
 minimap_output = []
-found = {} # make sure no duplicate
-with open("D:/Data/20170523/query_all_minimap.out") as f1:
+minimap_found = {} # make sure no duplicate
+with open("D:/Data/20170613/query_all_minimap.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
@@ -23,22 +23,29 @@ with open("D:/Data/20170523/query_all_minimap.out") as f1:
             query_id = line_sp[0]
             target_id = line_sp[5]
             if query_id!=target_id:
-                if found.get((query_id, target_id), False) is False and found.get((target_id, query_id),
+                if minimap_found.get((query_id, target_id), False) is False and minimap_found.get((target_id, query_id),
                                                                                   False) is False:
                     minimap_output.append((query_id, target_id))
-                    found[(query_id, target_id)] = True
+                    minimap_found[(query_id, target_id)] = True
 
 # we build list of group hit output
 group_output = []
-with open("D:/Data/20170608/query_target_9_0.85_3_1.0.out") as f1:
+found = {}
+with open("D:/Data/20170613/query_all_target_9_0.75_3_1.0.out") as f1:
     for line in f1:
         line = line.rstrip()
-        if line != "" and line[0]!="#":
+        if line != "" and line[0]!="#" and line[0]!="(":
             line_sp = line.split("\t")
             query_id = line_sp[0]
             target_id = line_sp[1]
             if query_id!=target_id:
-                group_output.append((target_id, query_id))
+                if found.get((query_id, target_id), False) is False and found.get((target_id, query_id),
+                                                                                  False) is False:
+                    if minimap_found.get((query_id, target_id), False):
+                        group_output.append((query_id, target_id))
+                    else:
+                        group_output.append((target_id, query_id))
+                    found[(query_id, target_id)] = True
 
 print len(minimap_output)
 print len(group_output)
@@ -69,7 +76,7 @@ for pair in minimap_extra:
     else:
         FP_minimap_worse.append(pair)
 
-with open("D:/Data/20170608/compare_with_minimap_9mer_0.85_0.12_3_1.0.out", "w") as fout:
+with open("D:/Data/20170614/compare_with_minimap_9mer_0.75_3_1.0.out", "w") as fout:
     print >> fout, "# True Align only found by Group Hit:"
     for pair in TP_group_better:
         print >> fout, pair[0] + "\t" + pair[1]

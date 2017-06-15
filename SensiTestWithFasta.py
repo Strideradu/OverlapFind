@@ -27,10 +27,10 @@ print expect
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170608/query_all_target_13_0.85_3_1.0.out") as f1:
+with open("D:/Data/20170613/query_all_target_9_0.85_3_1.0.out") as f1:
     for line in f1:
         line = line.rstrip()
-        if line != "" and line[0]!="#":
+        if line != "" and line[0]!="#" and line[0]!="(":
             line_sp = line.split("\t")
             query_id = line_sp[0]
             target_id = line_sp[1]
@@ -51,6 +51,7 @@ with open("D:/Data/20170608/query_all_target_13_0.85_3_1.0.out") as f1:
 print num_found
 sensitivity = float(true_align) / expect
 accuracy = float(true_align)/num_found
+print total_pairs
 print "sensitivity", sensitivity
 print "FPR", (num_found - true_align) / float(total_pairs- expect)
 print "accuracy", accuracy
