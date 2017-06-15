@@ -75,7 +75,7 @@ class QuerySeq(object):
                         cluster.append(next_hit)
                         clustered[pair] = True
                         if dist < self.k:
-                            cluster_len += self.k - dist
+                            cluster_len += dist
                         else:
                             cluster_len += self.k
 
@@ -113,7 +113,7 @@ class QuerySeq(object):
                         cluster.append(next_hit)
                         clustered[pair] = True
                         if dist < self.k:
-                            cluster_len += self.k - dist
+                            cluster_len += dist
                         else:
                             cluster_len += self.k
 
@@ -129,6 +129,7 @@ class QuerySeq(object):
         target_len = self.target_length
 
         align, length = self.fw_diag_group()
+        print length
         self.fw_chain = align
 
         if align:
@@ -154,6 +155,7 @@ class QuerySeq(object):
                     self.is_forward = True
 
         align, length = self.rc_diag_group()
+        print length
         self.rc_chain = align
 
         if align:
