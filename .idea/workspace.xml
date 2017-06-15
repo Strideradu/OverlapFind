@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11908691-7248-4bca-af62-dc1f7fc6843f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTGroup/QuerySeq.py" afterPath="$PROJECT_DIR$/BTGroup/QuerySeq.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" afterPath="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SensiTestWithFasta.py" afterPath="$PROJECT_DIR$/SensiTestWithFasta.py" />
     </list>
     <ignored path="OverlapFind.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,21 +33,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QuerySeq.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="QuerySeq.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="717">
-              <caret line="151" column="113" lean-forward="true" selection-start-line="151" selection-start-column="113" selection-end-line="151" selection-end-column="113" />
+            <state relative-caret-position="15">
+              <caret line="125" column="44" lean-forward="false" selection-start-line="125" selection-start-column="27" selection-end-line="125" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompareWithBloom.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CompareWithBloom.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="28" column="26" lean-forward="false" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+            <state relative-caret-position="891">
+              <caret line="35" column="59" lean-forward="false" selection-start-line="35" selection-start-column="59" selection-end-line="35" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SensiTestWithFasta.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="675">
+              <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -106,13 +117,13 @@
         <option value="$PROJECT_DIR$/CompareKmer.py" />
         <option value="$PROJECT_DIR$/DiagProcess.py" />
         <option value="$PROJECT_DIR$/SensiTestKmer.py" />
-        <option value="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" />
         <option value="$PROJECT_DIR$/ProbFunc.py" />
         <option value="$PROJECT_DIR$/BTGroup/PseudoBloomFilter.py" />
-        <option value="$PROJECT_DIR$/SensiTestWithFasta.py" />
         <option value="$PROJECT_DIR$/CompareOutput.py" />
         <option value="$PROJECT_DIR$/Generate_Fasta_Pair.py" />
         <option value="$PROJECT_DIR$/BTGroup/QuerySeq.py" />
+        <option value="$PROJECT_DIR$/SensiTestWithFasta.py" />
+        <option value="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" />
       </list>
     </option>
   </component>
@@ -179,7 +190,7 @@
       <recent name="C:\Users\Nan\Documents\GitHub\OverlapFind" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.QuerySeq">
+  <component name="RunManager" selected="Python.SensiTestWithFasta">
     <configuration default="false" name="QuerySeq" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -426,10 +437,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.QuerySeq" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Generate_Fasta_Pair" />
-        <item index="2" class="java.lang.String" itemvalue="Python.CompareOutput" />
-        <item index="3" class="java.lang.String" itemvalue="Python.SensiTestWithFasta" />
+        <item index="0" class="java.lang.String" itemvalue="Python.SensiTestWithFasta" />
+        <item index="1" class="java.lang.String" itemvalue="Python.QuerySeq" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Generate_Fasta_Pair" />
+        <item index="3" class="java.lang.String" itemvalue="Python.CompareOutput" />
         <item index="4" class="java.lang.String" itemvalue="Python.ProbFunc" />
       </list>
     </recent_temporary>
@@ -463,7 +474,7 @@
     <frame x="-11" y="-11" width="2164" height="1402" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3134187" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3134187" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -492,7 +503,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3219634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3134187" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3134187" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24917725" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -806,13 +817,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="18" column="31" lean-forward="true" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SensiTest2Fasta.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
@@ -849,18 +853,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
+    <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="28" column="26" lean-forward="false" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+        <state relative-caret-position="675">
+          <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="717">
-          <caret line="151" column="113" lean-forward="true" selection-start-line="151" selection-start-column="113" selection-end-line="151" selection-end-column="113" />
+        <state relative-caret-position="15">
+          <caret line="125" column="44" lean-forward="false" selection-start-line="125" selection-start-column="27" selection-end-line="125" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="891">
+          <caret line="35" column="59" lean-forward="false" selection-start-line="35" selection-start-column="59" selection-end-line="35" selection-end-column="59" />
           <folding />
         </state>
       </provider>
