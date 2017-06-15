@@ -129,7 +129,7 @@ class QuerySeq(object):
         target_len = self.target_length
 
         align, length = self.fw_diag_group()
-        print length
+        #print length
         self.fw_chain = align
 
         if align:
@@ -155,7 +155,7 @@ class QuerySeq(object):
                     self.is_forward = True
 
         align, length = self.rc_diag_group()
-        print length
+        #print length
         self.rc_chain = align
 
         if align:
