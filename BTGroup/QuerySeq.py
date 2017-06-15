@@ -63,8 +63,7 @@ class QuerySeq(object):
                 for j in range(i + 1, len(self.fw_hits)):
 
                     next_hit = self.fw_hits[j]
-                    if hit[0] == 1814:
-                        print next_hit
+
                     if next_hit[0] > last_x + self.L:
                         break
 
