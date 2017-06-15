@@ -1,7 +1,7 @@
 from Bio import SeqIO
 
 generate_num = 100
-file_prefix = "D:/Data/20170614/FP_"
+file_prefix = "D:/Data/20170615/9mer_0p75_5/FP_"
 file_suffix = ".fasta"
 
 query_fasta = "D:/Data/20170523/query_all.fasta"
@@ -10,7 +10,7 @@ query_dict = SeqIO.index(query_fasta, "fasta")
 target_dict = SeqIO.index(target_fasta, "fasta")
 num = 0
 
-with open("D:/Data/20170614/FalsePositive_list.txt") as f:
+with open("D:/Data/20170615/false_positive_list.txt") as f:
     for line in f:
         num += 1
         pair = line.strip().split("\t")

@@ -160,20 +160,26 @@ class QuerySeq(object):
 
         if align:
             # find left side extension length
-            if align[0][0] < target_len - align[0][1] * self.k:
+            if align[0][0] < target_len - align[0][1] * self.L:
                 left_extend = align[0][0]
             else:
-                left_extend = target_len - align[0][1] * self.k
+                left_extend = target_len - align[0][1] * self.L
 
-            if query_len - align[-1][0] < align[-1][1] * self.k:
+            # print left_extend
+
+            if query_len - align[-1][0] < align[-1][1] * self.L:
                 right_extend = query_len - align[-1][0]
             else:
-                right_extend = align[-1][1] * self.k
+                right_extend = align[-1][1] * self.L
+
+            # print right_extend
 
             # middle span
             middle_extend = abs(align[-1][0] - align[0][0])
 
             extend = left_extend + middle_extend + right_extend
+
+            # print extend
 
             if extend / float(group_hit * self.L) <= float(
                     length) / self.k and length > size_threshold * self.k:
@@ -219,16 +225,16 @@ class QuerySeq(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170614/FP_query_100.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170614/FP_target_100.fasta", "fasta")
-    test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 135)
+    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5/FP_query_010.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5/FP_target_010.fasta", "fasta")
+    test_filter = PseudoBloomFilter.PseudoBloomFilter(record1, 9, 135)
     print test_filter.L
     test_filter.generate_filter()
-    test_query = QuerySeq(record1)
+    test_query = QuerySeq(record2)
     test_query.check_kmer(test_filter)
     # print(test_query.fw_hits)
     # print(test_query.rc_hits)
-    test_query.cluster_hits()
+    test_query.cluster_hits(size_threshold = 3)
     print test_query.chain_align
     print test_query.aligned
     test_query.plot()
