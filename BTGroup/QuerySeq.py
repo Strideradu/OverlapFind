@@ -149,6 +149,8 @@ class QuerySeq(object):
 
             extend = left_extend + middle_extend + right_extend
 
+            print extend
+
             if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
                 if length > len(self.chain_align):
                     self.chain_align = align
@@ -179,7 +181,7 @@ class QuerySeq(object):
 
             extend = left_extend + middle_extend + right_extend
 
-            # print extend
+            print extend
 
             if extend / float(group_hit * self.L) <= float(
                     length) / self.k and length > size_threshold * self.k:
@@ -225,8 +227,8 @@ class QuerySeq(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_3/FP_query_010.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_3/FP_target_010.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_query_030.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_target_030.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 135)
     print test_filter.L
     test_filter.generate_filter()

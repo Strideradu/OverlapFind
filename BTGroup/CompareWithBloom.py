@@ -23,8 +23,11 @@ except:
 
 query_seq = list(SeqIO.parse(args.query, "fasta"))
 target_seq = list(SeqIO.parse(args.target, "fasta"))
+print("# kmer size:", args.k)
+print("# match rate:", args.accuracy)
 
 L = ProbFunc.statistical_bound_of_waiting_time(args.accuracy, args.k)
+print("# Group Distance:", L)
 
 for record2 in target_seq:
 
