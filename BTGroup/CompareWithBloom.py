@@ -27,9 +27,10 @@ target_seq = list(SeqIO.parse(args.target, "fasta"))
 L = ProbFunc.statistical_bound_of_waiting_time(args.accuracy, args.k)
 
 for record2 in target_seq:
-    filter = bf.PseudoBloomFilter(record2, args.k, L)
-    filter.generate_filter()
+
     for record1 in query_seq:
+        filter = bf.PseudoBloomFilter(record2, args.k, L)
+        filter.generate_filter()
 
         query = QuerySeq.QuerySeq(record1)
         query.check_kmer(filter)

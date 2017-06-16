@@ -31,7 +31,7 @@ with open("D:/Data/20170613/query_all_minimap.out") as f1:
 # we build list of group hit output
 group_output = []
 found = {}
-with open("D:/Data/20170615/query_all_target_9_0.75.out") as f1:
+with open("D:/Data/20170615/query_all_target_9_0.75_3_correct_extend.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#" and line[0]!="(":
@@ -76,7 +76,7 @@ for pair in minimap_extra:
     else:
         FP_minimap_worse.append(pair)
 
-with open("D:/Data/20170615/compare_with_minimap_9mer_0.75.out", "w") as fout:
+with open("D:/Data/20170615/compare_with_minimap_9mer_0.75_3_corrected_extend.out", "w") as fout:
     print >> fout, "# True Align only found by Group Hit:"
     for pair in TP_group_better:
         print >> fout, pair[0] + "\t" + pair[1]

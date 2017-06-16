@@ -225,12 +225,12 @@ class QuerySeq(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5/FP_query_010.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5/FP_target_010.fasta", "fasta")
-    test_filter = PseudoBloomFilter.PseudoBloomFilter(record1, 9, 135)
+    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_3/FP_query_010.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_3/FP_target_010.fasta", "fasta")
+    test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 135)
     print test_filter.L
     test_filter.generate_filter()
-    test_query = QuerySeq(record2)
+    test_query = QuerySeq(record1)
     test_query.check_kmer(test_filter)
     # print(test_query.fw_hits)
     # print(test_query.rc_hits)
