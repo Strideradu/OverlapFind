@@ -155,10 +155,9 @@ class QuerySeq(object):
                 print "extend", extend
 
             x_extend = align[-1][0] - align[0][0]
-            y_extend = (align[-1][1] - align[0][1]) * self.k
-            diag_off = x_extend * 0.2
-            if align[0][1] != align[-1][1] and (abs(y_extend + self.L - x_extend)) < diag_off and (
-            abs(y_extend - self.L - x_extend)) < diag_off:
+            y_extend = (align[-1][1] - align[0][1] + 1) * self.L
+            diag_off = int(x_extend * 0.2+1)
+            if align[0][1] != align[-1][1] and min(abs(y_extend - x_extend), abs(y_extend-x_extend-self.L))<diag_off :
                 if extend > 500:
                     if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
                         if length > len(self.chain_align):
@@ -197,7 +196,7 @@ class QuerySeq(object):
             x_extend = align[-1][0] - align[0][0]
             y_extend = (align[0][1] - align[-1][1]) * self.k
             diag_off = x_extend*0.2
-            if align[0][1]!=align[-1][1] and (abs(y_extend + self.L - x_extend))<diag_off and (abs(y_extend - self.L - x_extend))<diag_off:
+            if align[0][1]!=align[-1][1] and min(abs(y_extend - x_extend), abs(y_extend-x_extend-self.L))<diag_off :
                 if extend > 500:
                     if extend / float(group_hit * self.L) <= float(
                             length) / self.k and length > size_threshold * self.k:
@@ -240,8 +239,8 @@ class QuerySeq(object):
 
 
 if __name__ == '__main__':
-    # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_query.fasta", "fasta")
-    # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_target.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_query.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_target.fasta", "fasta")
     record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_query_020.fasta", "fasta")
     record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_target_020.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 135)
