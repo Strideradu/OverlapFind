@@ -47,7 +47,7 @@ for record2 in target_seq:
 
     for record1 in query_seq:
         debug = False
-        if (record1.id, record2.ide) in debug_pairs:
+        if (record1.id, record2.id) in debug_pairs:
             debug = True
         filter = bf.PseudoBloomFilter(record2, args.k, L)
         filter.generate_filter()

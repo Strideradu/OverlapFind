@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11908691-7248-4bca-af62-dc1f7fc6843f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" afterPath="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTGroup/QuerySeq.py" afterPath="$PROJECT_DIR$/BTGroup/QuerySeq.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompareOutput.py" afterPath="$PROJECT_DIR$/CompareOutput.py" />
     </list>
     <ignored path="OverlapFind.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,10 +32,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QuerySeq.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="QuerySeq.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="-598">
               <caret line="197" column="46" lean-forward="false" selection-start-line="197" selection-start-column="46" selection-end-line="197" selection-end-column="46" />
               <folding />
             </state>
@@ -55,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompareWithBloom.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CompareWithBloom.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="56" column="70" lean-forward="false" selection-start-line="56" selection-start-column="70" selection-end-line="56" selection-end-column="70" />
+            <state relative-caret-position="617">
+              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -144,8 +141,8 @@
         <option value="$PROJECT_DIR$/SensiTestWithFasta.py" />
         <option value="$PROJECT_DIR$/Generate_Fasta_Pair.py" />
         <option value="$PROJECT_DIR$/CompareOutput.py" />
-        <option value="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" />
         <option value="$PROJECT_DIR$/BTGroup/QuerySeq.py" />
+        <option value="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" />
       </list>
     </option>
   </component>
@@ -870,14 +867,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="56" column="70" lean-forward="false" selection-start-line="56" selection-start-column="70" selection-end-line="56" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CompareOutput.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
@@ -896,8 +885,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="-598">
           <caret line="197" column="46" lean-forward="false" selection-start-line="197" selection-start-column="46" selection-end-line="197" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="617">
+          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
           <folding />
         </state>
       </provider>
