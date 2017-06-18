@@ -123,13 +123,15 @@ class QuerySeq(object):
 
         return best_cluster, best_length
 
-    def cluster_hits(self, size_threshold = 5, group_hit = 1.0):
+    def cluster_hits(self, size_threshold = 5, debug= False, group_hit = 1.0):
         self.chain_align = []
+        self.aligned = False
         query_len = self.length
         target_len = self.target_length
 
         align, length = self.fw_diag_group()
-        #print length
+        if debug:
+            print "fw_align_length:", length
         self.fw_chain = align
 
         if align:
@@ -149,15 +151,23 @@ class QuerySeq(object):
 
             extend = left_extend + middle_extend + right_extend
 
-            print extend
+            if debug:
+                print "extend", extend
 
-            if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
-                if length > len(self.chain_align):
-                    self.chain_align = align
-                    self.is_forward = True
+            x_extend = align[-1][0] - align[0][0]
+            y_extend = (align[-1][1] - align[0][1]) * self.k
+            diag_off = x_extend * 0.2
+            if align[0][1] != align[-1][1] and (abs(y_extend + self.L - x_extend)) < diag_off and (
+            abs(y_extend - self.L - x_extend)) < diag_off:
+                if extend > 500:
+                    if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
+                        if length > len(self.chain_align):
+                            self.chain_align = align
+                            self.is_forward = True
 
         align, length = self.rc_diag_group()
-        #print length
+        if debug:
+            print "rc_align_length:", length
         self.rc_chain = align
 
         if align:
@@ -181,18 +191,23 @@ class QuerySeq(object):
 
             extend = left_extend + middle_extend + right_extend
 
-            print extend
+            if debug:
+                print "extend", extend
 
-            if extend / float(group_hit * self.L) <= float(
-                    length) / self.k and length > size_threshold * self.k:
-                if length > len(self.chain_align):
-                    self.chain_align = align
-                    self.is_forward = False
+            x_extend = align[-1][0] - align[0][0]
+            y_extend = (align[0][1] - align[-1][1]) * self.k
+            diag_off = x_extend*0.2
+            if align[0][1]!=align[-1][1] and (abs(y_extend + self.L - x_extend))<diag_off and (abs(y_extend - self.L - x_extend))<diag_off:
+                if extend > 500:
+                    if extend / float(group_hit * self.L) <= float(
+                            length) / self.k and length > size_threshold * self.k:
+                        if length > len(self.chain_align):
+                            self.chain_align = align
+                            self.is_forward = False
 
         if len(self.chain_align) != 0:
             self.aligned = True
-        else:
-            self.aligned = False
+
 
     def plot(self):
         plt.figure()
@@ -227,8 +242,8 @@ class QuerySeq(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_FP/FP_pair4_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_query_030.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_target_030.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_query_020.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_target_020.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 135)
     print test_filter.L
     test_filter.generate_filter()
@@ -236,7 +251,7 @@ if __name__ == '__main__':
     test_query.check_kmer(test_filter)
     # print(test_query.fw_hits)
     # print(test_query.rc_hits)
-    test_query.cluster_hits(size_threshold = 3)
+    test_query.cluster_hits(size_threshold = 3, debug = True)
     print test_query.chain_align
     print test_query.aligned
     test_query.plot()

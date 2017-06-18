@@ -12,6 +12,22 @@ def load_obj(filename ):
 
 overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 
+group_output = []
+found = {}
+with open("D:/Data/20170615/query_all_target_9_0.75_5_correct_extend.out") as f1:
+    for line in f1:
+        line = line.rstrip()
+        if line != "" and line[0]!="#" and line[0]!="(":
+            line_sp = line.split("\t")
+            query_id = line_sp[0]
+            target_id = line_sp[1]
+            if query_id!=target_id:
+                if found.get((query_id, target_id), False) is False and found.get((target_id, query_id),
+                                                                                  False) is False:
+
+                    group_output.append((query_id, target_id))
+                    found[(query_id, target_id)] = True
+
 # we start to build list of minimap output
 minimap_output = []
 minimap_found = {} # make sure no duplicate
@@ -25,27 +41,14 @@ with open("D:/Data/20170613/query_all_minimap.out") as f1:
             if query_id!=target_id:
                 if minimap_found.get((query_id, target_id), False) is False and minimap_found.get((target_id, query_id),
                                                                                   False) is False:
-                    minimap_output.append((query_id, target_id))
+                    if found.get((target_id, query_id), False) is False:
+                        minimap_output.append((query_id, target_id))
+                    else:
+                        minimap_output.append((target_id, query_id))
                     minimap_found[(query_id, target_id)] = True
 
 # we build list of group hit output
-group_output = []
-found = {}
-with open("D:/Data/20170615/query_all_target_9_0.75_5_correct_extend.out") as f1:
-    for line in f1:
-        line = line.rstrip()
-        if line != "" and line[0]!="#" and line[0]!="(":
-            line_sp = line.split("\t")
-            query_id = line_sp[0]
-            target_id = line_sp[1]
-            if query_id!=target_id:
-                if found.get((query_id, target_id), False) is False and found.get((target_id, query_id),
-                                                                                  False) is False:
-                    if minimap_found.get((query_id, target_id), False):
-                        group_output.append((query_id, target_id))
-                    else:
-                        group_output.append((target_id, query_id))
-                    found[(query_id, target_id)] = True
+
 
 print len(minimap_output)
 print len(group_output)

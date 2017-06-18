@@ -6,8 +6,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" afterPath="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTGroup/QuerySeq.py" afterPath="$PROJECT_DIR$/BTGroup/QuerySeq.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompareOutput.py" afterPath="$PROJECT_DIR$/CompareOutput.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Generate_Fasta_Pair.py" afterPath="$PROJECT_DIR$/Generate_Fasta_Pair.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SensiTestWithFasta.py" afterPath="$PROJECT_DIR$/SensiTestWithFasta.py" />
     </list>
     <ignored path="OverlapFind.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,18 +28,18 @@
       <file leaf-file-name="Generate_Fasta_Pair.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Generate_Fasta_Pair.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+            <state relative-caret-position="378">
+              <caret line="14" column="16" lean-forward="false" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QuerySeq.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="QuerySeq.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="231" column="70" lean-forward="true" selection-start-line="231" selection-start-column="70" selection-end-line="231" selection-end-column="70" />
+            <state relative-caret-position="374">
+              <caret line="197" column="46" lean-forward="false" selection-start-line="197" selection-start-column="46" selection-end-line="197" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -50,18 +48,18 @@
       <file leaf-file-name="ProbFunc.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ProbFunc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="968">
+            <state relative-caret-position="7074">
               <caret line="262" column="11" lean-forward="false" selection-start-line="262" selection-start-column="11" selection-end-line="262" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompareWithBloom.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CompareWithBloom.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="590">
-              <caret line="26" column="36" lean-forward="false" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
+            <state relative-caret-position="455">
+              <caret line="56" column="70" lean-forward="false" selection-start-line="56" selection-start-column="70" selection-end-line="56" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -70,18 +68,18 @@
       <file leaf-file-name="SensiTestWithFasta.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="32" column="56" lean-forward="true" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
+            <state relative-caret-position="837">
+              <caret line="32" column="56" lean-forward="false" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompareOutput.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CompareOutput.py">
+      <file leaf-file-name="DiagProcess.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DiagProcess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="545">
-              <caret line="35" column="28" lean-forward="true" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+            <state relative-caret-position="5292">
+              <caret line="812" column="90" lean-forward="false" selection-start-line="812" selection-start-column="58" selection-end-line="812" selection-end-column="90" />
               <folding />
             </state>
           </provider>
@@ -144,10 +142,10 @@
         <option value="$PROJECT_DIR$/ProbFunc.py" />
         <option value="$PROJECT_DIR$/BTGroup/PseudoBloomFilter.py" />
         <option value="$PROJECT_DIR$/SensiTestWithFasta.py" />
-        <option value="$PROJECT_DIR$/CompareOutput.py" />
         <option value="$PROJECT_DIR$/Generate_Fasta_Pair.py" />
-        <option value="$PROJECT_DIR$/BTGroup/QuerySeq.py" />
+        <option value="$PROJECT_DIR$/CompareOutput.py" />
         <option value="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" />
+        <option value="$PROJECT_DIR$/BTGroup/QuerySeq.py" />
       </list>
     </option>
   </component>
@@ -173,6 +171,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -201,7 +200,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -525,7 +523,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3219634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3219634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31294453" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -848,57 +846,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DiagProcess.py">
+    <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="812" column="90" lean-forward="false" selection-start-line="812" selection-start-column="58" selection-end-line="812" selection-end-column="90" />
+        <state relative-caret-position="837">
+          <caret line="32" column="56" lean-forward="false" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ProbFunc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="968">
+        <state relative-caret-position="7074">
           <caret line="262" column="11" lean-forward="false" selection-start-line="262" selection-start-column="11" selection-end-line="262" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="32" column="56" lean-forward="true" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CompareOutput.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="35" column="28" lean-forward="true" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Generate_Fasta_Pair.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeq.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="231" column="70" lean-forward="true" selection-start-line="231" selection-start-column="70" selection-end-line="231" selection-end-column="70" />
+        <state relative-caret-position="378">
+          <caret line="14" column="16" lean-forward="false" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="590">
-          <caret line="26" column="36" lean-forward="false" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
+        <state relative-caret-position="455">
+          <caret line="56" column="70" lean-forward="false" selection-start-line="56" selection-start-column="70" selection-end-line="56" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CompareOutput.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="37" column="38" lean-forward="false" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DiagProcess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5292">
+          <caret line="812" column="90" lean-forward="false" selection-start-line="812" selection-start-column="58" selection-end-line="812" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeq.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="197" column="46" lean-forward="false" selection-start-line="197" selection-start-column="46" selection-end-line="197" selection-end-column="46" />
           <folding />
         </state>
       </provider>
