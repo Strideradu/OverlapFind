@@ -157,7 +157,7 @@ class QuerySeq(object):
             x_extend = align[-1][0] - align[0][0]
             y_extend = (align[-1][1] - align[0][1] + 1) * self.L
             diag_off = int(x_extend * 0.2+1)
-            if align[0][1] != align[-1][1] and min(abs(y_extend - x_extend), abs(y_extend-x_extend-self.L))<diag_off :
+            if align[0][1] != align[-1][1]:
                 if extend > 500:
                     if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
                         if length > len(self.chain_align):
@@ -196,7 +196,7 @@ class QuerySeq(object):
             x_extend = align[-1][0] - align[0][0]
             y_extend = (align[0][1] - align[-1][1]) * self.k
             diag_off = x_extend*0.2
-            if align[0][1]!=align[-1][1] and min(abs(y_extend - x_extend), abs(y_extend-x_extend-self.L))<diag_off :
+            if align[0][1]!=align[-1][1] :
                 if extend > 500:
                     if extend / float(group_hit * self.L) <= float(
                             length) / self.k and length > size_threshold * self.k:
