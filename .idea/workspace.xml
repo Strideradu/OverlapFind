@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="11908691-7248-4bca-af62-dc1f7fc6843f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTGroup/QuerySeq.py" afterPath="$PROJECT_DIR$/BTGroup/QuerySeq.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SensiTestWithFasta.py" afterPath="$PROJECT_DIR$/SensiTestWithFasta.py" />
     </list>
     <ignored path="OverlapFind.iws" />
@@ -33,12 +34,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QuerySeq.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="QuerySeq.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="171" column="45" lean-forward="false" selection-start-line="171" selection-start-column="45" selection-end-line="171" selection-end-column="45" />
-              <folding />
+            <state relative-caret-position="75">
+              <caret line="172" column="45" lean-forward="false" selection-start-line="172" selection-start-column="45" selection-end-line="172" selection-end-column="45" />
+              <folding>
+                <marker date="1497904787338" expanded="true" signature="323:7989" ph="..." />
+                <marker date="1497904787338" expanded="true" signature="4127:7208" ph="..." />
+                <marker date="1497904787338" expanded="true" signature="4416:5236" ph="..." />
+                <marker date="1497904787338" expanded="true" signature="7089:7136" ph="..." />
+                <marker date="1497904787338" expanded="true" signature="7230:7989" ph="..." />
+                <marker date="1497904787338" expanded="true" signature="7285:7422" ph="..." />
+                <marker date="1497904787338" expanded="true" signature="7466:7598" ph="..." />
+                <marker date="1497904787338" expanded="true" signature="7655:7792" ph="..." />
+                <marker date="1497904787338" expanded="true" signature="7837:7969" ph="..." />
+                <marker date="1497904787338" expanded="true" signature="8023:8225" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -63,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SensiTestWithFasta.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SensiTestWithFasta.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+            <state relative-caret-position="509">
+              <caret line="55" column="32" lean-forward="true" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -499,7 +511,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3219634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3219634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24917725" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -880,18 +892,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
+    <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="75">
+          <caret line="172" column="45" lean-forward="false" selection-start-line="172" selection-start-column="45" selection-end-line="172" selection-end-column="45" />
+          <folding>
+            <marker date="1497904787338" expanded="true" signature="323:7989" ph="..." />
+            <marker date="1497904787338" expanded="true" signature="4127:7208" ph="..." />
+            <marker date="1497904787338" expanded="true" signature="4416:5236" ph="..." />
+            <marker date="1497904787338" expanded="true" signature="7089:7136" ph="..." />
+            <marker date="1497904787338" expanded="true" signature="7230:7989" ph="..." />
+            <marker date="1497904787338" expanded="true" signature="7285:7422" ph="..." />
+            <marker date="1497904787338" expanded="true" signature="7466:7598" ph="..." />
+            <marker date="1497904787338" expanded="true" signature="7655:7792" ph="..." />
+            <marker date="1497904787338" expanded="true" signature="7837:7969" ph="..." />
+            <marker date="1497904787338" expanded="true" signature="8023:8225" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeq.py">
+    <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="171" column="45" lean-forward="false" selection-start-line="171" selection-start-column="45" selection-end-line="171" selection-end-column="45" />
+        <state relative-caret-position="509">
+          <caret line="55" column="32" lean-forward="true" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
           <folding />
         </state>
       </provider>
