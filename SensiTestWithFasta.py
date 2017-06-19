@@ -27,10 +27,10 @@ print expect
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170615/query_all_target_9_0.75_5_correct_extend.out") as f1:
+with open("D:/Data/20170619/query_all_target_9_0.75_3.out") as f1:
     for line in f1:
         line = line.rstrip()
-        if line != "" and line[0]!="#" and line[0]!="(":
+        if line != "" and line[0]!="#" and line[0]!="(" and len(line)>8:
             line_sp = line.split("\t")
             query_id = line_sp[0]
             target_id = line_sp[1]

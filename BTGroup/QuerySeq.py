@@ -157,12 +157,11 @@ class QuerySeq(object):
             x_extend = align[-1][0] - align[0][0]
             y_extend = (align[-1][1] - align[0][1] + 1) * self.L
             diag_off = int(x_extend * 0.2+1)
-            if align[0][1] != align[-1][1] and min(abs(y_extend - x_extend), abs(y_extend-x_extend-self.L))<diag_off :
-                if extend > 500:
-                    if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
-                        if length > len(self.chain_align):
-                            self.chain_align = align
-                            self.is_forward = True
+            if min(abs(y_extend - x_extend), abs(y_extend-x_extend-self.L))<diag_off :
+                if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
+                    if length > len(self.chain_align):
+                        self.chain_align = align
+                        self.is_forward = True
 
         align, length = self.rc_diag_group()
         if debug:
@@ -196,13 +195,13 @@ class QuerySeq(object):
             x_extend = align[-1][0] - align[0][0]
             y_extend = (align[0][1] - align[-1][1]) * self.k
             diag_off = x_extend*0.2
-            if align[0][1]!=align[-1][1] and min(abs(y_extend - x_extend), abs(y_extend-x_extend-self.L))<diag_off :
-                if extend > 500:
-                    if extend / float(group_hit * self.L) <= float(
-                            length) / self.k and length > size_threshold * self.k:
-                        if length > len(self.chain_align):
-                            self.chain_align = align
-                            self.is_forward = False
+            if min(abs(y_extend - x_extend), abs(y_extend-x_extend-self.L))<diag_off:
+
+                if extend / float(group_hit * self.L) <= float(
+                        length) / self.k and length > size_threshold * self.k:
+                    if length > len(self.chain_align):
+                        self.chain_align = align
+                        self.is_forward = False
 
         if len(self.chain_align) != 0:
             self.aligned = True
