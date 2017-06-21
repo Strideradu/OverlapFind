@@ -4,7 +4,7 @@ import sys
 
 sys.path.append("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170317_ROC/OverlapFind/")
 import PseudoBloomFilter as bf
-import QuerySeq
+import QuerySeqPro as QuerySeq
 import ProbFunc
 
 parser = argparse.ArgumentParser()

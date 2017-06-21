@@ -4,6 +4,9 @@ Query sequence process
 from Bio import SeqIO
 import PseudoBloomFilter
 from matplotlib import pyplot as plt
+import math
+
+gap_rate = 0.05
 
 def reverse_com(string):
     rev_com = {"A": "T", "C": "G", "T": "A", "G": "C", "N": "N"}
@@ -64,12 +67,14 @@ class QuerySeq(object):
 
                     next_hit = self.fw_hits[j]
 
-                    if next_hit[0] > last_x + self.L:
-                        break
+                    dist = next_hit[0] - cluster[0][0]
+                    diag_off = dist * gap_rate
+                    expect_y_max = math.ceil(float((cluster[0][1] -0.5) * self.L + dist + diag_off)/self.L)
+                    expect_y_min = math.ceil(float((cluster[0][1] - 0.5) * self.L + dist - diag_off) / self.L)
 
-                    if next_hit[1] == last_y or next_hit[1] == last_y + 1:
+                    if next_hit[1] >= expect_y_min and next_hit[1] <= expect_y_max:
                         pair = (next_hit[0], next_hit[1])
-                        dist = pair[0] - last_x
+
                         last_x = next_hit[0]
                         last_y = next_hit[1]
                         cluster.append(next_hit)
@@ -78,6 +83,7 @@ class QuerySeq(object):
                             cluster_len += dist
                         else:
                             cluster_len += self.k
+
 
                 if cluster_len > best_length:
                     best_length = cluster_len
@@ -101,11 +107,14 @@ class QuerySeq(object):
                 clustered[pair] = True
 
                 for j in range(i + 1, len(self.rc_hits)):
-                    next_hit = self.rc_hits[j]
-                    if next_hit[0] > last_x + self.L:
-                        break
+                    next_hit = self.fw_hits[j]
 
-                    if next_hit[1] == last_y or next_hit[1] == last_y - 1:
+                    dist = next_hit[0] - cluster[0][0]
+                    diag_off = dist * gap_rate
+                    expect_y_min = math.ceil(float((cluster[0][1] - 0.5) * self.L - dist - diag_off) / self.L)
+                    expect_y_max = math.ceil(float((cluster[0][1] - 0.5) * self.L - dist + diag_off) / self.L)
+
+                    if next_hit[1] >= expect_y_min and next_hit[1] <= expect_y_max:
                         pair = (next_hit[0], next_hit[1])
                         dist = pair[0] - last_x
                         last_x = next_hit[0]
@@ -132,6 +141,7 @@ class QuerySeq(object):
         align, length = self.fw_diag_group()
         if debug:
             print "fw_align_length:", length
+            print align
         self.fw_chain = align
 
         if align:
@@ -157,16 +167,16 @@ class QuerySeq(object):
             x_extend = align[-1][0] - align[0][0]
             y_extend = (align[-1][1] - align[0][1] + 1) * self.L
             diag_off = int(x_extend * 0.2+1)
-            if align[0][1] != align[-1][1]:
-                if extend > 500:
-                    if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
-                        if length > len(self.chain_align):
-                            self.chain_align = align
-                            self.is_forward = True
+
+            if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
+                if length > len(self.chain_align):
+                    self.chain_align = align
+                    self.is_forward = True
 
         align, length = self.rc_diag_group()
         if debug:
             print "rc_align_length:", length
+            print align
         self.rc_chain = align
 
         if align:
@@ -196,13 +206,12 @@ class QuerySeq(object):
             x_extend = align[-1][0] - align[0][0]
             y_extend = (align[0][1] - align[-1][1]) * self.k
             diag_off = x_extend*0.2
-            if align[0][1]!=align[-1][1] :
-                if extend > 500:
-                    if extend / float(group_hit * self.L) <= float(
-                            length) / self.k and length > size_threshold * self.k:
-                        if length > len(self.chain_align):
-                            self.chain_align = align
-                            self.is_forward = False
+
+            if extend / float(group_hit * self.L) <= float(
+                    length) / self.k and length > size_threshold * self.k:
+                if length > len(self.chain_align):
+                    self.chain_align = align
+                    self.is_forward = False
 
         if len(self.chain_align) != 0:
             self.aligned = True
@@ -239,10 +248,10 @@ class QuerySeq(object):
 
 
 if __name__ == '__main__':
-    # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_query.fasta", "fasta")
-    # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_query_020.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_target_020.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_query.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_target.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_query_004.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_target_004.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 135)
     print test_filter.L
     test_filter.generate_filter()
@@ -254,4 +263,3 @@ if __name__ == '__main__':
     print test_query.chain_align
     print test_query.aligned
     test_query.plot()
-
