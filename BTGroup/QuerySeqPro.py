@@ -107,7 +107,7 @@ class QuerySeq(object):
                 clustered[pair] = True
 
                 for j in range(i + 1, len(self.rc_hits)):
-                    next_hit = self.fw_hits[j]
+                    next_hit = self.rc_hits[j]
 
                     dist = next_hit[0] - cluster[0][0]
                     diag_off = dist * gap_rate
@@ -250,8 +250,8 @@ class QuerySeq(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_query_004.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_target_004.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_query_005.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_target_005.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 135)
     print test_filter.L
     test_filter.generate_filter()
