@@ -168,10 +168,11 @@ class QuerySeq(object):
             y_extend = (align[-1][1] - align[0][1] + 1) * self.L
             diag_off = int(x_extend * 0.2+1)
 
-            if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
-                if length > len(self.chain_align):
-                    self.chain_align = align
-                    self.is_forward = True
+            if align[0][1] != align[-1][1]:
+                if extend / float(2 * group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
+                    if length > len(self.chain_align):
+                        self.chain_align = align
+                        self.is_forward = True
 
         align, length = self.rc_diag_group()
         if debug:
@@ -207,11 +208,12 @@ class QuerySeq(object):
             y_extend = (align[0][1] - align[-1][1]) * self.k
             diag_off = x_extend*0.2
 
-            if extend / float(group_hit * self.L) <= float(
-                    length) / self.k and length > size_threshold * self.k:
-                if length > len(self.chain_align):
-                    self.chain_align = align
-                    self.is_forward = False
+            if align[0][1]!= align[-1][1]:
+                if extend / float(2 * group_hit * self.L) <= float(
+                        length) / self.k and length > size_threshold * self.k:
+                    if length > len(self.chain_align):
+                        self.chain_align = align
+                        self.is_forward = False
 
         if len(self.chain_align) != 0:
             self.aligned = True
@@ -250,9 +252,11 @@ class QuerySeq(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_query_005.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170615/9mer_0p75_5_2nd/FP_target_005.fasta", "fasta")
-    test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 135)
+    record1 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_query_002.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_target_002.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170622/9mer_missing/missing_query_002.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170622/9mer_missing/missing_target_002.fasta", "fasta")
+    test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 54)
     print test_filter.L
     test_filter.generate_filter()
     test_query = QuerySeq(record1)
