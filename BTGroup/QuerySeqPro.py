@@ -68,7 +68,7 @@ class QuerySeq(object):
                     next_hit = self.fw_hits[j]
 
                     dist = next_hit[0] - cluster[0][0]
-                    diag_off = dist * gap_rate
+                    diag_off = min(dist * gap_rate, 2*self.L)
                     expect_y_max = math.ceil(float((cluster[0][1] -0.5) * self.L + dist + diag_off)/self.L)
                     expect_y_min = math.ceil(float((cluster[0][1] - 0.5) * self.L + dist - diag_off) / self.L)
 
@@ -110,7 +110,7 @@ class QuerySeq(object):
                     next_hit = self.rc_hits[j]
 
                     dist = next_hit[0] - cluster[0][0]
-                    diag_off = dist * gap_rate
+                    diag_off = min(dist * gap_rate, 2 * self.L)
                     expect_y_min = math.ceil(float((cluster[0][1] - 0.5) * self.L - dist - diag_off) / self.L)
                     expect_y_max = math.ceil(float((cluster[0][1] - 0.5) * self.L - dist + diag_off) / self.L)
 
@@ -252,10 +252,10 @@ class QuerySeq(object):
 if __name__ == '__main__':
     # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_query_002.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_target_002.fasta", "fasta")
-    # record1 = SeqIO.read("D:/Data/20170622/9mer_missing/missing_query_002.fasta", "fasta")
-    # record2 = SeqIO.read("D:/Data/20170622/9mer_missing/missing_target_002.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_query_002.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_target_002.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170622/9mer_missing/missing_query_002.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170622/9mer_missing/missing_target_002.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 54)
     print test_filter.L
     test_filter.generate_filter()
