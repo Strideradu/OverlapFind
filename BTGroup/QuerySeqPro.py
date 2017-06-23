@@ -169,7 +169,7 @@ class QuerySeq(object):
             diag_off = int(x_extend * 0.2+1)
 
             if align[0][1] != align[-1][1]:
-                if extend / float(2 * group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
+                if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
                     if length > len(self.chain_align):
                         self.chain_align = align
                         self.is_forward = True
@@ -209,7 +209,7 @@ class QuerySeq(object):
             diag_off = x_extend*0.2
 
             if align[0][1]!= align[-1][1]:
-                if extend / float(2 * group_hit * self.L) <= float(
+                if extend / float(group_hit * self.L) <= float(
                         length) / self.k and length > size_threshold * self.k:
                     if length > len(self.chain_align):
                         self.chain_align = align
