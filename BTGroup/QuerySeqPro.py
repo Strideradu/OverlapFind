@@ -68,6 +68,7 @@ class QuerySeq(object):
                     next_hit = self.fw_hits[j]
 
                     dist = next_hit[0] - cluster[0][0]
+                    kmer_dist = next_hit[0] - cluster[-1][0]
                     diag_off = min(dist * gap_rate, 2*self.L)
                     expect_y_max = math.ceil(float((cluster[0][1] -0.5) * self.L + dist + diag_off)/self.L)
                     expect_y_min = math.ceil(float((cluster[0][1] - 0.5) * self.L + dist - diag_off) / self.L)
@@ -77,10 +78,13 @@ class QuerySeq(object):
 
                         last_x = next_hit[0]
                         last_y = next_hit[1]
+                        if next_hit[0] == cluster[-1][0] + 1:
+                            del cluster[-1]
+                            cluster_len -= 1
                         cluster.append(next_hit)
                         clustered[pair] = True
-                        if dist < self.k:
-                            cluster_len += dist
+                        if kmer_dist < self.k:
+                            cluster_len += kmer_dist
                         else:
                             cluster_len += self.k
 
@@ -110,6 +114,7 @@ class QuerySeq(object):
                     next_hit = self.rc_hits[j]
 
                     dist = next_hit[0] - cluster[0][0]
+                    kmer_dist = next_hit[0] - cluster[-1][0]
                     diag_off = min(dist * gap_rate, 2 * self.L)
                     expect_y_min = math.ceil(float((cluster[0][1] - 0.5) * self.L - dist - diag_off) / self.L)
                     expect_y_max = math.ceil(float((cluster[0][1] - 0.5) * self.L - dist + diag_off) / self.L)
@@ -119,10 +124,13 @@ class QuerySeq(object):
                         dist = pair[0] - last_x
                         last_x = next_hit[0]
                         last_y = next_hit[1]
+                        if next_hit[0] == cluster[-1][0] + 1:
+                            del cluster[-1]
+                            cluster_len -= 1
                         cluster.append(next_hit)
                         clustered[pair] = True
-                        if dist < self.k:
-                            cluster_len += dist
+                        if kmer_dist < self.k:
+                            cluster_len += kmer_dist
                         else:
                             cluster_len += self.k
 
@@ -254,8 +262,8 @@ if __name__ == '__main__':
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_target.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_query_002.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_target_002.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170622/9mer_missing/missing_query_002.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170622/9mer_missing/missing_target_002.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170625/FP/FP_query_006.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170625/FP/FP_target_007.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 54)
     print test_filter.L
     test_filter.generate_filter()
