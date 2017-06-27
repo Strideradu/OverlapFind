@@ -8,6 +8,7 @@ import math
 
 gap_rate = 0.05
 
+
 def reverse_com(string):
     rev_com = {"A": "T", "C": "G", "T": "A", "G": "C", "N": "N"}
     result = ""
@@ -16,10 +17,12 @@ def reverse_com(string):
 
     return result
 
+
 class QuerySeq(object):
     """
 
     """
+
     def __init__(self, seq_record):
         self.seq = seq_record.seq
         self.id = seq_record.id
@@ -48,7 +51,7 @@ class QuerySeq(object):
         self.fw_hits.sort()
         self.rc_hits.sort()
 
-    def fw_diag_group(self):
+    def fw_diag_group(self, break_len=500):
         best_cluster = None
         best_length = 0
         clustered = {}
@@ -69,33 +72,36 @@ class QuerySeq(object):
 
                     dist = next_hit[0] - cluster[0][0]
                     kmer_dist = next_hit[0] - cluster[-1][0]
-                    diag_off = min(dist * gap_rate, 2*self.L)
-                    expect_y_max = math.ceil(float((cluster[0][1] -0.5) * self.L + dist + diag_off)/self.L)
-                    expect_y_min = math.ceil(float((cluster[0][1] - 0.5) * self.L + dist - diag_off) / self.L)
+                    if kmer_dist < break_len:
+                        diag_off = min(dist * gap_rate, 2.5 * self.L)
+                        expect_y_max = math.ceil(float((cluster[0][1] - 0.5) * self.L + dist + diag_off) / self.L)
+                        expect_y_min = math.ceil(float((cluster[0][1] - 0.5) * self.L + dist - diag_off) / self.L)
 
-                    if next_hit[1] >= expect_y_min and next_hit[1] <= expect_y_max:
-                        pair = (next_hit[0], next_hit[1])
+                        if next_hit[1] >= expect_y_min and next_hit[1] <= expect_y_max:
+                            pair = (next_hit[0], next_hit[1])
 
-                        last_x = next_hit[0]
-                        last_y = next_hit[1]
-                        if next_hit[0] == cluster[-1][0] + 1:
-                            del cluster[-1]
-                            cluster_len -= 1
-                        cluster.append(next_hit)
-                        clustered[pair] = True
-                        if kmer_dist < self.k:
-                            cluster_len += kmer_dist
-                        else:
-                            cluster_len += self.k
+                            last_x = next_hit[0]
+                            last_y = next_hit[1]
 
+                            if next_hit[0] == cluster[-1][0] + 1:
+                                del cluster[-1]
+                                cluster_len -= 1
+
+                            cluster.append(next_hit)
+                            clustered[pair] = True
+                            if kmer_dist < self.k:
+                                cluster_len += kmer_dist
+                            else:
+                                cluster_len += self.k
 
                 if cluster_len > best_length:
                     best_length = cluster_len
                     best_cluster = cluster
+                    #  cluster
 
         return best_cluster, best_length
 
-    def rc_diag_group(self):
+    def rc_diag_group(self, break_len=500):
         best_cluster = None
         best_length = 0
         clustered = {}
@@ -115,32 +121,36 @@ class QuerySeq(object):
 
                     dist = next_hit[0] - cluster[0][0]
                     kmer_dist = next_hit[0] - cluster[-1][0]
-                    diag_off = min(dist * gap_rate, 2 * self.L)
-                    expect_y_min = math.ceil(float((cluster[0][1] - 0.5) * self.L - dist - diag_off) / self.L)
-                    expect_y_max = math.ceil(float((cluster[0][1] - 0.5) * self.L - dist + diag_off) / self.L)
+                    if kmer_dist < break_len:
+                        diag_off = min(dist * gap_rate, 2.5 * self.L)
+                        expect_y_min = math.ceil(float((cluster[0][1] - 0.5) * self.L - dist - diag_off) / self.L)
+                        expect_y_max = math.ceil(float((cluster[0][1] - 0.5) * self.L - dist + diag_off) / self.L)
 
-                    if next_hit[1] >= expect_y_min and next_hit[1] <= expect_y_max:
-                        pair = (next_hit[0], next_hit[1])
-                        dist = pair[0] - last_x
-                        last_x = next_hit[0]
-                        last_y = next_hit[1]
-                        if next_hit[0] == cluster[-1][0] + 1:
-                            del cluster[-1]
-                            cluster_len -= 1
-                        cluster.append(next_hit)
-                        clustered[pair] = True
-                        if kmer_dist < self.k:
-                            cluster_len += kmer_dist
-                        else:
-                            cluster_len += self.k
+                        if next_hit[1] >= expect_y_min and next_hit[1] <= expect_y_max:
+                            pair = (next_hit[0], next_hit[1])
+                            dist = pair[0] - last_x
+                            last_x = next_hit[0]
+                            last_y = next_hit[1]
+
+                            if next_hit[0] == cluster[-1][0] + 1:
+                                del cluster[-1]
+                                cluster_len -= 1
+
+                            cluster.append(next_hit)
+                            clustered[pair] = True
+                            if kmer_dist < self.k:
+                                cluster_len += kmer_dist
+                            else:
+                                cluster_len += self.k
 
                 if cluster_len > best_length:
                     best_length = cluster_len
                     best_cluster = cluster
+                    # print cluster
 
         return best_cluster, best_length
 
-    def cluster_hits(self, size_threshold = 5, debug= False, group_hit = 1.0):
+    def cluster_hits(self, size_threshold=5, debug=False, group_hit=1.0):
         self.chain_align = []
         self.aligned = False
         query_len = self.length
@@ -168,13 +178,14 @@ class QuerySeq(object):
             middle_extend = (abs(align[-1][0] - align[0][0]))
 
             extend = left_extend + middle_extend + right_extend
+            extend = 4 * self.L + middle_extend
 
             if debug:
                 print "extend", extend
 
             x_extend = align[-1][0] - align[0][0]
             y_extend = (align[-1][1] - align[0][1] + 1) * self.L
-            diag_off = int(x_extend * 0.2+1)
+            diag_off = int(x_extend * 0.2 + 1)
 
             if align[0][1] != align[-1][1]:
                 if extend / float(group_hit * self.L) <= float(length) / self.k and length > size_threshold * self.k:
@@ -208,15 +219,16 @@ class QuerySeq(object):
             middle_extend = abs(align[-1][0] - align[0][0])
 
             extend = left_extend + middle_extend + right_extend
+            extend = 4 * self.L + middle_extend
 
             if debug:
                 print "extend", extend
 
             x_extend = align[-1][0] - align[0][0]
             y_extend = (align[0][1] - align[-1][1]) * self.k
-            diag_off = x_extend*0.2
+            diag_off = x_extend * 0.2
 
-            if align[0][1]!= align[-1][1]:
+            if align[0][1] != align[-1][1]:
                 if extend / float(group_hit * self.L) <= float(
                         length) / self.k and length > size_threshold * self.k:
                     if length > len(self.chain_align):
@@ -226,7 +238,6 @@ class QuerySeq(object):
         if len(self.chain_align) != 0:
             self.aligned = True
 
-
     def plot(self):
         plt.figure()
 
@@ -235,11 +246,9 @@ class QuerySeq(object):
             x = [hit[0]] * len(hit[3])
             plt.scatter(x, hit[3])
 
-
         for aligned_hit in self.fw_chain:
             x = [aligned_hit[0]] * len(aligned_hit[3])
             plt.scatter(x, aligned_hit[3], edgecolors="black", linewidths=2)
-
 
         plt.figure()
 
@@ -247,8 +256,6 @@ class QuerySeq(object):
             # hit[0] x coordinate, hit[3] list of y coordinate
             x = [hit[0]] * len(hit[3])
             plt.scatter(x, hit[3])
-
-
 
         for aligned_hit in self.rc_chain:
             x = [aligned_hit[0]] * len(aligned_hit[3])
@@ -258,12 +265,12 @@ class QuerySeq(object):
 
 
 if __name__ == '__main__':
-    # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_query.fasta", "fasta")
-    # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair1_target.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170627/missing/missing_query_025.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170627/missing/missing_target_025.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_query_002.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_target_002.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170625/FP/FP_query_006.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170625/FP/FP_target_007.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170625/FP/FP_query_005.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170625/FP/FP_target_005.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 54)
     print test_filter.L
     test_filter.generate_filter()
@@ -271,7 +278,7 @@ if __name__ == '__main__':
     test_query.check_kmer(test_filter)
     # print(test_query.fw_hits)
     # print(test_query.rc_hits)
-    test_query.cluster_hits(size_threshold = 3, debug = True)
+    test_query.cluster_hits(size_threshold=3, debug=True, group_hit=2.0)
     print test_query.chain_align
     print test_query.aligned
     test_query.plot()
