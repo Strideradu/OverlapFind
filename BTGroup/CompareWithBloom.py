@@ -40,7 +40,7 @@ for record2 in target_seq:
 
         query = QuerySeq.QuerySeq(record1)
         query.check_kmer(filter)
-        query.cluster_hits(size_threshold=args.chain_size, debug=False)
+        query.cluster_hits(size_threshold=args.chain_size, debug=False, group_hit=args.span_coefficient)
 
         if query.aligned:
             print record1.id + "\t" + record2.id + "\t" + "True"
