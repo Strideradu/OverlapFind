@@ -39,13 +39,14 @@ class PseudoBloomFilter(object):
 
         for i in range(self.length - self.k + 1):
             kmer = str(self.seq[i:i + self.k])
-            bin_index = i // self.L
-            kmer_list = bin[bin_index].get(kmer)
-            if not kmer_list:
-                bin[bin_index][kmer] = []
-                kmer_list = bin[bin_index][kmer]
-
-            kmer_list.append(i)
+            if not "N" in kmer:
+                bin_index = i // self.L
+                kmer_list = bin[bin_index].get(kmer)
+                if not kmer_list:
+                    bin[bin_index][kmer] = []
+                    kmer_list = bin[bin_index][kmer]
+    
+                kmer_list.append(i)
 
 
         self.bin = bin
