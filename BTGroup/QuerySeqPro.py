@@ -83,9 +83,11 @@ class QuerySeq(object):
                             last_x = next_hit[0]
                             last_y = next_hit[1]
 
+                            """
                             if next_hit[0] == cluster[-1][0] + 1:
                                 del cluster[-1]
                                 cluster_len -= 1
+                            """
 
                             cluster.append(next_hit)
                             clustered[pair] = True
@@ -132,9 +134,11 @@ class QuerySeq(object):
                             last_x = next_hit[0]
                             last_y = next_hit[1]
 
+                            """"
                             if next_hit[0] == cluster[-1][0] + 1:
                                 del cluster[-1]
                                 cluster_len -= 1
+                            """
 
                             cluster.append(next_hit)
                             clustered[pair] = True
@@ -265,12 +269,12 @@ class QuerySeq(object):
 
 
 if __name__ == '__main__':
-    record1 = SeqIO.read("D:/Data/20170627/missing/missing_query_025.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170627/missing/missing_target_025.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170627/missing/missing_query_025.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170627/missing/missing_target_025.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_query_002.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_target_002.fasta", "fasta")
-    # record1 = SeqIO.read("D:/Data/20170625/FP/FP_query_005.fasta", "fasta")
-    # record2 = SeqIO.read("D:/Data/20170625/FP/FP_target_005.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170625/FP/FP_query_018.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170625/FP/FP_target_018.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 54)
     print test_filter.L
     test_filter.generate_filter()

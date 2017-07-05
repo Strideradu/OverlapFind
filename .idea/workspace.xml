@@ -4,8 +4,7 @@
     <list default="true" id="11908691-7248-4bca-af62-dc1f7fc6843f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BTGroup/QuerySeqPro.py" afterPath="$PROJECT_DIR$/BTGroup/QuerySeqPro.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompareOutput.py" afterPath="$PROJECT_DIR$/CompareOutput.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Generate_Fasta_Pair.py" afterPath="$PROJECT_DIR$/Generate_Fasta_Pair.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GenerateTestFasta.py" afterPath="$PROJECT_DIR$/GenerateTestFasta.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SensiTestWithFasta.py" afterPath="$PROJECT_DIR$/SensiTestWithFasta.py" />
     </list>
     <ignored path="OverlapFind.iws" />
@@ -48,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QuerySeqPro.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="QuerySeqPro.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeqPro.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="869">
-              <caret line="99" column="22" lean-forward="false" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
+            <state relative-caret-position="898">
+              <caret line="284" column="72" lean-forward="false" selection-start-line="284" selection-start-column="72" selection-end-line="284" selection-end-column="72" />
               <folding>
                 <element signature="e#31#52#0" expanded="true" />
               </folding>
@@ -60,11 +59,31 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="GenerateTestFasta.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/GenerateTestFasta.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="513">
+              <caret line="20" column="16" lean-forward="true" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CompareWithBloom.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1215">
+              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="SensiTestWithFasta.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="783">
-              <caret line="30" column="74" lean-forward="false" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="74" />
+            <state relative-caret-position="810">
+              <caret line="31" column="19" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -149,7 +168,6 @@
         <option value="$PROJECT_DIR$/SensiDALIGNER.py" />
         <option value="$PROJECT_DIR$/Compare2FastaCluster.py" />
         <option value="$PROJECT_DIR$/SensiTest2Fasta.py" />
-        <option value="$PROJECT_DIR$/GenerateTestFasta.py" />
         <option value="$PROJECT_DIR$/SensiMinimap15X.py" />
         <option value="$PROJECT_DIR$/SensiTestWithMinimap.py" />
         <option value="$PROJECT_DIR$/NonOverlapP.py" />
@@ -160,11 +178,12 @@
         <option value="$PROJECT_DIR$/BTGroup/PseudoBloomFilter.py" />
         <option value="$PROJECT_DIR$/BTGroup/QuerySeq.py" />
         <option value="$PROJECT_DIR$/QuerySeqPro.py" />
-        <option value="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" />
-        <option value="$PROJECT_DIR$/SensiTestWithFasta.py" />
         <option value="$PROJECT_DIR$/CompareOutput.py" />
         <option value="$PROJECT_DIR$/Generate_Fasta_Pair.py" />
+        <option value="$PROJECT_DIR$/BTGroup/CompareWithBloom.py" />
+        <option value="$PROJECT_DIR$/SensiTestWithFasta.py" />
         <option value="$PROJECT_DIR$/BTGroup/QuerySeqPro.py" />
+        <option value="$PROJECT_DIR$/GenerateTestFasta.py" />
       </list>
     </option>
   </component>
@@ -189,6 +208,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -217,8 +238,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -232,7 +251,7 @@
       <recent name="C:\Users\Nan\Documents\GitHub\OverlapFind" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.QuerySeqPro (1)">
+  <component name="RunManager" selected="Python.GenerateTestFasta">
     <configuration default="false" name="SensiTestWithFasta" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -267,23 +286,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="SensiTestWithMinimap" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="OverlapFind" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SensiTestWithMinimap.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="CompareOutput" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -314,6 +316,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="OverlapFind" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Generate_Fasta_Pair.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="GenerateTestFasta" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="OverlapFind" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GenerateTestFasta.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -473,17 +492,17 @@
       <item index="0" class="java.lang.String" itemvalue="Python.DiagProcess" />
       <item index="1" class="java.lang.String" itemvalue="Python.SensiTestWithFasta" />
       <item index="2" class="java.lang.String" itemvalue="Python.QuerySeqPro (1)" />
-      <item index="3" class="java.lang.String" itemvalue="Python.SensiTestWithMinimap" />
-      <item index="4" class="java.lang.String" itemvalue="Python.CompareOutput" />
-      <item index="5" class="java.lang.String" itemvalue="Python.Generate_Fasta_Pair" />
+      <item index="3" class="java.lang.String" itemvalue="Python.CompareOutput" />
+      <item index="4" class="java.lang.String" itemvalue="Python.Generate_Fasta_Pair" />
+      <item index="5" class="java.lang.String" itemvalue="Python.GenerateTestFasta" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.QuerySeqPro (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Generate_Fasta_Pair" />
-        <item index="2" class="java.lang.String" itemvalue="Python.CompareOutput" />
-        <item index="3" class="java.lang.String" itemvalue="Python.SensiTestWithFasta" />
-        <item index="4" class="java.lang.String" itemvalue="Python.SensiTestWithMinimap" />
+        <item index="0" class="java.lang.String" itemvalue="Python.GenerateTestFasta" />
+        <item index="1" class="java.lang.String" itemvalue="Python.QuerySeqPro (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Python.SensiTestWithFasta" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Generate_Fasta_Pair" />
+        <item index="4" class="java.lang.String" itemvalue="Python.CompareOutput" />
       </list>
     </recent_temporary>
   </component>
@@ -516,7 +535,7 @@
     <frame x="-11" y="-11" width="2182" height="1402" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3013634" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29854256" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -842,13 +861,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GenerateTestFasta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="22" column="35" lean-forward="false" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DiagProcess.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21789">
@@ -861,13 +873,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7074">
           <caret line="262" column="11" lean-forward="false" selection-start-line="262" selection-start-column="11" selection-end-line="262" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="30" lean-forward="false" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -889,16 +894,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="783">
-          <caret line="30" column="74" lean-forward="false" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="74" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CompareOutput.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2241">
@@ -915,13 +910,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BTGroup/CompareWithBloom.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SensiTestWithFasta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="31" column="19" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BTGroup/QuerySeqPro.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="869">
-          <caret line="99" column="22" lean-forward="false" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
+        <state relative-caret-position="898">
+          <caret line="284" column="72" lean-forward="false" selection-start-line="284" selection-start-column="72" selection-end-line="284" selection-end-column="72" />
           <folding>
             <element signature="e#31#52#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GenerateTestFasta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="20" column="16" lean-forward="true" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

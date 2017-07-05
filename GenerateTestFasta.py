@@ -7,7 +7,7 @@ num_query_job = 12
 
 query_id = [[], [], [], [], [], [], [], [], [], [], [], []]
 print query_id
-records =  list(SeqIO.parse("D:/Data/20170116/filtered_subreads_15X.fastq","fastq"))
+records =  list(SeqIO.parse("D:/Data/20170116/filtered_15X_masked.fasta","fasta"))
 masked_index = SeqIO.index("D:/Data/20170116/filtered_15X_masked.fasta","fasta")
 num_read = 0
 
@@ -20,7 +20,7 @@ for i in range(len(records)):
 
 normal_read = []
 masked_read = []
-file_dir ="D:/Data/20170523/query_"
+file_dir ="D:/Data/20170705/query_"
 file_ext = ".fasta"
 for i in range(num_query_job):
     output = []
@@ -33,5 +33,5 @@ for i in range(num_query_job):
 
     SeqIO.write(output, file_path, "fasta")
 
-SeqIO.write(normal_read, "D:/Data/20170523/query_all.fasta", "fasta")
-SeqIO.write(masked_read, "D:/Data/20170523/target_masked.fasta", "fasta")
+SeqIO.write(normal_read, "D:/Data/20170705/query_all.fasta", "fasta")
+SeqIO.write(masked_read, "D:/Data/20170705/target_masked.fasta", "fasta")
