@@ -14,7 +14,7 @@ overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 
 group_output = []
 found = {}
-with open("D:/Data/20170627/query_all_target_9_0.85_3_no_continue_kmer.out") as f1:
+with open("D:/Data/20170706/query_all_target_9_0.85_3_1_dustboth.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#" and line[0]!="(":
@@ -79,7 +79,7 @@ for pair in minimap_extra:
     else:
         FP_minimap_worse.append(pair)
 
-with open("D:/Data/20170627/compare_with_minimap_9mer_0.85_3.out", "w") as fout:
+with open("D:/Data/20170706/compare_with_minimap_9mer_0.85_3_dustboth.out", "w") as fout:
     print >> fout, "# True Align only found by Group Hit:"
     for pair in TP_group_better:
         print >> fout, pair[0] + "\t" + pair[1]

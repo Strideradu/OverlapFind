@@ -23,6 +23,8 @@ class DiagProcess(object):
     def __init__(self, seq1, seq2):
         self.query = seq1
         self.target = seq2
+        print(len(self.query.seq))
+        print(len(self.target.seq))
         self.fw_points = None
         self.rc_points = None
         self.k = 0
@@ -287,8 +289,8 @@ class DiagProcess(object):
                         break
 
                 # print chain
-
-                if len(chain) > 1 and (
+                """
+                if len(chain) > l and (
                                 abs(chain[-1][0] - chain[0][0]) > w and abs(chain[-1][1] - chain[0][1]) > w) \
                         and (chain[0][1] <= chain[-1][1]):
                     end_y = chain[-1][1]
@@ -300,6 +302,9 @@ class DiagProcess(object):
                         self.fw_seeds += len(chain)
                         chained_end[end_y] = True
                         # print chain[0]
+                """
+                if l>self.k:
+                    fw_chain.append((chain, l))
 
             i += 1
 
@@ -345,7 +350,8 @@ class DiagProcess(object):
                     elif min(delta_y, delta_x) > L:
                         # last_i = j
                         break
-
+                    
+                """
                 if len(chain) > 1 and (
                                 abs(chain[-1][0] - chain[0][0]) > w and abs(chain[-1][1] - chain[0][1]) > w) \
                         and (chain[-1][1] <= chain[0][1]):
@@ -359,6 +365,9 @@ class DiagProcess(object):
                         self.rc_seeds += len(chain)
                         chained_end[end_y] = True
                         # print chain[0]
+                """
+                if l > self.k:
+                    rc_chain.append((chain, l))
 
             i += 1
 
@@ -840,15 +849,19 @@ if __name__ == '__main__':
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170412/debug_target_2.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_query.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_target.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_query.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_target.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170627/missing/missing_query_001.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170627/missing/missing_target_001.fasta", "fasta")
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
     process.diag_points(9)
 
-    print process.single_cluster_hit(0.85, 0.15,5, 0.5)
-    print process.chain_align
+
+    """
+    process.single_cluster_hit(0.75, 0.2,5, 0.5)
+    # process.chain_align
     print process.aligned
     print process.is_forward
 
@@ -858,13 +871,16 @@ if __name__ == '__main__':
     print len(process.fw_points)
     print len(process.rc_points)
     """
-    process.diag_chain(0.85, 0.12)
-    print process.rc_chain
+
+    process.diag_chain(0.75, 0.2)
+    # process.rc_chain.sort()
+    for cluster in process.rc_chain:
+        print cluster
     process.optimal_rechain(0.12, 5, 1)
-    print process.chain_align
-    print process.aligned
+    #print process.chain_align
+    #print process.aligned
     process.diag_plot()
-    """
+
 
 
 

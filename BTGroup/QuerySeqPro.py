@@ -273,8 +273,8 @@ if __name__ == '__main__':
     # record2 = SeqIO.read("D:/Data/20170627/missing/missing_target_025.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_query_002.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170622/9mer_FP/FP_target_002.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170625/FP/FP_query_018.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170625/FP/FP_target_018.fasta", "fasta")
+    record1 = SeqIO.read("D:/Data/20170706/FP_dustboth/FP_query_100.fasta", "fasta")
+    record2 = SeqIO.read("D:/Data/20170706/FP_dustboth/FP_target_100.fasta", "fasta")
     test_filter = PseudoBloomFilter.PseudoBloomFilter(record2, 9, 54)
     print test_filter.L
     test_filter.generate_filter()
@@ -282,7 +282,7 @@ if __name__ == '__main__':
     test_query.check_kmer(test_filter)
     # print(test_query.fw_hits)
     # print(test_query.rc_hits)
-    test_query.cluster_hits(size_threshold=3, debug=True, group_hit=2.0)
+    test_query.cluster_hits(size_threshold=3, debug=True, group_hit=1.0)
     print test_query.chain_align
     print test_query.aligned
     test_query.plot()

@@ -45,7 +45,7 @@ class PseudoBloomFilter(object):
                 if not kmer_list:
                     bin[bin_index][kmer] = []
                     kmer_list = bin[bin_index][kmer]
-    
+
                 kmer_list.append(i)
 
 
