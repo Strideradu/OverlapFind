@@ -110,7 +110,7 @@ long int statistical_bound_of_randomwalk2(double pI, long int L, double alpha)
         Sum += RDW_Bound[L - bound] + RDW_Bound[L + bound];
     }
 
-    FREE(RDW_Bound, (2 * L + 1) * sizeof(double));
+    //FREE(RDW_Bound, (2 * L + 1) * sizeof(double));
     return bound;
 }
 
