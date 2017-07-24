@@ -2,11 +2,11 @@
 // Created by Nan on 7/23/2017.
 //
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
 #include <Python.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+#include <math.h>
+//#include <string.h>
 #include "ProbFunc.h"
 
 long int statistical_bound_of_waiting_time1(double p, long int k, double alpha)
