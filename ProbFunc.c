@@ -21,10 +21,10 @@ static PyObject *bound_randomwalk(PyObject *self, PyObject *args) {
         return NULL;
     }
 
-    double value = statistical_bound_of_randomwalk2(p, l, alpha);
+    long int value = statistical_bound_of_randomwalk2(p, l, alpha);
 
     /* Build the output tuple */
-    PyObject *ret = Py_BuildValue("d", value);
+    PyObject *ret = Py_BuildValue("l", value);
     return ret;
 }
 
