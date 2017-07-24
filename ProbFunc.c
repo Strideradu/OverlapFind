@@ -17,7 +17,7 @@ long int statistical_bound_of_waiting_time1(double p, long int k, double alpha)
 
     double *last_k_prob =
             (double *) MALLOC((k + 1) * sizeof(double));
-    ASSERT(last_k_prob, waiting_time_distrib_1);
+    //ASSERT(last_k_prob, waiting_time_distrib_1);
 
 
     while (Sum < (1 - alpha)) {
