@@ -36,7 +36,7 @@ long int statistical_bound_of_waiting_time1(double p, long int k, double alpha)
         Sum += last_k_prob[x % (k + 1)];
         x++;
     }
-    FREE(last_k_prob, (k + 1) * sizeof(double));
+    //FREE(last_k_prob, (k + 1) * sizeof(double));
 
     return x;
 }
@@ -93,9 +93,8 @@ double *randomwalk_probability_of_pos3(double pI, long int L)
         u = s;
         P >>= 1;
     }
-
-    FREE(u, (2 * L + 1) * sizeof(double));
-    FREE(t, (2 * L + 1) * sizeof(double));
+    //FREE(u, (2 * L + 1) * sizeof(double));
+    //FREE(t, (2 * L + 1) * sizeof(double));
     return f;
 
 }
