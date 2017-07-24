@@ -350,7 +350,7 @@ class DiagProcess(object):
                     elif min(delta_y, delta_x) > L:
                         # last_i = j
                         break
-                    
+
                 """
                 if len(chain) > 1 and (
                                 abs(chain[-1][0] - chain[0][0]) > w and abs(chain[-1][1] - chain[0][1]) > w) \
