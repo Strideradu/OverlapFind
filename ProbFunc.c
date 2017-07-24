@@ -7,38 +7,6 @@
 #include <math.h>
 #include <string.h>
 
-static char module_docstring[] =
-        "This module provides an interface for calculating chi-squared using C.";
-static char stat_randomwalk_docstring[] =
-        "Calculate the chi-squared of some data given a model.";
-
-static PyObject *bound_randomwalk(PyObject *self, PyObject *args) {
-    double p;
-    long int l;
-    double alpha;
-    /* Do your stuff here. */
-    if (!PyArg_ParseTuple(args, "dld", &p, &l, &alpha)) {
-        return NULL;
-    }
-
-    long int value = statistical_bound_of_randomwalk2(p, l, alpha);
-
-    /* Build the output tuple */
-    PyObject *ret = Py_BuildValue("l", value);
-    return ret;
-}
-
-
-static PyMethodDef module_methods[] = {
-        { "statbound_randomwalk", bound_randomwalk, METH_NOARGS, stat_randomwalk_docstring },
-        { NULL, NULL, 0, NULL }
-};
-
-PyMODINIT_FUNC init_prob() {
-    Py_InitModule3("prob", module_methods, module_docstring);
-}
-
-
 long int statistical_bound_of_waiting_time1(double p, long int k, double alpha)
 {
     double a1 = dpow(p, k);
@@ -143,4 +111,36 @@ long int statistical_bound_of_randomwalk2(double pI, long int L, double alpha)
 
     FREE(RDW_Bound, (2 * L + 1) * sizeof(double));
     return bound;
+}
+
+
+static char module_docstring[] =
+        "This module provides an interface for calculating chi-squared using C.";
+static char stat_randomwalk_docstring[] =
+        "Calculate the chi-squared of some data given a model.";
+
+static PyObject *bound_randomwalk(PyObject *self, PyObject *args) {
+    double p;
+    long int l;
+    double alpha;
+    /* Do your stuff here. */
+    if (!PyArg_ParseTuple(args, "dld", &p, &l, &alpha)) {
+        return NULL;
+    }
+
+    long int value = statistical_bound_of_randomwalk2(p, l, alpha);
+
+    /* Build the output tuple */
+    PyObject *ret = Py_BuildValue("l", value);
+    return ret;
+}
+
+
+static PyMethodDef module_methods[] = {
+        { "statbound_randomwalk", bound_randomwalk, METH_NOARGS, stat_randomwalk_docstring },
+        { NULL, NULL, 0, NULL }
+};
+
+PyMODINIT_FUNC init_prob() {
+    Py_InitModule3("prob", module_methods, module_docstring);
 }
