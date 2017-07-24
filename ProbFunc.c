@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include "proba.h"
+#include "ProbFunc.h"
 
 long int statistical_bound_of_waiting_time1(double p, long int k, double alpha)
 {
