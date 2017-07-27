@@ -9,8 +9,7 @@
 //#include <string.h>
 #include "ProbFunc.h"
 
-long int statistical_bound_of_waiting_time1(double p, long int k, double alpha)
-{
+long int statistical_bound_of_waiting_time1(double p, long int k, double alpha) {
     double a1 = dpow(p, k);
     double a2 = (1 - p) * a1;
     long int x = 0;
@@ -42,8 +41,7 @@ long int statistical_bound_of_waiting_time1(double p, long int k, double alpha)
     return x;
 }
 
-double *randomwalk_probability_of_pos3(double pI, long int L)
-{
+double *randomwalk_probability_of_pos3(double pI, long int L) {
 
     long int i, j;
     long int P = L;
@@ -100,8 +98,7 @@ double *randomwalk_probability_of_pos3(double pI, long int L)
 
 }
 
-long int statistical_bound_of_randomwalk2(double pI, long int L, double alpha)
-{
+long int statistical_bound_of_randomwalk2(double pI, long int L, double alpha) {
     double *RDW_Bound = randomwalk_probability_of_pos3(pI, L);
     double Sum = RDW_Bound[L];
     long int bound = 0;
@@ -138,8 +135,8 @@ static PyObject *bound_randomwalk(PyObject *self, PyObject *args) {
 
 
 static PyMethodDef module_methods[] = {
-        { "statbound_randomwalk", bound_randomwalk, METH_NOARGS, stat_randomwalk_docstring },
-        { NULL, NULL, 0, NULL }
+        {"statbound_randomwalk", bound_randomwalk, METH_NOARGS, stat_randomwalk_docstring},
+        {NULL,                   NULL,             0,           NULL}
 };
 
 PyMODINIT_FUNC init_prob() {

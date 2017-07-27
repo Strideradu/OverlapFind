@@ -873,6 +873,7 @@ if __name__ == '__main__':
     """
 
     process.diag_chain(0.75, 0.2)
+    print process.fw_chain
     # process.rc_chain.sort()
     for cluster in process.rc_chain:
         print cluster
