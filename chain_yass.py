@@ -54,10 +54,10 @@ class GroupHit(object):
                 diagonal = start_y - start_x
                 # find largest h_j strictly smaller than l_k and also not off diagonal
                 try:
-                    j_item = L.floor_item(l_k - 1)
+                    j_key = L.floor_key(l_k - 1)
 
                     v_j = sum([x[2] for x in self.groups[k]])
-                    j = j_item[1][1]
+                    j = L[j_key][1]
 
                     prev_score = V[j]
 
@@ -76,9 +76,9 @@ class GroupHit(object):
                 h_k = self.groups[k][-1][1]
 
                 try:
-                    j_item = L.ceiling_item(h_k)
-                    j = j_item[1][1]
-                    V_j = j_item[1][0]
+                    j_key = L.ceiling_key(h_k)
+                    j = L[j_key][1]
+                    V_j = L[j_key][0]
 
 
                     if V[k] > V_j:
@@ -86,8 +86,9 @@ class GroupHit(object):
 
                     #L.insert(h_k, (V[k], k))
                 except KeyError:
+                    # print len(L)
                     if len(L) == 0 or L.max_item()[1][0] < V[k]:
-                        L.insert(h_k, (V[k], k))
+                        L[h_k] = (V[k], k)
                     # L.insert(h_k, (V[k], k))
                 # max_item = L_tree.max_item()
                 try:
@@ -107,7 +108,7 @@ class GroupHit(object):
                                 L.remove(j1_key)
                         except KeyError:
                             # print prev_j1_item
-                            if V[k] > prev_j1_score[1]:
+                            if V[k] > prev_j1_score[0]:
                                 L.remove(prev_j1_key)
                             break
 
