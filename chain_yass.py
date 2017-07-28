@@ -1,6 +1,42 @@
 from bintrees import *
+from sortedcontainers import SortedDict
 import ProbFunc
 
+def find_floor_key(d, key):
+    try:
+        i_loc = d.index(key)
+        if i_loc == 0:
+            return None, None, None
+        else:
+            return i_loc - 1, d.iloc[i_loc - 1], d[d.iloc[i_loc - 1]]
+
+    except ValueError:
+        # just insert something
+        d[key] = 0
+        i_loc = d.index(key)
+        if i_loc == 0:
+            del d[key]
+            return None, None, None
+        else:
+            del d[key]
+            return i_loc - 1, d.iloc[i_loc - 1], d[d.iloc[i_loc - 1]]
+
+def find_not_smaller_key(d, key):
+    try:
+        i_loc = d.index(key)
+        return i_loc, d.iloc[i_loc], d[d.iloc[i_loc]]
+    except ValueError:
+        # just insert something
+        d[key] = 0
+        i_loc = d.index(key)
+        if i_loc == len(d) - 1:
+            del d[key]
+            return None, None, None
+        else:
+            #print i_loc
+            #print len(d)
+            del d[key]
+            return i_loc, d.iloc[i_loc], d[d.iloc[i_loc]]
 
 class GroupHit(object):
     def __init__(self, group_line):
@@ -33,7 +69,8 @@ class GroupHit(object):
     def chain_groups(self ):
 
         r = len(self.I)
-        L = FastRBTree()
+        # L = FastRBTree()
+        L_dict = SortedDict()
         V = [0] * len(self.groups)
         back_track = [-1] * len(self.groups)
 
@@ -53,15 +90,16 @@ class GroupHit(object):
                 end_y = self.groups[k][-1][1]
                 diagonal = start_y - start_x
                 # find largest h_j strictly smaller than l_k and also not off diagonal
-                try:
-                    j_key = L.floor_key(l_k - 1)
 
+                j_index, j_key, j_value = find_floor_key(L_dict, l_k)
+                    # j_key = L.floor_key(l_k - 1)
+                if j_index != None:
                     v_j = sum([x[2] for x in self.groups[k]])
-                    j = L[j_key][1]
+                    j = j_value[1]
 
                     prev_score = V[j]
 
-                except KeyError:
+                else:
                     v_j = sum([x[2] for x in self.groups[k]])
                     j = -1
                     prev_score = 0
@@ -75,53 +113,65 @@ class GroupHit(object):
                 k = self.I[i][1]
                 h_k = self.groups[k][-1][1]
 
-                try:
-                    j_key = L.ceiling_key(h_k)
-                    j = L[j_key][1]
-                    V_j = L[j_key][0]
+
+                j_index, j_key, j_value = find_not_smaller_key(L_dict,h_k)
+                #j_key = L.ceiling_key(h_k)
+                if j_index != None:
+                    j = j_value[1]
+                    V_j = j_value[0]
 
 
                     if V[k] > V_j:
-                        L.insert(h_k, (V[k], k))
-
-                    #L.insert(h_k, (V[k], k))
-                except KeyError:
-                    # print len(L)
-                    if len(L) == 0 or L.max_item()[1][0] < V[k]:
-                        L[h_k] = (V[k], k)
+                        L_dict[h_k] = (V[k], k)
                     # L.insert(h_k, (V[k], k))
-                # max_item = L_tree.max_item()
-                try:
-                    j1_key = L.ceiling_key(h_k)
-                    j1_score = L[j1_key]
 
-                    # maybe mofify here'
-                    #print "Vk", V[k]
-                    #print L
-                    while True:
+                #L.insert(h_k, (V[k], k))
+                else:
+                    # print len(L)
+                    if len(L_dict) == 0 or L_dict.peekitem()[1][0] < V[k]:
+                        L_dict[h_k] = (V[k], k)
+                """
+                if len(L) == 0 or L.max_item()[1][0] < V[k]:
+                    L[h_k] = (V[k], k)
+                """
+                    # L.insert(h_k, (V[k], k))
+
+                j1_index, j1_key, j1_value = find_not_smaller_key(L_dict, h_k)
+                # j1_key = L.ceiling_key(h_k)
+
+                # j1_score = L[j1_key]
+
+                # maybe mofify here'
+                #print "Vk", V[k]
+                #print L
+                if j1_index != None:
+                    j1_index += 1
+                    while j1_index < len(L_dict):
                         prev_j1_key = j1_key
-                        prev_j1_score = j1_score
+                        prev_j1_value = j1_value
                         try:
-                            j1_key = L.succ_key(j1_key)
-                            j1_score = L[j1_key]
-                            if V[k] > j1_score[0]:
-                                L.remove(j1_key)
+
+                            j1_key = L_dict.iloc[j1_index]
+                            j1_value = L_dict[j1_key]
+                            if V[k] > j1_value[0]:
+                                del L_dict[j1_key]
+                            else:
+                                j1_index += 1
                         except KeyError:
                             # print prev_j1_item
-                            if V[k] > prev_j1_score[0]:
-                                L.remove(prev_j1_key)
+                            if V[k] > prev_j1_value[0]:
+                                del L_dict[prev_j1_key]
                             break
 
-                    #print L
-                except KeyError:
-                    continue
+
         #print "DP finished"
         try:
             #print L
-            max_item = L.max_item()
-            score = max_item[1][0]
+            max_item = L_dict.peekitem(index=-1)
+            max_value = max_item[1]
+            score = max_value[0]
 
-            current_j = max_item[1][1]
+            current_j = max_value[1]
             # backtrack
             chain_index = []
             chain_index.append(current_j)
