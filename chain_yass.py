@@ -21,10 +21,10 @@ class GroupHit(object):
             for hit in group_sp:
                 hit_sp = hit.split(" ")
 
-                hits.append((int(hit_sp[0]), int(hit_sp[1]), int(hit_sp[2])))
+                hits.append((int(hit_sp[0]) , int(hit_sp[1]) + int(hit_sp[0]), int(hit_sp[2])))
 
-            self.I.append((hits[0][0], len(groups), 0))
-            self.I.append((hits[-1][0] + hits[-1][2], len(groups), -1))
+            self.I.append((hits[0][0] - hits[0][2], len(groups), 0))
+            self.I.append((hits[-1][0], len(groups), -1))
             # self.L.insert((hits[-1][1], len(groups)))
             groups.append(hits)
 
@@ -37,14 +37,18 @@ class GroupHit(object):
         V = [0] * len(self.groups)
         back_track = [-1] * len(self.groups)
 
+        self.I.sort()
+        # print self.I
+        ## print self.groups
+
         for i in range(r):
             # I_list[i] is a start point, noticed we go through the chain from botton to top
             if self.I[i][2] == 0:
                 k = self.I[i][1]
 
-                l_k = self.groups[k][0][1]
+                l_k = self.groups[k][0][1] - self.groups[k][0][2]
                 start_y = l_k
-                start_x = self.I[i][0]
+                start_x = self.I[i][0] - self.groups[k][0][2]
                 end_x = self.groups[k][-1][0]
                 end_y = self.groups[k][-1][1]
                 diagonal = start_y - start_x
@@ -52,13 +56,13 @@ class GroupHit(object):
                 try:
                     j_item = L.floor_item(l_k - 1)
 
-                    v_j = min(abs(end_x - start_x), abs(end_y - start_y))
+                    v_j = sum([x[2] for x in self.groups[k]])
                     j = j_item[1][1]
 
                     prev_score = V[j]
 
                 except KeyError:
-                    v_j = 0
+                    v_j = sum([x[2] for x in self.groups[k]])
                     j = -1
                     prev_score = 0
 
@@ -76,32 +80,35 @@ class GroupHit(object):
                     j = j_item[1][1]
                     V_j = j_item[1][0]
 
-                    """
+
                     if V[k] > V_j:
                         L.insert(h_k, (V[k], k))
-                    """
-                    L.insert(h_k, (V[k], k))
+
+                    #L.insert(h_k, (V[k], k))
                 except KeyError:
                     if len(L) == 0 or L.max_item()[1][0] < V[k]:
                         L.insert(h_k, (V[k], k))
                     # L.insert(h_k, (V[k], k))
                 # max_item = L_tree.max_item()
                 try:
-                    j1_item = L.ceiling_item(h_k)
+                    j1_key = L.ceiling_key(h_k)
+                    j1_score = L[j1_key]
 
                     # maybe mofify here'
                     #print "Vk", V[k]
                     #print L
                     while True:
-                        prev_j1_item = j1_item
+                        prev_j1_key = j1_key
+                        prev_j1_score = j1_score
                         try:
-                            j1_item = L.succ_item(j1_item[0])
-                            if V[k] > j1_item[1][0]:
-                                L.remove_items(j1_item)
+                            j1_key = L.succ_key(j1_key)
+                            j1_score = L[j1_key]
+                            if V[k] > j1_score[0]:
+                                L.remove(j1_key)
                         except KeyError:
                             # print prev_j1_item
-                            if V[k] > prev_j1_item[1][0]:
-                                L.remove_items(prev_j1_item)
+                            if V[k] > prev_j1_score[1]:
+                                L.remove(prev_j1_key)
                             break
 
                     #print L
