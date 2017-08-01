@@ -343,20 +343,22 @@ class GroupHit(object):
         if group_distance == None:
             group_distance = ProbFunc.statistical_bound_of_waiting_time(accuracy, 9)
 
-        if self.forward:
-            align, length = self.fw_chain_groups()
-            extend = 2 * group_distance + 0.5 * (
-            align[-1][0] - align[0][0] + align[0][2] + align[-1][1] - align[0][1] + align[0][2])
+        if len(self.groups) != 0:
 
-        else:
-            align, length = self.fw_chain_groups()
-            extend = 2 * group_distance + 0.5 * (
-            align[-1][0] - align[0][0] + align[0][2] + align[0][1] - align[-1][1] + align[0][2])
+            if self.forward:
+                align, length = self.fw_chain_groups()
+                extend = 2 * group_distance + 0.5 * (
+                align[-1][0] - align[0][0] + align[0][2] + align[-1][1] - align[0][1] + align[0][2])
 
-        if extend / float(4 * span_coefficient * group_distance) <= float(
-                length) / 9 and length > rechain_threshold * 9:
-            self.chain_align = align
-            self.aligned = True
+            else:
+                align, length = self.rc_chain_groups()
+                extend = 2 * group_distance + 0.5 * (
+                align[-1][0] - align[0][0] + align[0][2] + align[0][1] - align[-1][1] + align[0][2])
+
+            if extend / float(4 * span_coefficient * group_distance) <= float(
+                    length) / 9 and length > rechain_threshold * 9:
+                self.chain_align = align
+                self.aligned = True
 
 
 if __name__ == '__main__':
