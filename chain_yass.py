@@ -362,7 +362,7 @@ class GroupHit(object):
 
 
 if __name__ == '__main__':
-    file = "D:/Data/20170727/test_rc.out"
+    file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170727_yass_group/quey_all.out"
     with open(file) as f:
         lines = f.readlines()
 
@@ -371,4 +371,4 @@ if __name__ == '__main__':
         # print group_hit.groups
         L = ProbFunc.statistical_bound_of_waiting_time(0.8, 9)
         group_hit.chain_groups(accuracy=0.8, group_distance=L, rechain_threshold=3, span_coefficient=1.0)
-        print(group_hit.aligned)
+        print(group_hit.query, "\t", group_hit.target, "\t",group_hit.aligned)
