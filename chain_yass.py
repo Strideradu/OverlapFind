@@ -371,4 +371,5 @@ if __name__ == '__main__':
         # print group_hit.groups
         L = ProbFunc.statistical_bound_of_waiting_time(0.8, 9)
         group_hit.chain_groups(accuracy=0.8, group_distance=L, rechain_threshold=3, span_coefficient=1.0)
-        print(group_hit.query, "\t", group_hit.target, "\t",group_hit.aligned)
+        if group_hit.aligned:
+            print(group_hit.query, "\t", group_hit.target, "\t",group_hit.aligned)
