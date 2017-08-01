@@ -346,33 +346,73 @@ class GroupHit(object):
             group_distance = ProbFunc.statistical_bound_of_waiting_time(accuracy, 9)
 
         if len(self.groups) != 0:
-
+            extend = None
             if self.forward:
                 align, length = self.fw_chain_groups()
+
+                if align:
+                    # find left side extension length
+                    if align[0][0] < align[0][1]:
+                        left_extend = align[0][0] - align[0][2]
+                    else:
+                        left_extend = align[0][1] - align[0][2]
+
+                    if self.query_len - align[-1][0] < self.target_len - align[-1][1]:
+                        right_extend = self.query_len - align[-1][0]
+                    else:
+                        right_extend = self.target_len - align[-1][1]
+
+                    # middle span
+                    middle_extend = 0.5 * (abs(align[-1][0] - align[0][0] + align[0][2])) + 0.5 * abs( align[-1][1] - align[0][1]+ align[0][2])
+
+                    extend = left_extend + middle_extend + right_extend
+
+                """
                 extend = 2 * group_distance + 0.5 * (
                     align[-1][0] - align[0][0] + align[0][2] + align[-1][1] - align[0][1] + align[0][2])
+                """
 
             else:
                 align, length = self.rc_chain_groups()
+
+                if align:
+                    # find left side extension length
+                    if align[0][0] < align[0][1]:
+                        left_extend = align[0][0] - align[0][2]
+                    else:
+                        left_extend = align[0][1] - align[0][2]
+
+                    if self.query_len - align[-1][0] < self.target_len - align[-1][1]:
+                        right_extend = self.query_len - align[-1][0]
+                    else:
+                        right_extend = self.target_len - align[-1][1]
+
+                    # middle span
+                    middle_extend = 0.5 * (abs(align[-1][0] - align[0][0] + align[0][2])) + 0.5 * abs( align[0][1] - align[-1][1]+ align[0][2])
+
+                    extend = left_extend + middle_extend + right_extend
+
+                """
                 extend = 2 * group_distance + 0.5 * (
                     align[-1][0] - align[0][0] + align[0][2] + align[0][1] - align[-1][1] + align[0][2])
-
-            if extend / float(4 * span_coefficient * group_distance) <= float(
+                """
+            if extend:
+                if extend / float(span_coefficient * group_distance) <= float(
                     length) / 9 and length > rechain_threshold * 9:
-                self.chain_align = align
-                self.aligned = True
+                    self.chain_align = align
+                    self.aligned = True
 
 
 if __name__ == '__main__':
-    file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170727_yass_group/quey_all.out"
+    file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170731/query_all_0p85_0p12.out"
     with open(file) as f:
         lines = f.readlines()
 
     for line in lines:
         group_hit = GroupHit(line)
         # print group_hit.groups
-        L = ProbFunc.statistical_bound_of_waiting_time(0.8, 9)
-        group_hit.chain_groups(accuracy=0.8, group_distance=L, rechain_threshold=3, span_coefficient=1.0)
+        L = ProbFunc.statistical_bound_of_waiting_time(0.85, 9)
+        group_hit.chain_groups(accuracy=0.85, group_distance=L, rechain_threshold=5, span_coefficient=1.0)
         if group_hit.aligned:
             output_str = group_hit.query + "\t" + group_hit.target + "\t" + str(group_hit.aligned)
             print(output_str)
