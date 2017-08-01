@@ -660,6 +660,7 @@ class DiagProcess(object):
                 self.is_forward = True
 
         align, length = self.optimal_rc_chain(self.rc_chain, self.rc_I, self.rc_L, gap)
+        print align
         #print "Reversed Chain Completed"
         #print align
         if align:
@@ -872,12 +873,15 @@ if __name__ == '__main__':
     print len(process.rc_points)
     """
 
-    process.diag_chain(0.75, 0.2)
-    print process.fw_chain
+    process.diag_chain(0.85, 0.2)
+    #print process.rc_chain
     # process.rc_chain.sort()
+    """
     for cluster in process.rc_chain:
         print cluster
-    process.optimal_rechain(0.12, 5, 1)
+    """
+    process.optimal_rechain(0.12, 3, 1)
+    print process.chain_align
     #print process.chain_align
     #print process.aligned
     process.diag_plot()

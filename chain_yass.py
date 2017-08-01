@@ -38,17 +38,36 @@ def find_not_smaller_key(d, key):
             del d[key]
             return i_loc, d.iloc[i_loc], d[d.iloc[i_loc]]
 
+def find_not_bigger_key(d, key):
+    try:
+        i_loc = d.index(key)
+        return i_loc, d.iloc[i_loc], d[d.iloc[i_loc]]
+    except ValueError:
+        # just insert something
+        d[key] = 0
+        i_loc = d.index(key)
+        if i_loc == 0:
+            del d[key]
+            return None, None, None
+        else:
+            #print i_loc
+            #print len(d)
+            del d[key]
+            return i_loc - 1, d.iloc[i_loc - 1], d[d.iloc[i_loc - 1]]
+
 class GroupHit(object):
     def __init__(self, group_line):
         sp = group_line.strip().split("\t")
         self.query = sp[0]
         self.target = sp[1]
-        self.direction = sp[2]
+        if sp[2] == 0:
+            self.forward = True
+
+        else:
+            self.forward = False
 
         # L and I is for DP chaining
         self.I = []
-        # self.L = FastRBTree()
-
 
         groups = []
         for group in sp[4:]:
@@ -57,7 +76,13 @@ class GroupHit(object):
             for hit in group_sp:
                 hit_sp = hit.split(" ")
 
-                hits.append((int(hit_sp[0]) , int(hit_sp[1]) + int(hit_sp[0]), int(hit_sp[2])))
+                if self.forward:
+                    hits.append((int(hit_sp[0]) , int(hit_sp[1]) + int(hit_sp[0]), int(hit_sp[2])))
+
+                else:
+                    hits.append((int(hit_sp[0]), int(hit_sp[1]) - int(hit_sp[0]), int(hit_sp[2])))
+
+
 
             self.I.append((hits[0][0] - hits[0][2], len(groups), 0))
             self.I.append((hits[-1][0], len(groups), -1))
@@ -66,7 +91,7 @@ class GroupHit(object):
 
         self.groups = groups
 
-    def chain_groups(self ):
+    def fw_chain_groups(self ):
 
         r = len(self.I)
         # L = FastRBTree()
@@ -137,10 +162,6 @@ class GroupHit(object):
                     # L.insert(h_k, (V[k], k))
 
                 j1_index, j1_key, j1_value = find_not_smaller_key(L_dict, h_k)
-                # j1_key = L.ceiling_key(h_k)
-
-                # j1_score = L[j1_key]
-
                 # maybe mofify here'
                 #print "Vk", V[k]
                 #print L
@@ -196,13 +217,139 @@ class GroupHit(object):
 
         return optimal_chain, length
 
+    def rc_chain_groups(self):
+
+        r = len(self.I)
+        # L = FastRBTree()
+        L_dict = SortedDict()
+        V = [0] * len(self.groups)
+        back_track = [-1] * len(self.groups)
+
+        self.I.sort()
+        # print self.I
+        ## print self.groups
+
+        for i in range(r):
+            # I_list[i] is a start point, noticed we go through the chain from botton to top
+            if self.I[i][2] == 0:
+                k = self.I[i][1]
+
+                l_k = self.groups[k][0][1] - self.groups[k][0][2]
+                start_y = l_k
+                start_x = self.I[i][0] - self.groups[k][0][2]
+                end_x = self.groups[k][-1][0]
+                end_y = self.groups[k][-1][1]
+                diagonal = start_y + start_x
+                # find largest h_j strictly smaller than l_k and also not off diagonal
+
+                j_index, j_key, j_value = find_not_smaller_key(L_dict, l_k + 1)
+                    # j_key = L.floor_key(l_k - 1)
+                if j_index != None:
+                    v_j = sum([x[2] for x in self.groups[k]])
+                    j = j_value[1]
+
+                    prev_score = V[j]
+
+                else:
+                    v_j = sum([x[2] for x in self.groups[k]])
+                    j = -1
+                    prev_score = 0
+
+                V[k] = prev_score + v_j
+                back_track[k] = j
+
+            # is a end point
+            else:
+                #print L
+                k = self.I[i][1]
+                h_k = self.groups[k][-1][1]
+
+
+                j_index, j_key, j_value = find_not_bigger_key(L_dict,h_k)
+                #j_key = L.ceiling_key(h_k)
+                if j_index != None:
+                    j = j_value[1]
+                    V_j = j_value[0]
+
+
+                    if V[k] > V_j:
+                        L_dict[h_k] = (V[k], k)
+                    # L.insert(h_k, (V[k], k))
+
+                #L.insert(h_k, (V[k], k))
+                else:
+                    # print len(L)
+                    if len(L_dict) == 0 or L_dict.peekitem(0)[1][0] < V[k]:
+                        L_dict[h_k] = (V[k], k)
+                """
+                if len(L) == 0 or L.max_item()[1][0] < V[k]:
+                    L[h_k] = (V[k], k)
+                """
+                    # L.insert(h_k, (V[k], k))
+
+                j1_index, j1_key, j1_value = find_not_bigger_key(L_dict, h_k)
+                # maybe mofify here'
+                #print "Vk", V[k]
+                #print L
+                if j1_index != None:
+                    j1_index -= 1
+                    while j1_index >= 0:
+                        prev_j1_key = j1_key
+                        prev_j1_value = j1_value
+                        try:
+                            # print j1_index
+                            j1_key = L_dict.iloc[j1_index]
+                            j1_value = L_dict[j1_key]
+                            if V[k] > j1_value[0]:
+                                del L_dict[j1_key]
+
+                            j1_index -= 1
+                        except KeyError:
+                            # print prev_j1_item
+                            if V[k] > prev_j1_value[0]:
+                                del L_dict[prev_j1_key]
+                            break
+
+
+        #print "DP finished"
+        try:
+            #print L
+            max_item = L_dict.peekitem(index=0)
+            max_value = max_item[1]
+            score = max_value[0]
+
+            current_j = max_value[1]
+            # backtrack
+            chain_index = []
+            chain_index.append(current_j)
+
+            while True:
+                prev_j = back_track[current_j]
+                if prev_j == -1:
+                    break
+                else:
+                    current_j = prev_j
+                    chain_index.append(current_j)
+
+            optimal_chain = []
+            length = 0
+            for i in chain_index[::-1]:
+                optimal_chain.extend(self.groups[i])
+                length += sum([x[2] for x in self.groups[i]])
+
+        except ValueError:
+            optimal_chain = None
+            length = 0
+
+        return optimal_chain, length
+
 
 if __name__ == '__main__':
-    file = "D:/Data/20170727/test.out"
+    file = "D:/Data/20170727/test_rc.out"
     with open(file) as f:
         lines = f.readlines()
 
     for line in lines:
         group_hit = GroupHit(line)
         # print group_hit.groups
-        print group_hit.chain_groups()
+        print group_hit.rc_chain_groups()
