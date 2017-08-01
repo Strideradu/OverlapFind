@@ -348,12 +348,12 @@ class GroupHit(object):
             if self.forward:
                 align, length = self.fw_chain_groups()
                 extend = 2 * group_distance + 0.5 * (
-                align[-1][0] - align[0][0] + align[0][2] + align[-1][1] - align[0][1] + align[0][2])
+                    align[-1][0] - align[0][0] + align[0][2] + align[-1][1] - align[0][1] + align[0][2])
 
             else:
                 align, length = self.rc_chain_groups()
                 extend = 2 * group_distance + 0.5 * (
-                align[-1][0] - align[0][0] + align[0][2] + align[0][1] - align[-1][1] + align[0][2])
+                    align[-1][0] - align[0][0] + align[0][2] + align[0][1] - align[-1][1] + align[0][2])
 
             if extend / float(4 * span_coefficient * group_distance) <= float(
                     length) / 9 and length > rechain_threshold * 9:
@@ -372,4 +372,5 @@ if __name__ == '__main__':
         L = ProbFunc.statistical_bound_of_waiting_time(0.8, 9)
         group_hit.chain_groups(accuracy=0.8, group_distance=L, rechain_threshold=3, span_coefficient=1.0)
         if group_hit.aligned:
-            print(group_hit.query, "\t", group_hit.target, "\t",group_hit.aligned)
+            output_str = group_hit.query + "\t" + group_hit.target + "\t" + str(group_hit.aligned)
+            print(output_str)
