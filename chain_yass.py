@@ -1,6 +1,6 @@
-from bintrees import *
 from sortedcontainers import SortedDict
 import ProbFunc
+
 
 def find_floor_key(d, key):
     try:
@@ -21,6 +21,7 @@ def find_floor_key(d, key):
             del d[key]
             return i_loc - 1, d.iloc[i_loc - 1], d[d.iloc[i_loc - 1]]
 
+
 def find_not_smaller_key(d, key):
     try:
         i_loc = d.index(key)
@@ -33,10 +34,11 @@ def find_not_smaller_key(d, key):
             del d[key]
             return None, None, None
         else:
-            #print i_loc
-            #print len(d)
+            # print i_loc
+            # print len(d)
             del d[key]
             return i_loc, d.iloc[i_loc], d[d.iloc[i_loc]]
+
 
 def find_not_bigger_key(d, key):
     try:
@@ -50,16 +52,18 @@ def find_not_bigger_key(d, key):
             del d[key]
             return None, None, None
         else:
-            #print i_loc
-            #print len(d)
+            # print i_loc
+            # print len(d)
             del d[key]
             return i_loc - 1, d.iloc[i_loc - 1], d[d.iloc[i_loc - 1]]
+
 
 class GroupHit(object):
     def __init__(self, group_line):
         sp = group_line.strip().split("\t")
         self.query = sp[0]
         self.target = sp[1]
+        self.aligned = False
         if sp[2] == 0:
             self.forward = True
 
@@ -77,12 +81,10 @@ class GroupHit(object):
                 hit_sp = hit.split(" ")
 
                 if self.forward:
-                    hits.append((int(hit_sp[0]) , int(hit_sp[1]) + int(hit_sp[0]), int(hit_sp[2])))
+                    hits.append((int(hit_sp[0]), int(hit_sp[1]) + int(hit_sp[0]), int(hit_sp[2])))
 
                 else:
                     hits.append((int(hit_sp[0]), int(hit_sp[1]) - int(hit_sp[0]), int(hit_sp[2])))
-
-
 
             self.I.append((hits[0][0] - hits[0][2], len(groups), 0))
             self.I.append((hits[-1][0], len(groups), -1))
@@ -91,7 +93,7 @@ class GroupHit(object):
 
         self.groups = groups
 
-    def fw_chain_groups(self ):
+    def fw_chain_groups(self):
 
         r = len(self.I)
         # L = FastRBTree()
@@ -117,7 +119,7 @@ class GroupHit(object):
                 # find largest h_j strictly smaller than l_k and also not off diagonal
 
                 j_index, j_key, j_value = find_floor_key(L_dict, l_k)
-                    # j_key = L.floor_key(l_k - 1)
+                # j_key = L.floor_key(l_k - 1)
                 if j_index != None:
                     v_j = sum([x[2] for x in self.groups[k]])
                     j = j_value[1]
@@ -134,23 +136,21 @@ class GroupHit(object):
 
             # is a end point
             else:
-                #print L
+                # print L
                 k = self.I[i][1]
                 h_k = self.groups[k][-1][1]
 
-
-                j_index, j_key, j_value = find_not_smaller_key(L_dict,h_k)
-                #j_key = L.ceiling_key(h_k)
+                j_index, j_key, j_value = find_not_smaller_key(L_dict, h_k)
+                # j_key = L.ceiling_key(h_k)
                 if j_index != None:
                     j = j_value[1]
                     V_j = j_value[0]
 
-
                     if V[k] > V_j:
                         L_dict[h_k] = (V[k], k)
-                    # L.insert(h_k, (V[k], k))
+                        # L.insert(h_k, (V[k], k))
 
-                #L.insert(h_k, (V[k], k))
+                # L.insert(h_k, (V[k], k))
                 else:
                     # print len(L)
                     if len(L_dict) == 0 or L_dict.peekitem()[1][0] < V[k]:
@@ -159,12 +159,12 @@ class GroupHit(object):
                 if len(L) == 0 or L.max_item()[1][0] < V[k]:
                     L[h_k] = (V[k], k)
                 """
-                    # L.insert(h_k, (V[k], k))
+                # L.insert(h_k, (V[k], k))
 
                 j1_index, j1_key, j1_value = find_not_smaller_key(L_dict, h_k)
                 # maybe mofify here'
-                #print "Vk", V[k]
-                #print L
+                # print "Vk", V[k]
+                # print L
                 if j1_index != None:
                     j1_index += 1
                     while j1_index < len(L_dict):
@@ -184,10 +184,9 @@ class GroupHit(object):
                                 del L_dict[prev_j1_key]
                             break
 
-
-        #print "DP finished"
+        # print "DP finished"
         try:
-            #print L
+            # print L
             max_item = L_dict.peekitem(index=-1)
             max_value = max_item[1]
             score = max_value[0]
@@ -243,7 +242,7 @@ class GroupHit(object):
                 # find largest h_j strictly smaller than l_k and also not off diagonal
 
                 j_index, j_key, j_value = find_not_smaller_key(L_dict, l_k + 1)
-                    # j_key = L.floor_key(l_k - 1)
+                # j_key = L.floor_key(l_k - 1)
                 if j_index != None:
                     v_j = sum([x[2] for x in self.groups[k]])
                     j = j_value[1]
@@ -260,23 +259,21 @@ class GroupHit(object):
 
             # is a end point
             else:
-                #print L
+                # print L
                 k = self.I[i][1]
                 h_k = self.groups[k][-1][1]
 
-
-                j_index, j_key, j_value = find_not_bigger_key(L_dict,h_k)
-                #j_key = L.ceiling_key(h_k)
+                j_index, j_key, j_value = find_not_bigger_key(L_dict, h_k)
+                # j_key = L.ceiling_key(h_k)
                 if j_index != None:
                     j = j_value[1]
                     V_j = j_value[0]
 
-
                     if V[k] > V_j:
                         L_dict[h_k] = (V[k], k)
-                    # L.insert(h_k, (V[k], k))
+                        # L.insert(h_k, (V[k], k))
 
-                #L.insert(h_k, (V[k], k))
+                # L.insert(h_k, (V[k], k))
                 else:
                     # print len(L)
                     if len(L_dict) == 0 or L_dict.peekitem(0)[1][0] < V[k]:
@@ -285,12 +282,12 @@ class GroupHit(object):
                 if len(L) == 0 or L.max_item()[1][0] < V[k]:
                     L[h_k] = (V[k], k)
                 """
-                    # L.insert(h_k, (V[k], k))
+                # L.insert(h_k, (V[k], k))
 
                 j1_index, j1_key, j1_value = find_not_bigger_key(L_dict, h_k)
                 # maybe mofify here'
-                #print "Vk", V[k]
-                #print L
+                # print "Vk", V[k]
+                # print L
                 if j1_index != None:
                     j1_index -= 1
                     while j1_index >= 0:
@@ -310,10 +307,9 @@ class GroupHit(object):
                                 del L_dict[prev_j1_key]
                             break
 
-
-        #print "DP finished"
+        # print "DP finished"
         try:
-            #print L
+            # print L
             max_item = L_dict.peekitem(index=0)
             max_value = max_item[1]
             score = max_value[0]
@@ -343,6 +339,25 @@ class GroupHit(object):
 
         return optimal_chain, length
 
+    def chain_groups(self, accuracy=0.8, group_distance=None, rechain_threshold=5, span_coefficient=1.0):
+        if group_distance == None:
+            group_distance = ProbFunc.statistical_bound_of_waiting_time(accuracy, 9)
+
+        if self.forward:
+            align, length = self.fw_chain_groups()
+            extend = 2 * group_distance + 0.5 * (
+            align[-1][0] - align[0][0] + align[0][2] + align[-1][1] - align[0][1] + align[0][2])
+
+        else:
+            align, length = self.fw_chain_groups()
+            extend = 2 * group_distance + 0.5 * (
+            align[-1][0] - align[0][0] + align[0][2] + align[0][1] - align[-1][1] + align[0][2])
+
+        if extend / float(4 * span_coefficient * group_distance) <= float(
+                length) / 9 and length > rechain_threshold * 9:
+            self.chain_align = align
+            self.aligned = True
+
 
 if __name__ == '__main__':
     file = "D:/Data/20170727/test_rc.out"
@@ -352,4 +367,6 @@ if __name__ == '__main__':
     for line in lines:
         group_hit = GroupHit(line)
         # print group_hit.groups
-        print group_hit.rc_chain_groups()
+        L = ProbFunc.statistical_bound_of_waiting_time(0.8, 9)
+        group_hit.chain_groups(accuracy=0.8, group_distance=L, rechain_threshold=3, span_coefficient=1.0)
+        print(group_hit.aligned)
