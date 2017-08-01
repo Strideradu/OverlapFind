@@ -62,9 +62,11 @@ class GroupHit(object):
     def __init__(self, group_line):
         sp = group_line.strip().split("\t")
         self.query = sp[0]
-        self.target = sp[1]
+        self.query_len = int(sp[1])
+        self.target = sp[2]
+        self.target_len = int(sp[3])
         self.aligned = False
-        if sp[2] == 0:
+        if sp[4] == 0:
             self.forward = True
 
         else:
@@ -74,7 +76,7 @@ class GroupHit(object):
         self.I = []
 
         groups = []
-        for group in sp[4:]:
+        for group in sp[5:]:
             hits = []
             group_sp = group.strip(",").split(",")
             for hit in group_sp:
