@@ -1,16 +1,16 @@
 from Bio import SeqIO
 
 generate_num = 100
-file_prefix = "D:/Data/20170706/FP_dustboth/fp_"
+file_prefix = "D:/Data/20170727/yass_chain_FP/fp_"
 file_suffix = ".fasta"
 
 query_fasta = "D:/Data/20170523/query_all.fasta"
-target_fasta = "D:/Data/20170523/target_masked.fasta"
+target_fasta = "D:/Data/20170523/query_all.fasta"
 query_dict = SeqIO.index(query_fasta, "fasta")
 target_dict = SeqIO.index(target_fasta, "fasta")
 num = 0
 
-with open("D:/Data/20170706/dustboth_fp_list.txt") as f:
+with open("D:/Data/20170727/yass_chain_false_positive.txt") as f:
     for line in f:
         num += 1
         pair = line.strip().split("\t")

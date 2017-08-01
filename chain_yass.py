@@ -1,5 +1,6 @@
 from sortedcontainers import SortedDict
 import ProbFunc
+from matplotlib import pyplot as plt
 
 
 def find_floor_key(d, key):
@@ -66,6 +67,7 @@ class GroupHit(object):
         self.target = sp[2]
         self.target_len = int(sp[3])
         self.aligned = False
+        self.chain_align = None
         if sp[4] == 0:
             self.forward = True
 
@@ -363,7 +365,8 @@ class GroupHit(object):
                         right_extend = self.target_len - align[-1][1]
 
                     # middle span
-                    middle_extend = 0.5 * (abs(align[-1][0] - align[0][0] + align[0][2])) + 0.5 * abs( align[-1][1] - align[0][1]+ align[0][2])
+                    middle_extend = 0.5 * (abs(align[-1][0] - align[0][0] + align[0][2])) + 0.5 * abs(
+                        align[-1][1] - align[0][1] + align[0][2])
 
                     extend = left_extend + middle_extend + right_extend
 
@@ -388,7 +391,8 @@ class GroupHit(object):
                         right_extend = self.target_len - align[-1][1]
 
                     # middle span
-                    middle_extend = 0.5 * (abs(align[-1][0] - align[0][0] + align[0][2])) + 0.5 * abs( align[0][1] - align[-1][1]+ align[0][2])
+                    middle_extend = 0.5 * (abs(align[-1][0] - align[0][0] + align[0][2])) + 0.5 * abs(
+                        align[0][1] - align[-1][1] + align[0][2])
 
                     extend = left_extend + middle_extend + right_extend
 
@@ -397,22 +401,45 @@ class GroupHit(object):
                     align[-1][0] - align[0][0] + align[0][2] + align[0][1] - align[-1][1] + align[0][2])
                 """
             if extend:
+                print align
                 if extend / float(span_coefficient * group_distance) <= float(
-                    length) / 9 and length > rechain_threshold * 9:
+                        length) / 9 and length > rechain_threshold * 9:
                     self.chain_align = align
                     self.aligned = True
 
+    def plot_hits(self):
+        plt.figure()
+
+        if self.aligned:
+            coordinates = map(list, zip(*self.chain_align))
+            plt.scatter(coordinates[0], coordinates[1], s = 40,edgecolors="black", linewidths=5)
+        for group in self.groups:
+            # print chain
+            chain_coor = map(list, zip(*group))
+            plt.scatter(chain_coor[0], chain_coor[1], s=40)
+
+
+
+        plt.show()
+
 
 if __name__ == '__main__':
-    file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170731/query_all_0p85_0p12.out"
+    # file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170731/query_all_0p85_0p12.out"
+    # file = "D:/Data/20170727/query_all_0p85_0p12_first10.out"
+    file = "C:/Users/Nan/Documents/GitHub/yass/cmake-build-debug/fp_003.out"
+    L = ProbFunc.statistical_bound_of_waiting_time(0.85, 9)
+
     with open(file) as f:
         lines = f.readlines()
 
     for line in lines:
         group_hit = GroupHit(line)
         # print group_hit.groups
-        L = ProbFunc.statistical_bound_of_waiting_time(0.85, 9)
-        group_hit.chain_groups(accuracy=0.85, group_distance=L, rechain_threshold=5, span_coefficient=1.0)
+
+        group_hit.chain_groups(accuracy=0.85, group_distance=L, rechain_threshold=3, span_coefficient=1.0)
+        print group_hit.chain_align
         if group_hit.aligned:
             output_str = group_hit.query + "\t" + group_hit.target + "\t" + str(group_hit.aligned)
             print(output_str)
+
+        group_hit.plot_hits()
