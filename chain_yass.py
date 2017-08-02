@@ -81,19 +81,21 @@ class GroupHit(object):
         for group in sp[5:]:
             hits = []
             group_sp = group.strip(",").split(",")
-            for hit in group_sp:
-                hit_sp = hit.split(" ")
+            # print group_sp
+            if len(group_sp) > 1 or int(group_sp[0].split()[2]) > 15:
+                for hit in group_sp:
+                    hit_sp = hit.split(" ")
 
-                if self.forward:
-                    hits.append((int(hit_sp[0]), int(hit_sp[1]) + int(hit_sp[0]), int(hit_sp[2])))
+                    if self.forward:
+                        hits.append((int(hit_sp[0]), int(hit_sp[1]) + int(hit_sp[0]), int(hit_sp[2])))
 
-                else:
-                    hits.append((int(hit_sp[0]), int(hit_sp[1]) - int(hit_sp[0]), int(hit_sp[2])))
+                    else:
+                        hits.append((int(hit_sp[0]), int(hit_sp[1]) - int(hit_sp[0]), int(hit_sp[2])))
 
-            self.I.append((hits[0][0] - hits[0][2], len(groups), 0))
-            self.I.append((hits[-1][0], len(groups), -1))
-            # self.L.insert((hits[-1][1], len(groups)))
-            groups.append(hits)
+                self.I.append((hits[0][0] - hits[0][2], len(groups), 0))
+                self.I.append((hits[-1][0], len(groups), -1))
+                # self.L.insert((hits[-1][1], len(groups)))
+                groups.append(hits)
 
         self.groups = groups
 
@@ -424,9 +426,9 @@ class GroupHit(object):
 
 
 if __name__ == '__main__':
-    # file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170731/query_all_0p85_0p12.out"
+    file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170731/query_all_0p85_0p12.out"
     # file = "D:/Data/20170727/query_all_0p85_0p12_first10.out"
-    file = "C:/Users/Nan/Documents/GitHub/yass/cmake-build-debug/fp_003.out"
+    #file = "C:/Users/Nan/Documents/GitHub/yass/cmake-build-debug/fp_4pairs.out"
     L = ProbFunc.statistical_bound_of_waiting_time(0.85, 9)
 
     with open(file) as f:
@@ -436,10 +438,10 @@ if __name__ == '__main__':
         group_hit = GroupHit(line)
         # print group_hit.groups
 
-        group_hit.chain_groups(accuracy=0.85, group_distance=L, rechain_threshold=3, span_coefficient=1.0)
+        group_hit.chain_groups(accuracy=0.85, group_distance=L, rechain_threshold=5, span_coefficient=1.0)
         print group_hit.chain_align
         if group_hit.aligned:
             output_str = group_hit.query + "\t" + group_hit.target + "\t" + str(group_hit.aligned)
             print(output_str)
 
-        group_hit.plot_hits()
+        #group_hit.plot_hits()
