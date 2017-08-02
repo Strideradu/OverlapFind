@@ -403,7 +403,7 @@ class GroupHit(object):
                     align[-1][0] - align[0][0] + align[0][2] + align[0][1] - align[-1][1] + align[0][2])
                 """
             if extend:
-                print align
+                # print align
                 if extend / float(span_coefficient * group_distance) <= float(
                         length) / 9 and length > rechain_threshold * 9:
                     self.chain_align = align
