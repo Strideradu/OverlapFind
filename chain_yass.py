@@ -82,7 +82,7 @@ class GroupHit(object):
             hits = []
             group_sp = group.strip(",").split(",")
             # print group_sp
-            if len(group_sp) > 1 or int(group_sp[0].split()[2]) > 15:
+            if len(group_sp) > 1 or int(group_sp[0].split()[2]) > 9:
                 for hit in group_sp:
                     hit_sp = hit.split(" ")
 
