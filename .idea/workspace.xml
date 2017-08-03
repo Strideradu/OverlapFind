@@ -10,6 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11908691-7248-4bca-af62-dc1f7fc6843f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompareOutput.py" afterPath="$PROJECT_DIR$/CompareOutput.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chain_yass.py" afterPath="$PROJECT_DIR$/chain_yass.py" />
     </list>
     <ignored path="OverlapFind.iws" />
@@ -33,10 +35,23 @@
       <file leaf-file-name="chain_yass.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chain_yass.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="440" column="83" lean-forward="false" selection-start-line="440" selection-start-column="83" selection-end-line="440" selection-end-column="83" />
+            <state relative-caret-position="103">
+              <caret line="433" column="4" lean-forward="false" selection-start-line="433" selection-start-column="4" selection-end-line="433" selection-end-column="4" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DiagProcess.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DiagProcess.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="616">
+              <caret line="672" column="54" lean-forward="false" selection-start-line="672" selection-start-column="42" selection-end-line="672" selection-end-column="54" />
+              <folding>
+                <element signature="e#0#112#1" expanded="false" />
+                <element signature="e#113#149#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -45,8 +60,8 @@
       <file leaf-file-name="CompareOutput.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CompareOutput.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="20" column="38" lean-forward="false" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
+            <state relative-caret-position="567">
+              <caret line="21" column="33" lean-forward="true" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -55,22 +70,9 @@
       <file leaf-file-name="Generate_Fasta_Pair.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Generate_Fasta_Pair.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="3" column="49" lean-forward="false" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="49" />
+            <state relative-caret-position="346">
+              <caret line="15" column="39" lean-forward="true" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DiagProcess.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DiagProcess.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22410">
-              <caret line="835" column="76" lean-forward="false" selection-start-line="835" selection-start-column="58" selection-end-line="835" selection-end-column="76" />
-              <folding>
-                <element signature="e#0#112#1" expanded="false" />
-                <element signature="e#113#149#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -88,7 +90,7 @@
       <file leaf-file-name="Compare2Fasta.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Compare2Fasta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
+            <state relative-caret-position="297">
               <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding />
             </state>
@@ -193,8 +195,8 @@
         <option value="$PROJECT_DIR$/ProbFunc.h" />
         <option value="$PROJECT_DIR$/ProbFunc.c" />
         <option value="$PROJECT_DIR$/DiagProcess.py" />
-        <option value="$PROJECT_DIR$/CompareOutput.py" />
         <option value="$PROJECT_DIR$/Generate_Fasta_Pair.py" />
+        <option value="$PROJECT_DIR$/CompareOutput.py" />
         <option value="$PROJECT_DIR$/chain_yass.py" />
       </list>
     </option>
@@ -226,6 +228,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -255,7 +258,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -569,7 +571,7 @@
     <frame x="-11" y="-11" width="2182" height="1402" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2968015" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29586077" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -901,14 +903,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Compare2Fasta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/QualitySeq.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1782">
@@ -917,10 +911,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Generate_Fasta_Pair.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="15" column="39" lean-forward="true" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Compare2Fasta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CompareOutput.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="21" column="33" lean-forward="true" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DiagProcess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22410">
-          <caret line="835" column="76" lean-forward="false" selection-start-line="835" selection-start-column="58" selection-end-line="835" selection-end-column="76" />
+        <state relative-caret-position="616">
+          <caret line="672" column="54" lean-forward="false" selection-start-line="672" selection-start-column="42" selection-end-line="672" selection-end-column="54" />
           <folding>
             <element signature="e#0#112#1" expanded="false" />
             <element signature="e#113#149#0" expanded="true" />
@@ -928,26 +946,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CompareOutput.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="20" column="38" lean-forward="false" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Generate_Fasta_Pair.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="3" column="49" lean-forward="false" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chain_yass.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="440" column="83" lean-forward="false" selection-start-line="440" selection-start-column="83" selection-end-line="440" selection-end-column="83" />
+        <state relative-caret-position="103">
+          <caret line="433" column="4" lean-forward="false" selection-start-line="433" selection-start-column="4" selection-end-line="433" selection-end-column="4" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

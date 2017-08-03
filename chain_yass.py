@@ -62,10 +62,10 @@ def find_not_bigger_key(d, key):
 class GroupHit(object):
     def __init__(self, group_line):
         sp = group_line.strip().split("\t")
-        self.query = sp[0]
-        self.query_len = int(sp[1])
-        self.target = sp[2]
-        self.target_len = int(sp[3])
+        self.target = sp[0]
+        self.target_len = int(sp[1])
+        self.query = sp[2]
+        self.query_len = int(sp[3])
         self.aligned = False
         self.chain_align = None
         if sp[4] == 0:
@@ -382,28 +382,33 @@ class GroupHit(object):
 
                 if align:
                     # find left side extension length
-                    if align[0][0] < align[0][1]:
+                    if align[0][0] < self.target_len - align[0][1]:
                         left_extend = align[0][0] - align[0][2]
                     else:
-                        left_extend = align[0][1] - align[0][2]
+                        left_extend = self.target_len - align[0][1]
 
-                    if self.query_len - align[-1][0] < self.target_len - align[-1][1]:
+                    if self.query_len - align[-1][0] < align[-1][1]:
                         right_extend = self.query_len - align[-1][0]
                     else:
-                        right_extend = self.target_len - align[-1][1]
+                        right_extend = align[-1][1]
 
                     # middle span
                     middle_extend = 0.5 * (abs(align[-1][0] - align[0][0] + align[0][2])) + 0.5 * abs(
                         align[0][1] - align[-1][1] + align[0][2])
 
                     extend = left_extend + middle_extend + right_extend
+                    #print left_extend
+                    #print right_extend
+                    #print self.query_len
+                    #print self.target_len
 
                 """
                 extend = 2 * group_distance + 0.5 * (
                     align[-1][0] - align[0][0] + align[0][2] + align[0][1] - align[-1][1] + align[0][2])
                 """
             if extend:
-                # print align
+                #print align
+                #print extend
                 if extend / float(span_coefficient * group_distance) <= float(
                         length) / 9 and length > rechain_threshold * 9:
                     self.chain_align = align
@@ -428,7 +433,7 @@ class GroupHit(object):
 if __name__ == '__main__':
     file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170731/query_all_0p85_0p12.out"
     # file = "D:/Data/20170727/query_all_0p85_0p12_first10.out"
-    #file = "C:/Users/Nan/Documents/GitHub/yass/cmake-build-debug/fp_4pairs.out"
+    #file = "C:/Users/Nan/Documents/GitHub/yass/cmake-build-debug/fp_002.out"
     L = ProbFunc.statistical_bound_of_waiting_time(0.85, 9)
 
     with open(file) as f:
@@ -439,9 +444,9 @@ if __name__ == '__main__':
         # print group_hit.groups
 
         group_hit.chain_groups(accuracy=0.85, group_distance=L, rechain_threshold=3, span_coefficient=1.0)
-        # print group_hit.chain_align
+        print group_hit.chain_align
         if group_hit.aligned:
             output_str = group_hit.query + "\t" + group_hit.target + "\t" + str(group_hit.aligned)
             print(output_str)
 
-        #group_hit.plot_hits()
+        group_hit.plot_hits()
