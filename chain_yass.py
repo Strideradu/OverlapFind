@@ -449,4 +449,4 @@ if __name__ == '__main__':
             output_str = group_hit.query + "\t" + group_hit.target + "\t" + str(group_hit.aligned)
             print(output_str)
 
-        group_hit.plot_hits()
+        # group_hit.plot_hits()
