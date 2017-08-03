@@ -82,7 +82,7 @@ class GroupHit(object):
             hits = []
             group_sp = group.strip(",").split(",")
             # print group_sp
-            if len(group_sp) > 1 or int(group_sp[0].split()[2]) > 9:
+            if len(group_sp) > 1 or int(group_sp[0].split()[2]) > 14:
                 for hit in group_sp:
                     hit_sp = hit.split(" ")
 
@@ -443,7 +443,7 @@ if __name__ == '__main__':
         group_hit = GroupHit(line)
         # print group_hit.groups
 
-        group_hit.chain_groups(accuracy=0.85, group_distance=L, rechain_threshold=3, span_coefficient=1.0)
+        group_hit.chain_groups(accuracy=0.85, group_distance=L, rechain_threshold=3, span_coefficient=2.0)
         # print group_hit.chain_align
         if group_hit.aligned:
             output_str = group_hit.query + "\t" + group_hit.target + "\t" + str(group_hit.aligned)
