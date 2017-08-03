@@ -431,10 +431,11 @@ class GroupHit(object):
 
 
 if __name__ == '__main__':
-    file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170731/query_all_0p85_0p12.out"
+    #file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170731/query_all_0p85_0p12.out"
+    file = "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170731/qury_all_0p75_0p2.out"
     # file = "D:/Data/20170727/query_all_0p85_0p12_first10.out"
     #file = "C:/Users/Nan/Documents/GitHub/yass/cmake-build-debug/fp_002.out"
-    L = ProbFunc.statistical_bound_of_waiting_time(0.85, 9)
+    L = ProbFunc.statistical_bound_of_waiting_time(0.75, 9)
 
     with open(file) as f:
         lines = f.readlines()
@@ -443,7 +444,7 @@ if __name__ == '__main__':
         group_hit = GroupHit(line)
         # print group_hit.groups
 
-        group_hit.chain_groups(accuracy=0.85, group_distance=L, rechain_threshold=3, span_coefficient=2.0)
+        group_hit.chain_groups(accuracy=0.75, group_distance=L, rechain_threshold=3, span_coefficient=1.0)
         # print group_hit.chain_align
         if group_hit.aligned:
             output_str = group_hit.query + "\t" + group_hit.target + "\t" + str(group_hit.aligned)
