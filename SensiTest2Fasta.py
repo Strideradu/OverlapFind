@@ -13,7 +13,7 @@ overlap_dict = load_obj("D:/Data/20170309/overlap.pkl")
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170515/large_9mer_0.85_0.15_3_0.5_cluster.out") as f1:
+with open("D:/Data/20170727/small_overlap_0p85_0p12_3_1_chain_yass.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
@@ -61,17 +61,17 @@ with open("D:/Data/20170426/medium_13mer_0.8_0.15_5_align_found.out") as f1:
                         true_align += 1
 
 print num_found
-sensitivity = float(true_align) / 610
+sensitivity = float(true_align) / 588
 accuracy = float(true_align)/num_found
 print "sensitivity", sensitivity
-print "FPR", (num_found - true_align) / float(42497- 610)
+print "FPR", (num_found - true_align) / float(42499- 588)
 print "accuracy", accuracy
 print "F1", 2*(accuracy*sensitivity)/(accuracy+sensitivity)
 
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170426/small_13mer_0.85_0.12_3_align_found.out") as f1:
+with open("D:/Data/20170727/small_overlap_0p85_0p12_5_4_chain_yass.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
@@ -90,9 +90,9 @@ with open("D:/Data/20170426/small_13mer_0.85_0.12_3_align_found.out") as f1:
                         true_align += 1
 
 print num_found
-sensitivity = float(true_align) / 610
+sensitivity = float(true_align) / 558
 accuracy = float(true_align)/num_found
 print "sensitivity", sensitivity
-print "FPR", (num_found - true_align) / float(42497- 610)
+print "FPR", (num_found - true_align) / float(42498- 558)
 print "accuracy", accuracy
 print "F1", 2*(accuracy*sensitivity)/(accuracy+sensitivity)

@@ -28,7 +28,7 @@ num_found = 0
 true_align = 0
 found = {}
 
-with open("D:/Data/20170629/query_all_target_9_0.85_3_1_smaller_extend.out") as f1:
+with open("D:/Data/20170727/query_all_processe_0p85_0p12_3_2.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#" and line[0]!="(" and len(line)>8:

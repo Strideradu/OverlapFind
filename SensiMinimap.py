@@ -61,10 +61,10 @@ with open("D:/Data/20170406/query_medium_minimap.out") as f1:
                         true_align += 1
 
 print num_found
-sensitivity = float(true_align) / 610
+sensitivity = float(true_align) / 588
 accuracy = float(true_align)/num_found
 print "sensitivity", sensitivity
-print "FPR", (num_found - true_align) / float(42497- 610)
+print "FPR", (num_found - true_align) / float(42499- 588)
 print "accuracy", accuracy
 print "F1", 2*(accuracy*sensitivity)/(accuracy+sensitivity)
 
@@ -90,9 +90,9 @@ with open("D:/Data/20170406/query_small_minimap.out") as f1:
                         true_align += 1
 
 print num_found
-sensitivity = float(true_align) / 610
+sensitivity = float(true_align) / 558
 accuracy = float(true_align)/num_found
 print "sensitivity", sensitivity
-print "FPR", (num_found - true_align) / float(42497- 610)
+print "FPR", (num_found - true_align) / float(42498- 558)
 print "accuracy", accuracy
 print "F1", 2*(accuracy*sensitivity)/(accuracy+sensitivity)
