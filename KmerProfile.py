@@ -65,8 +65,9 @@ for query_seq in query_fasta:
                 shared_num = len(process.rc_points)
 
             # determine if they overlap each other
-            if target_id in overlap_dict[query_id][0] or target_id in overlap_dict[query_id][1] or target_id in \
-                    overlap_dict[query_id][2]:
+
+            if overlap_dict.get(query_id, False) and (target_id in overlap_dict[query_id][0] or target_id in overlap_dict[query_id][1] or target_id in \
+                    overlap_dict[query_id][2]):
                 true.append(shared_num)
 
             else:
