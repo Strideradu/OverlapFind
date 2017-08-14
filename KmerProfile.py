@@ -14,7 +14,7 @@ parser.add_argument("query", help="query fasta path", type=str)
 parser.add_argument("target", help="target fasta path", type=str)
 parser.add_argument("fig", help="fig path", type=str)
 parser.add_argument("k", help="kmer", type=int)
-parser.add_argument("max_k", help="max shared kmer in fugure", type=int)
+parser.add_argument("max_k", help="max shared kmer in figure", type=int)
 parser.add_argument("bin_size", help="number of bins", type=int)
 
 try:
@@ -31,16 +31,18 @@ def load_obj(filename ):
 overlap_dict = load_obj("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170317_ROC/overlap.pkl")
 
 
-masked_fasta=SeqIO.index("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170324_dust_group_hit/filtered_15X_masked.fasta", "fasta")
+# masked_fasta=SeqIO.index("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170324_dust_group_hit/filtered_15X_masked.fasta", "fasta")
 
 query_fasta = SeqIO.parse(args.query, "fasta")
 
 # target only extract the id, sequence should get from masked_fasta
 target_fasta = SeqIO.parse(args.target, "fasta")
 # SeqIO only generate an iterator so cannot iterate many times, generate a list first
-target_list = []
+target_list = list(target_fasta)
+"""
 for target_seq in target_fasta:
     target_list.append(target_seq.id)
+"""
 true = []
 false = []
 tested_pair = 0
@@ -49,12 +51,12 @@ for query_seq in query_fasta:
     query_id = query_seq.id
     # print query_seq.id
 
-    for target_id in target_list:
-
+    for target_seq in target_list:
+        target_id = target_seq.id
         if target_id != query_id:
             tested_pair += 1
-            target_masked = masked_fasta[target_id]
-            seq_2 = QualitySeq(target_masked)
+            # target_masked = masked_fasta[target_id]
+            seq_2 = QualitySeq(target_seq)
             process = DiagProcess(seq_1, seq_2)
             process.diag_points(args.k)
             if len(process.fw_points) > len(process.rc_points):
@@ -75,6 +77,6 @@ for query_seq in query_fasta:
 plt.figure()
 bins = np.linspace(0, args.max_k, args.bin_size)
 print tested_pair
-plt.hist(true, bins, alpha=0.5, label='true', color = "r", normed=1)
-plt.hist(false, bins, alpha=0.5, label='false', color = "b", normed=1)
+plt.hist(true, bins, alpha=0.5, label='true', color = "r",normed=True)
+plt.hist(false, bins, alpha=0.5, label='false', color = "b", normed=True)
 plt.savefig(args.fig)

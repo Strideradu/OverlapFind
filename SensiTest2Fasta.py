@@ -71,7 +71,7 @@ print "F1", 2*(accuracy*sensitivity)/(accuracy+sensitivity)
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170727/small_overlap_0p85_0p12_5_4_chain_yass.out") as f1:
+with open("D:/Data/20170727/small_overlap_0p85_0p12_3_3_chain_yass.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":

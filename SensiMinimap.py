@@ -71,7 +71,8 @@ print "F1", 2*(accuracy*sensitivity)/(accuracy+sensitivity)
 num_found = 0
 true_align = 0
 found = {}
-with open("D:/Data/20170406/query_small_minimap.out") as f1:
+# "D:/Data/20170406/query_small_minimap.out"
+with open("D:/Data/20170727/minimap_small_query_k11w5.out") as f1:
     for line in f1:
         line = line.rstrip()
         if line != "" and line[0]!="#":
