@@ -73,11 +73,43 @@ for query_seq in query_fasta:
             else:
                 false.append(shared_num)
 
+true.sort()
+false.sort()
+true_count = len(true)
+false_count = len(false)
+max_value = max(true[-1], false[-1])
+
+sen_list = []
+FPR_list = []
+
+for i in range(max_value):
+    for j in range(len(true)):
+        if true[j] > i:
+            j = j - 1
+            break
 
 
+    true_positive = true_count - j
+
+    for j in range(len(false)):
+        if false[j] > i:
+            j = j - 1
+            break
+
+    false_positive = false_count - j
+    sensitivity = float(true_positive)/true_count
+    FPR = float(false_positive)/false_count
+    sen_list.append(sensitivity)
+    FPR_list.append(FPR)
+plt.figure()
+plt.plot(FPR_list, sen_list)
+plt.savefig(args.fig)
+
+"""
 plt.figure()
 bins = np.linspace(0, args.max_k, args.bin_size)
 print tested_pair
 plt.hist(true, bins, alpha=0.5, label='true', color = "r",normed=True)
 plt.hist(false, bins, alpha=0.5, label='false', color = "b", normed=True)
 plt.savefig(args.fig)
+"""
