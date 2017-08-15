@@ -82,21 +82,26 @@ max_value = max(true[-1], false[-1])
 sen_list = []
 FPR_list = []
 
+j1 = 0
+j2 = 0
 for i in range(max_value):
-    for j in range(len(true)):
-        if true[j] > i:
-            j = j - 1
+    while j1 < true_count:
+        if true[j1] > i:
+            j1 = j1 - 1
             break
 
+        j1 += 1
 
-    true_positive = true_count - j
 
-    for j in range(len(false)):
-        if false[j] > i:
-            j = j - 1
+    true_positive = true_count - j1
+
+    while j2 < false_count:
+        if false[j2] > i:
+            j2 = j2 - 1
             break
+        j2 += 1
 
-    false_positive = false_count - j
+    false_positive = false_count - j2
     sensitivity = float(true_positive)/true_count
     FPR = float(false_positive)/false_count
     sen_list.append(sensitivity)
