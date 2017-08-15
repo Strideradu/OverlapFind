@@ -23,8 +23,8 @@ class DiagProcess(object):
     def __init__(self, seq1, seq2):
         self.query = seq1
         self.target = seq2
-        print(len(self.query.seq))
-        print(len(self.target.seq))
+        # print(len(self.query.seq))
+        # print(len(self.target.seq))
         self.fw_points = None
         self.rc_points = None
         self.k = 0
