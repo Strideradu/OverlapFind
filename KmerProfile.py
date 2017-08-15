@@ -88,6 +88,8 @@ for i in range(max_value):
     while j1 < true_count:
         if true[j1] > i:
             j1 = j1 - 1
+            if j1 < 0:
+                j1 = 0
             break
 
         j1 += 1
@@ -98,6 +100,8 @@ for i in range(max_value):
     while j2 < false_count:
         if false[j2] > i:
             j2 = j2 - 1
+            if j2 < 0:
+                j2 = 0
             break
         j2 += 1
 
