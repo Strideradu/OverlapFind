@@ -112,6 +112,7 @@ for i in range(max_value):
     FPR_list.append(FPR)
 plt.figure()
 plt.plot(FPR_list, sen_list)
+plt.xlim(xmin = -0.0005, xmax = 0.0085)
 plt.savefig(args.fig)
 
 """
