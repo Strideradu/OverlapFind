@@ -23,6 +23,7 @@ for seq in overlap_dict.keys():
                 expect += 1
                 found_overlap[(seq, target)] = True
 print expect
+print total_pairs
 
 num_found = 0
 true_align = 0

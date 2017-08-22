@@ -10,8 +10,7 @@ def load_obj(filename):
 
 overlap_dict = load_obj("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170317_ROC/overlap.pkl")
 
-true = []
-false = []
+
 
 file_list = [
     "/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170821_kmer_retest/9mer/compare_kmer_all_9mer.out",
@@ -24,6 +23,8 @@ file_list = [
 
 plt.figure()
 for file in file_list:
+    true = []
+    false = []
     with open(file)as result_file:
         for line in result_file:
 
@@ -76,7 +77,7 @@ for file in file_list:
 
         false_positive = false_count - j2
         sensitivity = float(true_positive) / true_count
-        FPR = float(false_positive) / false_count
+        FPR = float(false_positive) / 2*(347361 - 342)
         sen_list.append(sensitivity)
         FPR_list.append(FPR)
 
