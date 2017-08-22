@@ -71,8 +71,8 @@
       <file leaf-file-name="CompareKmer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CompareKmer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="36" column="111" lean-forward="false" selection-start-line="36" selection-start-column="111" selection-end-line="36" selection-end-column="111" />
+            <state relative-caret-position="546">
+              <caret line="31" column="39" lean-forward="true" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -926,8 +926,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CompareKmer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="36" column="111" lean-forward="false" selection-start-line="36" selection-start-column="111" selection-end-line="36" selection-end-column="111" />
+        <state relative-caret-position="546">
+          <caret line="31" column="39" lean-forward="true" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
           <folding />
         </state>
       </provider>

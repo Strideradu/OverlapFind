@@ -34,4 +34,4 @@ for record1 in query_seq:
         hits_num = max(fw_num, rc_num)
 
         if hits_num != 0:
-            print record1.id + "\t" + record2.id + "\t" + str(hits_num) + len(record1.seq) + "\t" + len(record2.seq)
+            print record1.id + "\t" + record2.id + "\t" + str(hits_num) + str(len(record1.seq)) + "\t" + str(len(record2.seq))
