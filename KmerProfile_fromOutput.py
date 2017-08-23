@@ -25,6 +25,9 @@ plt.figure()
 for file in file_list:
     true = []
     false = []
+    f1_best = 0.0
+    f1_sensitivity = 0.0
+    f1_FPR = 0.0
     with open(file)as result_file:
         for line in result_file:
 
@@ -77,10 +80,17 @@ for file in file_list:
 
         false_positive = false_count - j2
         sensitivity = float(true_positive) / true_count
+        accuracy = float(true_positive)/(true_positive+false_positive)
         FPR = float(false_positive) / 2*(347361 - 342)
+        f1 = 2 * (accuracy * sensitivity) / (accuracy + sensitivity)
+        if f1 > f1_best:
+            f1_sensitivity = sensitivity
+            f1_FPR = FPR
         sen_list.append(sensitivity)
         FPR_list.append(FPR)
 
+    print("Best F1 score:{} Sensitivity:{}, FPR:{}".format(f1_best, f1_sensitivity, f1_FPR))
+
     plt.plot(FPR_list, sen_list, label = file.split("_")[-1])
-plt.xlim(xmin=-0.0005, xmax=0.1005)
+plt.xlim(xmin=-0.0005, xmax=1.0005)
 plt.savefig("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170821_kmer_retest/kmer_compare.png")
