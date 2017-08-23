@@ -81,7 +81,7 @@ for file in file_list:
         false_positive = false_count - j2
         sensitivity = float(true_positive) / true_count
         accuracy = float(true_positive)/(true_positive+false_positive)
-        FPR = float(false_positive) / 2*(347361 - 342)
+        FPR = float(false_positive) / (2*(347361 - 342))
         if accuracy == 0.0  or sensitivity == 0.0:
             f1 = 0.0
         else:
@@ -89,6 +89,7 @@ for file in file_list:
         if f1 > f1_best:
             f1_sensitivity = sensitivity
             f1_FPR = FPR
+            f1_best = f1
         sen_list.append(sensitivity)
         FPR_list.append(FPR)
 
