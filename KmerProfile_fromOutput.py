@@ -82,7 +82,10 @@ for file in file_list:
         sensitivity = float(true_positive) / true_count
         accuracy = float(true_positive)/(true_positive+false_positive)
         FPR = float(false_positive) / 2*(347361 - 342)
-        f1 = 2 * (accuracy * sensitivity) / (accuracy + sensitivity)
+        if accuracy == 0.0  or sensitivity == 0.0:
+            f1 = 0.0
+        else:
+            f1 = 2 * (accuracy * sensitivity) / (accuracy + sensitivity)
         if f1 > f1_best:
             f1_sensitivity = sensitivity
             f1_FPR = FPR
