@@ -90,7 +90,6 @@ for file in file_list:
         FPR_list.append(FPR)
 
     print("Best F1 score:{} Sensitivity:{}, FPR:{}".format(f1_best, f1_sensitivity, f1_FPR))
-
     plt.plot(FPR_list, sen_list, label = file.split("_")[-1])
 plt.xlim(xmin=-0.0005, xmax=1.0005)
 plt.savefig("/mnt/home/dunan/Job/2016/201605_align_noisy_long-reads/20170821_kmer_retest/kmer_compare.png")
