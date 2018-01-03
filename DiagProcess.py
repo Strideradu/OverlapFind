@@ -660,7 +660,7 @@ class DiagProcess(object):
                 self.is_forward = True
 
         align, length = self.optimal_rc_chain(self.rc_chain, self.rc_I, self.rc_L, gap)
-        print align
+        print(align)
         #print "Reversed Chain Completed"
         #print align
         if align:
@@ -823,7 +823,7 @@ class DiagProcess(object):
                 plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
 
         except IndexError:
-            print "No forward hits"
+            print("No forward hits")
         plt.figure()
         try:
             coordinates = map(list, zip(*self.rc_points))
@@ -836,7 +836,7 @@ class DiagProcess(object):
                 plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
 
         except IndexError:
-            print "No reverse hits"
+            print("No reverse hits")
         plt.show()
 
 
@@ -881,7 +881,7 @@ if __name__ == '__main__':
         print cluster
     """
     process.optimal_rechain(0.12, 3, 1)
-    print process.chain_align
+    print(process.chain_align)
     #print process.chain_align
     #print process.aligned
     process.diag_plot()

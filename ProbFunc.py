@@ -61,6 +61,7 @@ def randomwalk_probability_of_pos(pI, L):
 
     while P > 0:
         if P & 1:
+            # if P is odd, then P & 1 = 0. Otherwise, P & 1 = 1
             for i in range(2 * L + 1):
                 t[i] = 0
                 for j in range(i + 1):
