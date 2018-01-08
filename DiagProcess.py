@@ -813,27 +813,40 @@ class DiagProcess(object):
     def diag_plot(self):
         plt.figure()
         try:
-            coordinates = map(list, zip(*self.fw_points))
+            coordinates = list(map(list, zip(*self.fw_points)))
 
             plt.scatter(coordinates[0], coordinates[1], c=coordinates[2], cmap="Reds")
-            plt.colorbar()
+            plt.xlim((0, self.query.length))
+            plt.ylim((0, self.target.length))
+            # plt.colorbar()
+            plt.show()
+            plt.figure()
             for chain in self.fw_chain:
                 # print chain
-                chain_coor = map(list, zip(*chain[0]))
-                plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
+                chain_coor = list(map(list, zip(*chain[0])))
+                plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=0)
+            plt.xlim((0, self.query.length))
+            plt.ylim((0, self.target.length))
 
         except IndexError:
             print("No forward hits")
         plt.figure()
         try:
-            coordinates = map(list, zip(*self.rc_points))
+            coordinates = list(map(list, zip(*self.rc_points)))
             # print coordinates
             plt.scatter(coordinates[0], coordinates[1], c=coordinates[2], cmap="Greens")
-            plt.colorbar()
+            # plt.colorbar()
+            plt.xlim((0, self.query.length))
+            plt.ylim((0, self.target.length))
+            plt.show()
+            plt.figure()
             for chain in self.rc_chain:
                 # print chain
-                chain_coor = map(list, zip(*chain[0]))
-                plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=2)
+                chain_coor = list(map(list, zip(*chain[0])))
+                plt.scatter(chain_coor[0], chain_coor[1], edgecolors="black", linewidths=0)
+
+            plt.xlim((0, self.query.length))
+            plt.ylim((0, self.target.length))
 
         except IndexError:
             print("No reverse hits")
@@ -844,20 +857,22 @@ class DiagProcess(object):
 if __name__ == '__main__':
     #record1 = SeqIO.read("D:/Data/20170213/unaligned_pair_2_1.fastq", "fastq")
     #record2 = SeqIO.read("D:/Data/20170213/unaligned_pair_2_2.fastq", "fastq")
-    # record1 = SeqIO.read("D:/Data/20170213/pair3_query.fastq", "fastq")
-    # record2 = SeqIO.read("D:/Data/20170213/pair3_target.fastq", "fastq")
+    record1 = SeqIO.read("H:/Data/20170213/pair3_query.fastq", "fastq")
+    record2 = SeqIO.read("H:/Data/20170213/pair3_target.fastq", "fastq")
     # record1 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_1.fastq", "fastq")
     # record2 = SeqIO.read("D:/Data/20170321/Flase_Positive_Pair2_6_masked.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170412/debug_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170412/debug_target_2.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_query.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_target.fasta", "fasta")
-    record1 = SeqIO.read("D:/Data/20170627/missing/missing_query_001.fasta", "fasta")
-    record2 = SeqIO.read("D:/Data/20170627/missing/missing_target_001.fasta", "fasta")
+    # record1 = SeqIO.read("D:/Data/20170627/missing/missing_query_001.fasta", "fasta")
+    # record2 = SeqIO.read("D:/Data/20170627/missing/missing_target_001.fasta", "fasta")
+    record1 = SeqIO.read('C:/Research/20170918_roc_plot/minimap_missing_pair2_query.fastq','fastq')
+    record2 = SeqIO.read('C:/Research/20170918_roc_plot/minimap_missing_pair2_target.fastq', 'fastq')
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)
-    process.diag_points(9)
+    process.diag_points(15)
 
 
     """
@@ -873,7 +888,7 @@ if __name__ == '__main__':
     print len(process.rc_points)
     """
 
-    process.diag_chain(0.85, 0.2)
+    process.diag_chain(0.85, 0.12)
     #print process.rc_chain
     # process.rc_chain.sort()
     """

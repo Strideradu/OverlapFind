@@ -1,5 +1,5 @@
 import numpy as np
-from Kmer import Kmer
+from kmer import Kmer
 
 class QualitySeq(object):
     def __init__(self, fastq_record, insertion_record = None, deletion_record = None, substitution_record = None, del_tag = None, sub_tag = None):

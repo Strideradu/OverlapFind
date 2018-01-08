@@ -97,6 +97,7 @@ def statistical_bound_of_randomwalk(pI, L, alpha = 0.05):
     bound = 0
 
     while sum < (1-alpha) and bound < L:
+        # bound: i in the paper
         bound += 1
         sum += RDW_Bound[L - bound] + RDW_Bound[L + bound]
 
@@ -229,7 +230,7 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
                     p_matrix[i][j][0] = 0.0
                 """
 
-    print "test",p_matrix[L1][L2][0]
+    # print "test",p_matrix[L1][L2][0]
     #print p_matrix[L1 -30][L2 - 30][0]
 
     for k in range(1, r + 1):
@@ -254,14 +255,15 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
     #print p_matrix[L1/2][L2/2][r]
     #print p_matrix[L1 - 50][L2 - 50][1]
     for k in range(r):
-        print k, p_matrix[L1][L2][k]
+        print()
+        # print k, p_matrix[L1][L2][k]
 
     return p_matrix
 
 if __name__ == '__main__':
 
     L = statistical_bound_of_waiting_time(0.85, 11)
-    print L
+    # print L
     #print statistical_bound_of_randomwalk(0.15, L)
 
     #print r_matches_probability(60, 9, 0.25, 3500)
