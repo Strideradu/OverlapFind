@@ -76,6 +76,8 @@ def randomwalk_probability_of_pos(pI, L):
             for j in range(i + 1):
                 t[i] += u[i - j] * u[j]
 
+        #print(t)
+        #print(u)
         s = t
         t = u
         u = s
@@ -262,9 +264,10 @@ def r_randommatch_probability(r, size_k, L1, L2, p = 0.25):
 
 if __name__ == '__main__':
 
-    L = statistical_bound_of_waiting_time(0.85, 11)
-    # print L
-    #print statistical_bound_of_randomwalk(0.15, L)
+    L = statistical_bound_of_waiting_time(0.85, 9)
+    print(L)
+    delta = statistical_bound_of_randomwalk(0, 4)
+    print(delta)
 
     #print r_matches_probability(60, 9, 0.25, 3500)
     # so if we change accuracy to 1- accuracy, we can calculate the probability of have r matches given two non-overlap reads?
