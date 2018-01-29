@@ -638,6 +638,10 @@ class DiagProcess(object):
         target_len = self.target.length
         align, length = self.optimal_fw_chain(self.fw_chain, self.fw_I, self.fw_L, gap)
         #print "Forward Chain Completed"
+
+        for group in self.fw_chain:
+            print(group)
+
         if align:
             # find left side extension length
             if align[0][0]< align[0][1]:
@@ -658,7 +662,10 @@ class DiagProcess(object):
             if extend/float(4*span_coefficient*self.L) <= float(length)/self.k and length > rechain_threshold * self.k:
                 self.chain_align = align
                 self.is_forward = True
-
+        """
+        for group in self.rc_chain:
+            print(group)
+        """
         align, length = self.optimal_rc_chain(self.rc_chain, self.rc_I, self.rc_L, gap)
         print(align)
         #print "Reversed Chain Completed"
@@ -877,8 +884,8 @@ if __name__ == '__main__':
     # record2 = SeqIO.read("D:/Data/20170429/large_9mer_5_missing/missing_pair2_target.fasta", "fasta")
     # record1 = SeqIO.read("D:/Data/20170627/missing/missing_query_001.fasta", "fasta")
     # record2 = SeqIO.read("D:/Data/20170627/missing/missing_target_001.fasta", "fasta")
-    record1 = SeqIO.read('C:/Research/20180118_diagonal_plot/Ecoli15X_query_019.fastq','fastq')
-    record2 = SeqIO.read('C:/Research/20180118_diagonal_plot/Ecoli15X_target_019.fastq', 'fastq')
+    record1 = SeqIO.read('C:/Research/20180127_check_S_hominis/debug2.fasta','fasta')
+    record2 = SeqIO.read('C:/Research/20180127_check_S_hominis/debug1.fasta', 'fasta')
     seq1 = QualitySeq(record1)
     seq2 = QualitySeq(record2)
     process = DiagProcess(seq1, seq2)

@@ -21,7 +21,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/OverlapFind$DiagProcess.coverage" NAME="DiagProcess Coverage Results" MODIFIED="1516752394552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OverlapFind$DiagProcess.coverage" NAME="DiagProcess Coverage Results" MODIFIED="1517201636707" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OverlapFind$ProbFunc.coverage" NAME="ProbFunc Coverage Results" MODIFIED="1516293445096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -35,8 +35,8 @@
       <file leaf-file-name="DiagProcess.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DiagProcess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="835" column="34" lean-forward="true" selection-start-line="835" selection-start-column="34" selection-end-line="835" selection-end-column="34" />
+            <state relative-caret-position="-4335">
+              <caret line="664" column="11" lean-forward="true" selection-start-line="664" selection-start-column="11" selection-end-line="664" selection-end-column="11" />
               <folding>
                 <element signature="e#113#149#0" expanded="true" />
               </folding>
@@ -239,7 +239,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -262,6 +261,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -994,8 +994,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DiagProcess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="835" column="34" lean-forward="true" selection-start-line="835" selection-start-column="34" selection-end-line="835" selection-end-column="34" />
+        <state relative-caret-position="-4335">
+          <caret line="664" column="11" lean-forward="true" selection-start-line="664" selection-start-column="11" selection-end-line="664" selection-end-column="11" />
           <folding>
             <element signature="e#113#149#0" expanded="true" />
           </folding>
